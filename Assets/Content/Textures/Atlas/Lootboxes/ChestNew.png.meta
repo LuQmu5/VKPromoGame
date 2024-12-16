@@ -1,0 +1,321 @@
+fileFormatVersion: 2
+guid: 973994383a4cde349a09647084ebfb85
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 0
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 511.169
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 256
+    resizeAlgorithm: 0
+    textureFormat: 48
+    textureCompression: 1
+    compressionQuality: 100
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 1
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 256
+    resizeAlgorithm: 0
+    textureFormat: 48
+    textureCompression: 1
+    compressionQuality: 100
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 1
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: ChestNew_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2902
+        width: 2010
+        height: 1420
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7595ca2b2d872c542b219930aa2d6da3
+      internalID: -363514687
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ChestNew_2
+      rect:
+        serializedVersion: 2
+        x: 2110
+        y: 2902
+        width: 2010
+        height: 1420
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f1ba80914bb4b7248aa1b9e903e3e7e9
+      internalID: 1005507207
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ChestNew_24
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 1671
+        width: 2058
+        height: 1199
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e356f853be3b3d64f8e811599b347e1f
+      internalID: -1649012585
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ChestNew_28
+      rect:
+        serializedVersion: 2
+        x: 2110
+        y: 1671
+        width: 2058
+        height: 1199
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 41cad8defcdeaaa44aff41669d2cdb35
+      internalID: -1601617354
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ChestNew_38
+      rect:
+        serializedVersion: 2
+        x: 1689
+        y: 317
+        width: 2633
+        height: 1292
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 97f862e3c976e3341ac9ed8e12ae8ba7
+      internalID: -275458347
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ChestNew_40
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 247
+        width: 1609
+        height: 1374
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4c143ed99767a024ebd006fcc546e226
+      internalID: -76143369
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: be094551723f99a4db5ecf3e3168f372
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      ChestNew_38: -275458347
+      ChestNew_45: -355699667
+      ChestNew_28: -1601617354
+      ChestNew_42: 949508868
+      ChestNew_15: -1921965014
+      ChestNew_2: 1005507207
+      ChestNew_40: -76143369
+      ChestNew_20: -2011442788
+      ChestNew_9: -1200369402
+      ChestNew_10: 974792805
+      ChestNew_35: 726186227
+      ChestNew_36: 726447168
+      ChestNew_11: -1239430376
+      ChestNew_32: 1592320538
+      ChestNew_46: -1276096523
+      ChestNew_0: -363514687
+      ChestNew_3: -499295033
+      ChestNew_37: 221171398
+      ChestNew_30: -1293653428
+      ChestNew_43: 649926859
+      ChestNew_6: -1515748656
+      ChestNew_39: -794953281
+      ChestNew_23: 484394370
+      ChestNew_33: -242602801
+      ChestNew_34: -1030879295
+      ChestNew_13: -1179373793
+      ChestNew_14: -1619929077
+      ChestNew_8: 560472700
+      ChestNew_24: -1649012585
+      ChestNew_31: 1090378251
+      ChestNew_26: 320959463
+      ChestNew_7: -1139316578
+      ChestNew_1: 175951969
+      ChestNew_4: -1397430824
+      ChestNew_21: 57842619
+      ChestNew_12: -1682032724
+      ChestNew_19: 1109151852
+      ChestNew_16: -1981039800
+      ChestNew_17: -2089043673
+      ChestNew_18: -686294198
+      ChestNew_44: 1896443965
+      ChestNew_25: -497758402
+      ChestNew_27: 263407689
+      ChestNew_22: -621650929
+      ChestNew_29: 186128823
+      ChestNew_5: 591951204
+      ChestNew_41: 1786604368
+      ChestNew_47: 1054097204
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

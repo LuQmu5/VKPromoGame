@@ -1,0 +1,130 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: ColorsAtlas
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 512
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 2
+      m_CompressionQuality: 100
+      m_CrunchedCompression: 1
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    - serializedVersion: 3
+      m_BuildTarget: iPhone
+      m_MaxTextureSize: 512
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: 48
+      m_TextureCompression: 1
+      m_CompressionQuality: 100
+      m_CrunchedCompression: 1
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 1
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    - serializedVersion: 3
+      m_BuildTarget: Android
+      m_MaxTextureSize: 512
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: 65
+      m_TextureCompression: 1
+      m_CompressionQuality: 100
+      m_CrunchedCompression: 1
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 1
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 8
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 0
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 2800000, guid: 4e606fcf75dda464fb49b6fbeb1a4860, type: 3}
+    - {fileID: 2800000, guid: b7db992b3b82bf249bc21b6f823d651c, type: 3}
+    - {fileID: 2800000, guid: 142c3e09a4be75149ac0a4f7f8f445e7, type: 3}
+    - {fileID: 2800000, guid: 6ad6b169ce39269499998e93dbea4666, type: 3}
+    - {fileID: 2800000, guid: e95e49abb6c71bf498618c9469747ab3, type: 3}
+    - {fileID: 2800000, guid: b1b362111f56cd9449657bb13af8b28a, type: 3}
+    - {fileID: 2800000, guid: a2e893f3975772149ae970eb870aad0b, type: 3}
+    - {fileID: 2800000, guid: e23ec46c4fdc85d4b932febcab73dd80, type: 3}
+    - {fileID: 2800000, guid: 4f5a1f8013a63ad4582c548e4c4129f6, type: 3}
+    - {fileID: 2800000, guid: e075ba2eee8957040b45b3752fbd7e66, type: 3}
+    - {fileID: 2800000, guid: 544a0c68cb124154bb579c1718cdc28c, type: 3}
+    - {fileID: 2800000, guid: 233e750be545f9a42b36bc093cc7c67d, type: 3}
+    - {fileID: 2800000, guid: 4c157d77b7a326047a65fad7bfaeb742, type: 3}
+    - {fileID: 2800000, guid: 4d0ab17642416f04f93226027582d0db, type: 3}
+    - {fileID: 2800000, guid: 48cd19bb1096817498639b18273b1ccf, type: 3}
+    - {fileID: 2800000, guid: 8513e7356cf558e49b8fa48e9b0fe727, type: 3}
+    - {fileID: 2800000, guid: 2d56664cac403524fbf17cf3980f452d, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 4f5a1f8013a63ad4582c548e4c4129f6, type: 3}
+  - {fileID: 21300000, guid: b1b362111f56cd9449657bb13af8b28a, type: 3}
+  - {fileID: 21300000, guid: a2e893f3975772149ae970eb870aad0b, type: 3}
+  - {fileID: 21300000, guid: 8513e7356cf558e49b8fa48e9b0fe727, type: 3}
+  - {fileID: 21300000, guid: 4d0ab17642416f04f93226027582d0db, type: 3}
+  - {fileID: 21300000, guid: 4c157d77b7a326047a65fad7bfaeb742, type: 3}
+  - {fileID: 21300000, guid: 544a0c68cb124154bb579c1718cdc28c, type: 3}
+  - {fileID: 21300000, guid: 142c3e09a4be75149ac0a4f7f8f445e7, type: 3}
+  - {fileID: 21300000, guid: 6ad6b169ce39269499998e93dbea4666, type: 3}
+  - {fileID: 21300000, guid: 233e750be545f9a42b36bc093cc7c67d, type: 3}
+  - {fileID: 21300000, guid: b7db992b3b82bf249bc21b6f823d651c, type: 3}
+  - {fileID: 21300000, guid: e95e49abb6c71bf498618c9469747ab3, type: 3}
+  - {fileID: 21300000, guid: 48cd19bb1096817498639b18273b1ccf, type: 3}
+  - {fileID: 21300000, guid: 2d56664cac403524fbf17cf3980f452d, type: 3}
+  - {fileID: 21300000, guid: e23ec46c4fdc85d4b932febcab73dd80, type: 3}
+  - {fileID: 21300000, guid: e075ba2eee8957040b45b3752fbd7e66, type: 3}
+  - {fileID: 21300000, guid: 4e606fcf75dda464fb49b6fbeb1a4860, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - Grass
+  - GreenActiveOutline
+  - GreenDarkActiveOutline
+  - GreenLocked
+  - SandLockedOutline
+  - GreenLockedOutline
+  - Sand
+  - GrassActive
+  - GrassDarkActive
+  - GreenDarkLockedOutline
+  - Red
+  - SandActive
+  - GreenDarkLocked
+  - SandLocked
+  - SandActiveOutline
+  - GrassDark
+  - Blue
+  m_RenderDataMap: {}
+  m_Tag: ColorsAtlas
+  m_IsVariant: 0
