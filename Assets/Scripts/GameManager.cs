@@ -7,23 +7,23 @@ using Zenject;
 public class GameManager : IDisposable
 {
     private readonly PlayerController _playerController;
-    private readonly ScoreDisplay _scoreDisplay;
+    private readonly ProgressDisplay _progressDisplay;
     private readonly UnityConnector _unityConnector;
 
     private int _score = 0;
     private int _maxScore = 10;
 
     [Inject]
-    public GameManager(PlayerController playerController, ScoreDisplay scoreDisplay, UnityConnector unityConnector)
+    public GameManager(PlayerController playerController, ProgressDisplay scoreDisplay, UnityConnector unityConnector)
     {
         _playerController = playerController;
-        _scoreDisplay = scoreDisplay;
+        _progressDisplay = scoreDisplay;
         _unityConnector = unityConnector;
+
+        _progressDisplay.Init(_maxScore);
 
         _playerController.SnowballCatched += DecreaseScore;
         _playerController.GiftCatched += IncreaseScore;
-
-        _scoreDisplay.SetText($"{_score}/{_maxScore}");
     }
 
     public void Dispose()
@@ -35,7 +35,7 @@ public class GameManager : IDisposable
     private void IncreaseScore()
     {
         _score++;
-        _scoreDisplay.SetText($"{_score}/{_maxScore}");
+        _progressDisplay.UpdateView(true);
 
         if (_score >= _maxScore)
             HandleEndGame();
@@ -53,6 +53,6 @@ public class GameManager : IDisposable
             return;
 
         _score--;
-        _scoreDisplay.SetText($"{_score}/{_maxScore}");
+        _progressDisplay.UpdateView(false);
     }
 }

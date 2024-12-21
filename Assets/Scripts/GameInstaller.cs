@@ -4,7 +4,7 @@ using Zenject;
 public class GameInstaller : MonoInstaller
 {
     [SerializeField] private PlayerController _playerController;
-    [SerializeField] private ScoreDisplay _scoreDisplay;
+    [SerializeField] private ProgressDisplay _scoreDisplay;
     [SerializeField] private UnityConnector _connector;
 
     public override void InstallBindings()

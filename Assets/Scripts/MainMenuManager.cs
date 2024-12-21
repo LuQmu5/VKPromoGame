@@ -29,6 +29,8 @@ public class MainMenuManager : MonoBehaviour
     [Header("Game")]
     [SerializeField] private ObjectSpawner _objectSpawner;
 
+    [Header("Dev Tools")]
+    [SerializeField] private Button _clearPrefsButton;
 
     private void OnEnable()
     {

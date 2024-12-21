@@ -25,7 +25,7 @@ public class UnityConnector : MonoBehaviour
 
     private void Start()
     {
-        RequestJsCheckSubscribe();
+        // RequestJsCheckSubscribe();
     }
 
     public void OnGameCompleted()
