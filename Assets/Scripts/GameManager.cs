@@ -7,14 +7,14 @@ using Zenject;
 public class GameManager : IDisposable
 {
     private readonly PlayerController _playerController;
-    private readonly ProgressDisplay _progressDisplay;
+    private readonly ProgressDisplay2 _progressDisplay;
     private readonly UnityConnector _unityConnector;
 
     private int _score = 0;
     private int _maxScore = 10;
 
     [Inject]
-    public GameManager(PlayerController playerController, ProgressDisplay scoreDisplay, UnityConnector unityConnector)
+    public GameManager(PlayerController playerController, ProgressDisplay2 scoreDisplay, UnityConnector unityConnector)
     {
         _playerController = playerController;
         _progressDisplay = scoreDisplay;
