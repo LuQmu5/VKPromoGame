@@ -1,6 +1,17 @@
 mergeInto(LibraryManager.library, {
-UnityPluginRequestJs: function () {
-    FromUnityToJs ();
-}
+  RequestJsFirstPromoUse: function () {
+    callFirstPromoFuncJS();
+  },
 
+  RequestJsSecondPromoUse: function () {
+    callSecondPromoFuncJS();
+  },
+
+  RequestJsSubscribe: function () {
+    callSubscribeFuncJS();
+  },
+
+    RequestJsCheckSubscribe: function () {
+    callCheckSubscribeFuncJS();
+  },
 });

@@ -16,7 +16,7 @@ public class ObjectSpawner : MonoBehaviour
         _objectFactory = objectFactory;
     }
 
-    private void Start()
+    public void StartSpawn()
     {
         StartCoroutine(Spawning());
     }

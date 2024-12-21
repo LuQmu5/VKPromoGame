@@ -1,20 +1,24 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Zenject;
 
 public class GameManager : IDisposable
 {
     private readonly PlayerController _playerController;
     private readonly ScoreDisplay _scoreDisplay;
+    private readonly UnityConnector _unityConnector;
 
     private int _score = 0;
     private int _maxScore = 10;
 
     [Inject]
-    public GameManager(PlayerController playerController, ScoreDisplay scoreDisplay)
+    public GameManager(PlayerController playerController, ScoreDisplay scoreDisplay, UnityConnector unityConnector)
     {
         _playerController = playerController;
         _scoreDisplay = scoreDisplay;
+        _unityConnector = unityConnector;
 
         _playerController.SnowballCatched += DecreaseScore;
         _playerController.GiftCatched += IncreaseScore;
@@ -34,7 +38,13 @@ public class GameManager : IDisposable
         _scoreDisplay.SetText($"{_score}/{_maxScore}");
 
         if (_score >= _maxScore)
-            Time.timeScale = 0;
+            HandleEndGame();
+    }
+
+    private void HandleEndGame()
+    {
+        _unityConnector.OnGameCompleted();
+        SceneManager.LoadScene(0);
     }
 
     private void DecreaseScore()
