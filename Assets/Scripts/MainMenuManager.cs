@@ -7,8 +7,6 @@ using Zenject.Asteroids;
 
 public class MainMenuManager : MonoBehaviour
 {
-    private const string GameSceneName = "Game";
-
     private const string RequestSubscribeText = "Подпишитесь на нашу группу, чтобы получать награды за задания!";
     private const string PlayGameText = "Выполняй задания и получай награды!";
     private const string ClaimRewardTextt = "Выберите вашу награду! Вы можете взять только одну";
@@ -39,6 +37,8 @@ public class MainMenuManager : MonoBehaviour
         _secondPromoButton.onClick.AddListener(OnSecondPromoButtonClicked);
         _subscribeButton.onClick.AddListener(OnSubscribeButtonClicked);
 
+        _clearPrefsButton.onClick.AddListener(OnClearPrefsButtonClicked);
+
         _unityConnector.UserStateChanged += OnUserStateChanged;
     }
 
@@ -49,7 +49,21 @@ public class MainMenuManager : MonoBehaviour
         _secondPromoButton.onClick.RemoveListener(OnSecondPromoButtonClicked);
         _subscribeButton.onClick.RemoveListener(OnSubscribeButtonClicked);
 
+        _clearPrefsButton.onClick.RemoveListener(OnClearPrefsButtonClicked);
+
         _unityConnector.UserStateChanged -= OnUserStateChanged;
+    }
+
+    private void OnPlayGameButtonClicked()
+    {
+        _objectSpawner.StartSpawn();
+        gameObject.SetActive(false);
+    }
+
+    private void OnClearPrefsButtonClicked()
+    {
+        PlayerPrefs.DeleteAll();
+        SceneManager.LoadScene(0);
     }
 
     // calls from js
@@ -75,10 +89,9 @@ public class MainMenuManager : MonoBehaviour
         }
     }
 
-    private void OnPlayGameButtonClicked()
+    public void HideDevTools()
     {
-        _objectSpawner.StartSpawn();
-        gameObject.SetActive(false);
+        _clearPrefsButton.gameObject.SetActive(false);
     }
 
     // Buttons click connect js

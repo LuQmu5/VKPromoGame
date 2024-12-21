@@ -1,30 +1,23 @@
-﻿using TMPro;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class ProgressDisplay : MonoBehaviour
 {
-    [SerializeField] private RawImage _giftsImage;
     [SerializeField] private Image _curtainImage;
 
-    private int _giftsCount;
+    private float _giftsCount;
+    private float _currentProgress = 0;
 
     public void Init(int giftsCount)
     {
         _giftsCount = giftsCount;
-
-        Rect rect = _giftsImage.uvRect;
-        rect.width = giftsCount;
-        _giftsImage.uvRect = rect;
     }
 
     public void UpdateView(bool isIncrease)
     {
-        float multiplier = isIncrease ? -1 : 1;
-        float offset = multiplier / _giftsCount;
-        _curtainImage.fillAmount += offset;
+        _currentProgress = isIncrease ? _currentProgress + 1 : _currentProgress - 1;
+        _currentProgress = Mathf.Clamp(_currentProgress, 0, _giftsCount);
 
-        print(isIncrease);
-        print(offset);
+        _curtainImage.fillAmount = _currentProgress / _giftsCount;
     }
 }

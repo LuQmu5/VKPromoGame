@@ -10,11 +10,6 @@ public class ObjectSpawner : MonoBehaviour
 
     private ObjectFactory _objectFactory;
 
-    private void Start()
-    {
-        StartSpawn();
-    }
-
     [Inject]
     public void Construct(ObjectFactory objectFactory)
     {
