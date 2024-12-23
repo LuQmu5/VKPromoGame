@@ -8,7 +8,7 @@ public class MainMenuManager : MonoBehaviour
     private const string RequestSubscribeText = "Подпишитесь на нашу группу, чтобы получать награды за задания!";
     private const string PlayGameText = "Выполняй задания и получай награды!";
     private const string ClaimRewardTextt = "Выберите вашу награду! Вы можете взять только одну";
-    private const string RewardClaimedText = "Вы уже получили награду, следите за обновлениями в группе";
+    private const string RewardClaimedText = "Нажмите кнопку ниже, чтобы скопировать ваш промокод";
     private const string UseFirstPromoPopupText = "Чтобы получить промокод нужно опубликовать историю";
     private const string UseSecondPromoPopupText = "Если вы используете этот промокод, то другой станет недоступен, продолжить?";
 
@@ -17,6 +17,7 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] private Button _firstPromoButton;
     [SerializeField] private Button _secondPromoButton;
     [SerializeField] private Button _subscribeButton;
+    [SerializeField] private Button _getPromoButton;
 
     [Header("Description Text")]
     [SerializeField] private TMP_Text _description;
@@ -30,6 +31,7 @@ public class MainMenuManager : MonoBehaviour
         _firstPromoButton.onClick.AddListener(OnFirstPromoButtonClicked);
         _secondPromoButton.onClick.AddListener(OnSecondPromoButtonClicked);
         _subscribeButton.onClick.AddListener(OnSubscribeButtonClicked);
+        _getPromoButton.onClick.AddListener(OnGetPromoButtonClicked);
 
         UnityConnector.Singleton.UserStateChanged += UpdateViewFromUserState;
     }
@@ -40,6 +42,7 @@ public class MainMenuManager : MonoBehaviour
         _firstPromoButton.onClick.RemoveListener(OnFirstPromoButtonClicked);
         _secondPromoButton.onClick.RemoveListener(OnSecondPromoButtonClicked);
         _subscribeButton.onClick.RemoveListener(OnSubscribeButtonClicked);
+        _getPromoButton.onClick.RemoveListener(OnGetPromoButtonClicked);
 
         UnityConnector.Singleton.UserStateChanged -= UpdateViewFromUserState;
     }
@@ -53,6 +56,14 @@ public class MainMenuManager : MonoBehaviour
     private void OnPlayGameButtonClicked()
     {
         gameObject.SetActive(false);
+    }
+
+    private void OnGetPromoButtonClicked()
+    {
+        TextEditor textEditor = new TextEditor();
+        textEditor.text = _getPromoButton.GetComponentInChildren<TMP_Text>().text;
+        textEditor.SelectAll();
+        textEditor.Copy();
     }
 
     public void UpdateViewFromUserState(UserStates state)
@@ -91,20 +102,20 @@ public class MainMenuManager : MonoBehaviour
     {
         print("first promo");
         _popupWindow.Hide();
-        // UnityConnector.Singleton.OnFirstPromoUseRequested();
+        UnityConnector.Singleton.OnFirstPromoUseRequested();
     }
 
     private void SecondPromoUse()
     {
         print("second promo");
         _popupWindow.Hide();
-        // UnityConnector.Singleton.OnSecondPromoUseRequested();
+        UnityConnector.Singleton.OnSecondPromoUseRequested();
     }
 
     private void OnSubscribeButtonClicked()
     {
         print("subscribe");
-        // UnityConnector.Singleton.OnCheckSubscribeRequested();
+        UnityConnector.Singleton.OnCheckSubscribeRequested();
     }
 
     private void OnNotSubscribed()
@@ -112,6 +123,7 @@ public class MainMenuManager : MonoBehaviour
         _playGameButton.gameObject.SetActive(false);
         _firstPromoButton.gameObject.SetActive(false);
         _secondPromoButton.gameObject.SetActive(false);
+        _getPromoButton.gameObject.SetActive(false);
 
         _subscribeButton.gameObject.SetActive(true);
         _description.text = RequestSubscribeText;
@@ -122,6 +134,7 @@ public class MainMenuManager : MonoBehaviour
         _firstPromoButton.gameObject.SetActive(false);
         _secondPromoButton.gameObject.SetActive(false);
         _subscribeButton.gameObject.SetActive(false);
+        _getPromoButton.gameObject.SetActive(false);
 
         _playGameButton.gameObject.SetActive(true);
         _description.text = PlayGameText;
@@ -131,6 +144,7 @@ public class MainMenuManager : MonoBehaviour
     {
         _subscribeButton.gameObject.SetActive(false);
         _playGameButton.gameObject.SetActive(false);
+        _getPromoButton.gameObject.SetActive(false);
 
         _secondPromoButton.gameObject.SetActive(true);
         _firstPromoButton.gameObject.SetActive(true);
@@ -144,6 +158,8 @@ public class MainMenuManager : MonoBehaviour
         _secondPromoButton.gameObject.SetActive(false);
         _firstPromoButton.gameObject.SetActive(false);
 
+        _getPromoButton.GetComponentInChildren<TMP_Text>().text = UnityConnector.Singleton.ActivePromoCode;
+        _getPromoButton.gameObject.SetActive(true);
         _description.text = RewardClaimedText;
     }
 }

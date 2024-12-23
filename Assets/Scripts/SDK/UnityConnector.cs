@@ -20,6 +20,7 @@ public class UnityConnector : MonoBehaviour
     public event Action<UserStates> UserStateChanged;
     public static UnityConnector Singleton { get; private set; }
     public UserStates CurrentState { get; private set; } = UserStates.GameNotCompleted;
+    public string ActivePromoCode { get; private set; }
 
     [DllImport("__Internal")]
     private static extern void RequestJsFirstPromoUse();
@@ -48,12 +49,12 @@ public class UnityConnector : MonoBehaviour
     }
 
 
-    // js requests
+    // js requests in script
     public void OnCheckSubscribeRequested()
     {
         RequestJsCheckSubscribe();
     }
-
+    
     public void OnFirstPromoUseRequested()
     {
         RequestJsFirstPromoUse();
@@ -63,7 +64,7 @@ public class UnityConnector : MonoBehaviour
     {
         RequestJsSecondPromoUse();
     }
-    // js requests
+    // js requests in script
 
 
     // in game requests
@@ -74,7 +75,7 @@ public class UnityConnector : MonoBehaviour
     // in game requests
 
 
-    // from js requests
+    // from js unity game instance requests
     public void UpdateStateToNotSubscribed()
     {
         SetNewState(UserStates.NotSubscribed);
@@ -99,6 +100,11 @@ public class UnityConnector : MonoBehaviour
     {
         PlayerPrefs.DeleteAll();
         SetNewState(UserStates.GameNotCompleted);
+    }
+
+    public void SetActivePromoCode(string value)
+    {
+        ActivePromoCode = value;
     }
     // from js requests
 
