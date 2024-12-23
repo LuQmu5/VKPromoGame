@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class PlayerController : MonoBehaviour, ICoroutineRunner
+public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float _speed = 1;
     [SerializeField] private float _distanceMove = 1;

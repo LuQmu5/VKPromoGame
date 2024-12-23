@@ -4523,9 +4523,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9ee0ea561d09d4eb5be944961008a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _chanceOfGiftSpawn: 75
+  _chanceOfGiftSpawn: 80
   _minTimeBetweenSpawn: 1
-  _maxTimeBetweenSpawn: 3
+  _maxTimeBetweenSpawn: 2
 --- !u!1 &1444288752
 GameObject:
   m_ObjectHideFlags: 0
@@ -11205,7 +11205,7 @@ GameObject:
   - component: {fileID: 7472684072875525022}
   - component: {fileID: 3037693867247327056}
   m_Layer: 0
-  m_Name: MainMenuManager
+  m_Name: MainMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

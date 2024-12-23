@@ -106,7 +106,10 @@ public class UnityConnector : MonoBehaviour
     private void SetNewState(UserStates newState)
     {
         CurrentState = newState;
-        PlayerPrefs.SetInt(UserState, (int)CurrentState);
+
+        if (newState != UserStates.NotSubscribed)
+            PlayerPrefs.SetInt(UserState, (int)CurrentState);
+
         UserStateChanged?.Invoke(CurrentState);
     }
 }
