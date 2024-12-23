@@ -1,9 +1,7 @@
 using System;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using Zenject.Asteroids;
 
 public class MainMenuManager : MonoBehaviour
 {
@@ -11,6 +9,8 @@ public class MainMenuManager : MonoBehaviour
     private const string PlayGameText = "¬ыполн€й задани€ и получай награды!";
     private const string ClaimRewardTextt = "¬ыберите вашу награду! ¬ы можете вз€ть только одну";
     private const string RewardClaimedText = "¬ы уже получили награду, следите за обновлени€ми в группе";
+    private const string UseFirstPromoPopupText = "„тобы получить промокод нужно опубликовать историю";
+    private const string UseSecondPromoPopupText = "≈сли вы используете этот промокод, то другой станет недоступен, продолжить?";
 
     [Header("Buttons")]
     [SerializeField] private Button _playGameButton;
@@ -18,17 +18,11 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] private Button _secondPromoButton;
     [SerializeField] private Button _subscribeButton;
 
-    [Header("Text")]
+    [Header("Description Text")]
     [SerializeField] private TMP_Text _description;
 
-    [Header("SDK")]
-    [SerializeField] private UnityConnector _unityConnector;
-
-    [Header("Game")]
-    [SerializeField] private ObjectSpawner _objectSpawner;
-
-    [Header("Dev Tools")]
-    [SerializeField] private Button _clearPrefsButton;
+    [Header("Popup Window")]
+    [SerializeField] private PopupWindowDisplay _popupWindow;
 
     private void OnEnable()
     {
@@ -37,9 +31,7 @@ public class MainMenuManager : MonoBehaviour
         _secondPromoButton.onClick.AddListener(OnSecondPromoButtonClicked);
         _subscribeButton.onClick.AddListener(OnSubscribeButtonClicked);
 
-        _clearPrefsButton.onClick.AddListener(OnClearPrefsButtonClicked);
-
-        _unityConnector.UserStateChanged += OnUserStateChanged;
+        UnityConnector.Singleton.UserStateChanged += UpdateViewFromUserState;
     }
 
     private void OnDisable()
@@ -49,25 +41,21 @@ public class MainMenuManager : MonoBehaviour
         _secondPromoButton.onClick.RemoveListener(OnSecondPromoButtonClicked);
         _subscribeButton.onClick.RemoveListener(OnSubscribeButtonClicked);
 
-        _clearPrefsButton.onClick.RemoveListener(OnClearPrefsButtonClicked);
+        UnityConnector.Singleton.UserStateChanged -= UpdateViewFromUserState;
+    }
 
-        _unityConnector.UserStateChanged -= OnUserStateChanged;
+    private void Start()
+    {
+        print(UnityConnector.Singleton.CurrentState);
+        UpdateViewFromUserState(UnityConnector.Singleton.CurrentState);
     }
 
     private void OnPlayGameButtonClicked()
     {
-        _objectSpawner.StartSpawn();
         gameObject.SetActive(false);
     }
 
-    private void OnClearPrefsButtonClicked()
-    {
-        PlayerPrefs.DeleteAll();
-        SceneManager.LoadScene(0);
-    }
-
-    // calls from js
-    public void OnUserStateChanged(UserStates state)
+    public void UpdateViewFromUserState(UserStates state)
     {
         switch (state)
         {
@@ -89,29 +77,36 @@ public class MainMenuManager : MonoBehaviour
         }
     }
 
-    public void HideDevTools()
-    {
-        _clearPrefsButton.gameObject.SetActive(false);
-    }
-
-    // Buttons click connect js
     private void OnFirstPromoButtonClicked()
     {
-        _unityConnector.UseFirstPromo();
+        _popupWindow.Show(UseFirstPromoPopupText, FirstPromoUse);
     }
 
     private void OnSecondPromoButtonClicked()
     {
-        _unityConnector.UseSecondPromo();
+        _popupWindow.Show(UseSecondPromoPopupText, SecondPromoUse);
+    }
+
+    private void FirstPromoUse()
+    {
+        print("first promo");
+        _popupWindow.Hide();
+        // UnityConnector.Singleton.OnFirstPromoUseRequested();
+    }
+
+    private void SecondPromoUse()
+    {
+        print("second promo");
+        _popupWindow.Hide();
+        // UnityConnector.Singleton.OnSecondPromoUseRequested();
     }
 
     private void OnSubscribeButtonClicked()
     {
-        _unityConnector.Subscribe();
+        print("subscribe");
+        // UnityConnector.Singleton.OnCheckSubscribeRequested();
     }
-    // Buttons click connect js
 
-    // User states
     private void OnNotSubscribed()
     {
         _playGameButton.gameObject.SetActive(false);

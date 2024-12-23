@@ -26,4 +26,6 @@ public class ObjectFactory
 
         return obj;
     }
+
+    public IEnumerable<SpawnableObject> GetActiveObjects() => _pool.Where(i => i.gameObject.activeSelf);
 }

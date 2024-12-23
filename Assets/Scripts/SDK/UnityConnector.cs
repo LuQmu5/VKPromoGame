@@ -1,10 +1,26 @@
 using System;
 using System.Runtime.InteropServices;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public enum UserStates
+{
+    NotSubscribed = 0,
+    GameNotCompleted = 1,
+    GameCompleted = 2,
+    RewardClaimed = 3,
+}
+
 
 public class UnityConnector : MonoBehaviour
 {
-    // Js functions
+    private const string UserState = nameof(UserState);
+    private const string GameSceneName = "Game";
+
+    public event Action<UserStates> UserStateChanged;
+    public static UnityConnector Singleton { get; private set; }
+    public UserStates CurrentState { get; private set; } = UserStates.GameNotCompleted;
+
     [DllImport("__Internal")]
     private static extern void RequestJsFirstPromoUse();
 
@@ -12,69 +28,85 @@ public class UnityConnector : MonoBehaviour
     private static extern void RequestJsSecondPromoUse();
 
     [DllImport("__Internal")]
-    private static extern void RequestJsSubscribe();
-
-    [DllImport("__Internal")]
     private static extern void RequestJsCheckSubscribe();
-    // Js functions
 
-    private const string UserState = nameof(UserState);
-    private UserStates _currentUserState;
 
-    public Action<UserStates> UserStateChanged;
+    private void Awake()
+    {
+        if (Singleton == null)
+        {
+            Singleton = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else if (Singleton != this)
+        {
+            Destroy(gameObject);
+        }
 
-    private void Start()
+        LoadUserState();
+        SceneManager.LoadScene(GameSceneName);
+    }
+
+
+    // js requests
+    public void OnCheckSubscribeRequested()
     {
         RequestJsCheckSubscribe();
     }
 
-    public void OnGameCompleted()
-    {
-        _currentUserState = UserStates.GameCompleted;
-        PlayerPrefs.SetInt(UserState, (int)UserStates.GameCompleted);
-        UserStateChanged?.Invoke(_currentUserState);
-    }
-
-    // js functions on buttons
-    public void UseFirstPromo()
+    public void OnFirstPromoUseRequested()
     {
         RequestJsFirstPromoUse();
     }
 
-    public void UseSecondPromo()
+    public void OnSecondPromoUseRequested()
     {
         RequestJsSecondPromoUse();
     }
+    // js requests
 
-    public void Subscribe()
+
+    // in game requests
+    public void OnGameCompleted()
     {
-        RequestJsSubscribe();
+        SetNewState(UserStates.GameCompleted);
     }
-    // js functions on buttons
+    // in game requests
 
 
-    // calls from js in index.html
+    // from js requests
     public void UpdateStateToNotSubscribed()
     {
-        _currentUserState = UserStates.NotSubscribed;
-        UserStateChanged?.Invoke(_currentUserState);
+        SetNewState(UserStates.NotSubscribed);
     }
 
     public void UpdateStateToRewardClaimed()
     {
-        _currentUserState = UserStates.RewardClaimed;
-        PlayerPrefs.SetInt(UserState, (int)_currentUserState);
-        UserStateChanged?.Invoke(_currentUserState);
+        SetNewState(UserStates.RewardClaimed);
     }
 
     public void LoadUserState()
     {
         if (PlayerPrefs.HasKey(UserState))
-            _currentUserState = (UserStates)PlayerPrefs.GetInt(UserState);
+            CurrentState = (UserStates)PlayerPrefs.GetInt(UserState);
         else
-            _currentUserState = UserStates.GameNotCompleted;
+            CurrentState = UserStates.GameNotCompleted;
 
-        UserStateChanged?.Invoke(_currentUserState);
+        UserStateChanged?.Invoke(CurrentState);
     }
-    // calls from js in index.html
+
+    public void ResetState()
+    {
+        PlayerPrefs.DeleteAll();
+        SetNewState(UserStates.GameNotCompleted);
+    }
+    // from js requests
+
+
+    private void SetNewState(UserStates newState)
+    {
+        CurrentState = newState;
+        PlayerPrefs.SetInt(UserState, (int)CurrentState);
+        UserStateChanged?.Invoke(CurrentState);
+    }
 }
