@@ -49,7 +49,7 @@ public class MainMenuManager : MonoBehaviour
 
     private void Start()
     {
-        print(UnityConnector.Singleton.CurrentState);
+        UnityConnector.Singleton.OnCheckSubscribeRequested();
         UpdateViewFromUserState(UnityConnector.Singleton.CurrentState);
     }
 
@@ -62,6 +62,7 @@ public class MainMenuManager : MonoBehaviour
     {
         string promoCode = _getPromoButton.GetComponentInChildren<TMP_Text>().text;
         UniClipboard.SetText(promoCode);
+        print(promoCode);
     }
 
     public void UpdateViewFromUserState(UserStates state)
