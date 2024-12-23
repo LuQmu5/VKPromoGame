@@ -15,6 +15,7 @@ public enum UserStates
 public class UnityConnector : MonoBehaviour
 {
     private const string UserState = nameof(UserState);
+    private const string UserPromoCode = nameof(UserPromoCode);
     private const string GameSceneName = "Game";
 
     public event Action<UserStates> UserStateChanged;
@@ -44,6 +45,9 @@ public class UnityConnector : MonoBehaviour
             Destroy(gameObject);
         }
 
+        if (PlayerPrefs.HasKey(UserPromoCode))
+            ActivePromoCode = PlayerPrefs.GetString(UserPromoCode);
+
         LoadUserState();
         SceneManager.LoadScene(GameSceneName);
     }
@@ -72,6 +76,12 @@ public class UnityConnector : MonoBehaviour
     {
         SetNewState(UserStates.GameCompleted);
     }
+
+    public void ResetState()
+    {
+        PlayerPrefs.DeleteAll();
+        SetNewState(UserStates.GameNotCompleted);
+    }
     // in game requests
 
 
@@ -96,17 +106,12 @@ public class UnityConnector : MonoBehaviour
         UserStateChanged?.Invoke(CurrentState);
     }
 
-    public void ResetState()
-    {
-        PlayerPrefs.DeleteAll();
-        SetNewState(UserStates.GameNotCompleted);
-    }
-
     public void SetActivePromoCode(string value)
     {
         ActivePromoCode = value;
+        PlayerPrefs.SetString(UserPromoCode, ActivePromoCode);
     }
-    // from js requests
+    // from js unity game instance requests
 
 
     private void SetNewState(UserStates newState)

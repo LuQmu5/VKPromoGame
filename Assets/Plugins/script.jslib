@@ -1,17 +1,13 @@
 mergeInto(LibraryManager.library, {
   RequestJsFirstPromoUse: function () {
-    callFirstPromoFuncJS();
+    firstPromoUse();
   },
 
   RequestJsSecondPromoUse: function () {
-    callSecondPromoFuncJS();
+    secondPromoUse();
   },
-
-  RequestJsSubscribe: function () {
-    callSubscribeFuncJS();
-  },
-
+  
     RequestJsCheckSubscribe: function () {
-    callCheckSubscribeFuncJS();
+      checkSubscribe();
   },
 });
