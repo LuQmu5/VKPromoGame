@@ -46,6 +46,11 @@ public class PlayerController : MonoBehaviour, ICoroutineRunner
         }
     }
 
+    public void PlayVictoryAnimation()
+    {
+        _view.SetVictoryParam();
+    }
+
     private void OnBeginDrag()
     {
         _isMoving = true;

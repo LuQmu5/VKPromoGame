@@ -1,10 +1,18 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Zenject;
 
-public class ClearPrefsButton : MonoBehaviour
+public class CompleteGameButton : MonoBehaviour
 {
     [SerializeField] private Button _button;
+
+    private GameManager _gameManager;
+
+    [Inject]
+    public void Construct(GameManager gameManager)
+    {
+        _gameManager = gameManager;
+    }
 
     private void OnEnable()
     {
@@ -23,6 +31,7 @@ public class ClearPrefsButton : MonoBehaviour
 
     private void OnButtonClicked()
     {
-        UnityConnector.Singleton.ResetState();
+        _gameManager.CompleteGame();
+        HideButton();
     }
 }

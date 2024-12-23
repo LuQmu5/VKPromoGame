@@ -7,6 +7,7 @@ public class GameInstaller : MonoInstaller
     [SerializeField] private ProgressDisplay _progressDisplay;
     [SerializeField] private TutorialManager _tutorialManager;
     [SerializeField] private ObjectSpawner _objectSpawner;
+    [SerializeField] private GameOverDisplay _gameOverDisplay;
 
     public override void InstallBindings()
     {
@@ -14,6 +15,7 @@ public class GameInstaller : MonoInstaller
         Container.BindInstance(_progressDisplay).AsSingle();
         Container.BindInstance(_tutorialManager).AsSingle();
         Container.BindInstance(_objectSpawner).AsSingle();
+        Container.BindInstance(_gameOverDisplay).AsSingle();
 
         Container.Bind<ObjectFactory>().AsSingle();
         Container.BindInterfacesAndSelfTo<GameManager>().AsSingle();

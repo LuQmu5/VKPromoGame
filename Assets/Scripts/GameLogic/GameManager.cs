@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using UnityEngine.SceneManagement;
 using Zenject;
 
 public class GameManager : IDisposable
@@ -9,17 +8,19 @@ public class GameManager : IDisposable
     private readonly ProgressDisplay _progressDisplay;
     private readonly ObjectSpawner _objectSpawner;
     private readonly TutorialManager _tutorialManager;
+    private readonly GameOverDisplay _gameOverDisplay;
 
     private int _score = 0;
-    private int _maxScore = 3;
+    private int _maxScore = 10;
 
     [Inject]
-    public GameManager(PlayerController playerController, ProgressDisplay scoreDisplay, ObjectSpawner objectSpawner, TutorialManager tutorialManager)
+    public GameManager(PlayerController playerController, ProgressDisplay scoreDisplay, ObjectSpawner objectSpawner, TutorialManager tutorialManager, GameOverDisplay gameOverDisplay)
     {
         _playerController = playerController;
         _progressDisplay = scoreDisplay;
         _objectSpawner = objectSpawner;
         _tutorialManager = tutorialManager;
+        _gameOverDisplay = gameOverDisplay;
 
         _progressDisplay.Init(_maxScore);
 
@@ -48,9 +49,12 @@ public class GameManager : IDisposable
 
     private void HandleEndGame()
     {
-        _objectSpawner.StopSpawn();
         UnityConnector.Singleton.OnGameCompleted();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
+        _playerController.PlayVictoryAnimation();
+        _progressDisplay.gameObject.SetActive(false);
+        _objectSpawner.StopSpawn();
+        _gameOverDisplay.Show();
     }
 
     private void DecreaseScore()
@@ -66,5 +70,12 @@ public class GameManager : IDisposable
     {
         _progressDisplay.gameObject.SetActive(true);
         _objectSpawner.StartSpawn();
+    }
+
+    // dev tools
+    public void CompleteGame()
+    {
+        _tutorialManager.gameObject.SetActive(false);
+        HandleEndGame();
     }
 }
