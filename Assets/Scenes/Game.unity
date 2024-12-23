@@ -4348,7 +4348,7 @@ GameObject:
   - component: {fileID: 1406422762}
   - component: {fileID: 1406422761}
   m_Layer: 5
-  m_Name: Button7
+  m_Name: ButtonSecondPromo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4374,7 +4374,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 997.62915, y: -300}
+  m_AnchoredPosition: {x: 1020.17145, y: -500}
   m_SizeDelta: {x: 960, y: 200}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!111 &1406422761
@@ -4979,7 +4979,7 @@ GameObject:
   - component: {fileID: 1627534319}
   - component: {fileID: 1627534318}
   m_Layer: 5
-  m_Name: Button12
+  m_Name: ButtonFirstPromo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5005,7 +5005,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1097.6292, y: -300}
+  m_AnchoredPosition: {x: 60.171448, y: -100}
   m_SizeDelta: {x: 960, y: 200}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!111 &1627534318
@@ -7856,8 +7856,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playGameButton: {fileID: 881855825081862863}
-  _firstPromoButton: {fileID: 1406422762}
-  _secondPromoButton: {fileID: 1627534319}
+  _firstPromoButton: {fileID: 1627534319}
+  _secondPromoButton: {fileID: 1406422762}
   _subscribeButton: {fileID: 8439246992405735654}
   _description: {fileID: 4883809377763269437}
   _popupWindow: {fileID: 377514511}
