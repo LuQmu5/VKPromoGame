@@ -60,10 +60,8 @@ public class MainMenuManager : MonoBehaviour
 
     private void OnGetPromoButtonClicked()
     {
-        TextEditor textEditor = new TextEditor();
-        textEditor.text = _getPromoButton.GetComponentInChildren<TMP_Text>().text;
-        textEditor.SelectAll();
-        textEditor.Copy();
+        string promoCode = _getPromoButton.GetComponentInChildren<TMP_Text>().text;
+        UniClipboard.SetText(promoCode);
     }
 
     public void UpdateViewFromUserState(UserStates state)
