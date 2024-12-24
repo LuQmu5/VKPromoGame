@@ -18,7 +18,7 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] private Button _firstPromoButton;
     [SerializeField] private Button _secondPromoButton;
     [SerializeField] private Button _subscribeButton;
-    [SerializeField] private Button _getPromoButton;
+    [SerializeField] private TMP_InputField _getPromoButton;
 
     [Header("Description Text")]
     [SerializeField] private TMP_Text _description;
@@ -34,7 +34,7 @@ public class MainMenuManager : MonoBehaviour
         _firstPromoButton.onClick.AddListener(OnFirstPromoButtonClicked);
         _secondPromoButton.onClick.AddListener(OnSecondPromoButtonClicked);
         _subscribeButton.onClick.AddListener(OnSubscribeButtonClicked);
-        _getPromoButton.onClick.AddListener(OnGetPromoButtonClicked);
+        _getPromoButton.onSelect.AddListener(OnGetPromoButtonClicked);
 
         UnityConnector.Singleton.UserStateChanged += UpdateViewFromUserState;
     }
@@ -45,13 +45,14 @@ public class MainMenuManager : MonoBehaviour
         _firstPromoButton.onClick.RemoveListener(OnFirstPromoButtonClicked);
         _secondPromoButton.onClick.RemoveListener(OnSecondPromoButtonClicked);
         _subscribeButton.onClick.RemoveListener(OnSubscribeButtonClicked);
-        _getPromoButton.onClick.RemoveListener(OnGetPromoButtonClicked);
+        _getPromoButton.onSelect.RemoveListener(OnGetPromoButtonClicked);
 
         UnityConnector.Singleton.UserStateChanged -= UpdateViewFromUserState;
     }
 
     private void Start()
     {
+        _getPromoButton.readOnly = true;
         // UnityConnector.Singleton.OnCheckSubscribeRequested();
         UpdateViewFromUserState(UnityConnector.Singleton.CurrentState);
     }
@@ -62,10 +63,10 @@ public class MainMenuManager : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    private void OnGetPromoButtonClicked()
+    private void OnGetPromoButtonClicked(string value)
     {
-        string promoCode = _getPromoButton.GetComponentInChildren<TMP_Text>().text;
-        UniClipboard.SetText(promoCode);
+        string promoCode = value;
+        GUIUtility.systemCopyBuffer = promoCode;
         print(promoCode);
     }
 
