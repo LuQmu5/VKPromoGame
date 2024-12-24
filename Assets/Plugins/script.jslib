@@ -10,4 +10,8 @@ mergeInto(LibraryManager.library, {
     RequestJsCheckSubscribe: function () {
       checkSubscribe();
   },
+
+  RequestJsGetPromo: function(str){
+    getPromo(UTF8ToString(str));
+  }
 });

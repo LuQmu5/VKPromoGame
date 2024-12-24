@@ -18,7 +18,7 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] private Button _firstPromoButton;
     [SerializeField] private Button _secondPromoButton;
     [SerializeField] private Button _subscribeButton;
-    [SerializeField] private TMP_InputField _getPromoButton;
+    [SerializeField] private Button _getPromoButton;
 
     [Header("Description Text")]
     [SerializeField] private TMP_Text _description;
@@ -34,7 +34,7 @@ public class MainMenuManager : MonoBehaviour
         _firstPromoButton.onClick.AddListener(OnFirstPromoButtonClicked);
         _secondPromoButton.onClick.AddListener(OnSecondPromoButtonClicked);
         _subscribeButton.onClick.AddListener(OnSubscribeButtonClicked);
-        _getPromoButton.onSelect.AddListener(OnGetPromoButtonClicked);
+        _getPromoButton.onClick.AddListener(OnGetPromoButtonClicked);
 
         UnityConnector.Singleton.UserStateChanged += UpdateViewFromUserState;
     }
@@ -45,15 +45,14 @@ public class MainMenuManager : MonoBehaviour
         _firstPromoButton.onClick.RemoveListener(OnFirstPromoButtonClicked);
         _secondPromoButton.onClick.RemoveListener(OnSecondPromoButtonClicked);
         _subscribeButton.onClick.RemoveListener(OnSubscribeButtonClicked);
-        _getPromoButton.onSelect.RemoveListener(OnGetPromoButtonClicked);
+        _getPromoButton.onClick.RemoveListener(OnGetPromoButtonClicked);
 
         UnityConnector.Singleton.UserStateChanged -= UpdateViewFromUserState;
     }
 
     private void Start()
     {
-        _getPromoButton.readOnly = true;
-        // UnityConnector.Singleton.OnCheckSubscribeRequested();
+        UnityConnector.Singleton.OnCheckSubscribeRequested();
         UpdateViewFromUserState(UnityConnector.Singleton.CurrentState);
     }
 
@@ -63,11 +62,11 @@ public class MainMenuManager : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    private void OnGetPromoButtonClicked(string value)
+    private void OnGetPromoButtonClicked()
     {
-        string promoCode = value;
-        GUIUtility.systemCopyBuffer = promoCode;
+        string promoCode = _getPromoButton.GetComponentInChildren<TMP_Text>().text;
         print(promoCode);
+        UnityConnector.Singleton.OnGetPromoRequested(promoCode);
     }
 
     public void UpdateViewFromUserState(UserStates state)

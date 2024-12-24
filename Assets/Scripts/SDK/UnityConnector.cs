@@ -32,6 +32,9 @@ public class UnityConnector : MonoBehaviour
     [DllImport("__Internal")]
     private static extern void RequestJsCheckSubscribe();
 
+    [DllImport("__Internal")]
+    private static extern void RequestJsGetPromo(string str);
+
 
     private void Awake()
     {
@@ -67,6 +70,11 @@ public class UnityConnector : MonoBehaviour
     public void OnSecondPromoUseRequested()
     {
         RequestJsSecondPromoUse();
+    }
+
+    public void OnGetPromoRequested(string promo)
+    {
+        RequestJsGetPromo(promo);
     }
     // js requests in script
 
