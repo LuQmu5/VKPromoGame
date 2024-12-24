@@ -49,7 +49,7 @@ public class MainMenuManager : MonoBehaviour
 
     private void Start()
     {
-        UnityConnector.Singleton.OnCheckSubscribeRequested();
+        // UnityConnector.Singleton.OnCheckSubscribeRequested();
         UpdateViewFromUserState(UnityConnector.Singleton.CurrentState);
     }
 

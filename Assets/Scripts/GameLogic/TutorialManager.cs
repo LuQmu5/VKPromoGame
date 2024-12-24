@@ -4,44 +4,38 @@ using UnityEngine.UI;
 
 public class TutorialManager : MonoBehaviour
 {
-    [SerializeField] private Button _leftPartButton;
-    [SerializeField] private Button _rightPartButton;
-
-    private int _counter = 0;
+    [SerializeField] private PlayerSwipeManager _swipeManager;
+    [SerializeField] private Image _leftPart;
+    [SerializeField] private Image _rightPart;
 
     public event Action TutorialFinished;
 
     private void OnEnable()
     {
-        _leftPartButton.onClick.AddListener(OnLeftPartButtonClicked);
-        _rightPartButton.onClick.AddListener(OnRightPartButtonClicked);
+        _swipeManager.Swiped += OnSwiped;
     }
 
     private void OnDisable()
     {
-        _leftPartButton.onClick.RemoveListener(OnLeftPartButtonClicked);
-        _rightPartButton.onClick.RemoveListener(OnRightPartButtonClicked);
+        _swipeManager.Swiped -= OnSwiped;
     }
 
-    private void OnLeftPartButtonClicked()
+    private void OnSwiped(Vector2 direction)
     {
-        _leftPartButton.gameObject.SetActive(false);
-        IncreaseCounter();
-    }
+        if (direction == Vector2.left)
+        {
+            _leftPart.gameObject.SetActive(false);
+        }
 
-    private void OnRightPartButtonClicked()
-    {
-        _rightPartButton.gameObject.SetActive(false);
-        IncreaseCounter();
-    }
+        if (direction == Vector2.right)
+        {
+            _rightPart.gameObject.SetActive(false);
+        }
 
-    private void IncreaseCounter()
-    {
-        _counter++;
-
-        if (_counter == 2)
+        if (_leftPart.gameObject.activeSelf == false && _rightPart.gameObject.activeSelf == false)
         {
             TutorialFinished?.Invoke();
+            gameObject.SetActive(false);
         }
     }
 }

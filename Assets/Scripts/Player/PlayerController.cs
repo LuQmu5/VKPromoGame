@@ -9,25 +9,25 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _distanceMove = 1;
     [SerializeField] private float _sizeOffset = 1;
     [SerializeField] private PlayerAnimator _view;
+    [SerializeField] private PlayerSwipeManager _swipeManager;
     
     private Vector3 _leftRotationEuler = Vector3.zero;
     private Vector3 _rightRotationEuler = new Vector3(0, 180, 0);
-    private Vector3 _moveDirection;
-    private bool _isMoving;
+    private Coroutine _movingCoroutine;
 
     public event Action SnowballCatched;
     public event Action GiftCatched;
 
-    private void Update()
+    private void OnEnable()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
-            OnBeginDrag();
-
-        if (Input.GetKeyUp(KeyCode.Mouse0)) 
-            OnEndDrag();
-
-        TryMove();
+        _swipeManager.Swiped += OnSwiped;
     }
+
+    private void OnDisable()
+    {
+        _swipeManager.Swiped -= OnSwiped;
+    }
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -51,44 +51,46 @@ public class PlayerController : MonoBehaviour
         _view.SetVictoryParam();
     }
 
-    private void OnBeginDrag()
+    private void OnSwiped(Vector2 direction)
     {
-        _isMoving = true;
+        if (_movingCoroutine != null)
+            StopCoroutine(_movingCoroutine);
+
+        _movingCoroutine = StartCoroutine(Moving(direction));
+    }
+
+    private IEnumerator Moving(Vector3 direction)
+    {
         _view.SetMovingParam(true);
+        float offsetDistance = 0.1f;
+        Vector3 targetPosition = GetConstrainedPosition(transform.position + direction * _distanceMove);
 
-        _moveDirection = ScreenInfo.GetTapWorldPosition().x > 0 ? Vector3.right : Vector3.left;
-        transform.eulerAngles = _moveDirection == Vector3.right ? _rightRotationEuler : _leftRotationEuler;
-    }
+        while (Vector2.Distance(transform.position, targetPosition) > offsetDistance)
+        {
+            yield return null;
 
-    private void OnEndDrag()
-    {
-        _isMoving = false;
+            transform.position = Vector2.MoveTowards(transform.position, targetPosition, _speed * Time.deltaTime);
+        }
+
         _view.SetMovingParam(false);
+        _movingCoroutine = null;
     }
 
-    private void TryMove()
-    {
-        if (_isMoving == false)
-            return;
-
-        Vector3 targetPosition = transform.position + _moveDirection * _distanceMove;
-        transform.position = Vector2.MoveTowards(transform.position, targetPosition, _speed * Time.deltaTime);
-        TryConstrainPositionOnScreen();
-    }
-
-    private void TryConstrainPositionOnScreen()
+    private Vector2 GetConstrainedPosition(Vector2 position)
     {
         float minX = ScreenInfo.GetWorldPosition(ScreenBoundary.BottomLeft).x + _sizeOffset;
         float maxX = ScreenInfo.GetWorldPosition(ScreenBoundary.TopRight).x - _sizeOffset;
 
-        if (transform.position.x < minX)
+        if (position.x < minX)
         {
-            transform.position = new Vector3(minX, transform.position.y, transform.position.z);
+            return new Vector3(minX, position.y);
         }
 
-        if (transform.position.x > maxX)
+        if (position.x > maxX)
         {
-            transform.position = new Vector3(maxX, transform.position.y, transform.position.z);
+            return new Vector3(maxX, position.y);
         }
+
+        return position;
     }
 }
