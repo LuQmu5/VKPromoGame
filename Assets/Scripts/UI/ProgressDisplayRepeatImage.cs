@@ -21,8 +21,5 @@ public class ProgressDisplayRepeatImage : ProgressDisplay
         float multiplier = isProgressIncreased ? 1 : -1;
         float offset = multiplier / MaxProgress;
         _maskImage.fillAmount += offset;
-
-        print(isProgressIncreased);
-        print(offset);
     }
 }

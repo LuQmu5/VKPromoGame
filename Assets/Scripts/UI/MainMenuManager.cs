@@ -2,6 +2,7 @@ using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject.Asteroids;
 
 public class MainMenuManager : MonoBehaviour
 {
@@ -24,6 +25,8 @@ public class MainMenuManager : MonoBehaviour
 
     [Header("Popup Window")]
     [SerializeField] private PopupWindowDisplay _popupWindow;
+
+    public event Action GameStarted;
 
     private void OnEnable()
     {
@@ -55,6 +58,7 @@ public class MainMenuManager : MonoBehaviour
 
     private void OnPlayGameButtonClicked()
     {
+        GameStarted?.Invoke();
         gameObject.SetActive(false);
     }
 

@@ -4466,6 +4466,7 @@ MonoBehaviour:
   _tutorialManager: {fileID: 910085124}
   _objectSpawner: {fileID: 1413662007}
   _gameOverDisplay: {fileID: 1035712086}
+  _mainMenuManager: {fileID: 3037693867247327056}
 --- !u!1 &1394274812
 GameObject:
   m_ObjectHideFlags: 0
@@ -4787,7 +4788,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 5
-  _distanceMove: 2
   _sizeOffset: 1
   _view: {fileID: 4831039978926116969}
   _swipeManager: {fileID: 1444288757}
@@ -4846,7 +4846,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1444288752}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91a73f4c519e1014c80158347b1cbb5b, type: 3}
+  m_Script: {fileID: 11500000, guid: bede5897326ddd14bac2163272688b8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1453640313

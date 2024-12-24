@@ -9,18 +9,20 @@ public class GameManager : IDisposable
     private readonly ObjectSpawner _objectSpawner;
     private readonly TutorialManager _tutorialManager;
     private readonly GameOverDisplay _gameOverDisplay;
-
+    private readonly MainMenuManager _mainMenuManager;
     private int _score = 0;
     private int _maxScore = 10;
 
     [Inject]
-    public GameManager(PlayerController playerController, ProgressDisplay scoreDisplay, ObjectSpawner objectSpawner, TutorialManager tutorialManager, GameOverDisplay gameOverDisplay)
+    public GameManager(PlayerController playerController, ProgressDisplay scoreDisplay, ObjectSpawner objectSpawner,
+        TutorialManager tutorialManager, GameOverDisplay gameOverDisplay, MainMenuManager mainMenuManager)
     {
         _playerController = playerController;
         _progressDisplay = scoreDisplay;
         _objectSpawner = objectSpawner;
         _tutorialManager = tutorialManager;
         _gameOverDisplay = gameOverDisplay;
+        _mainMenuManager = mainMenuManager;
 
         _progressDisplay.Init(_maxScore);
 
@@ -28,6 +30,11 @@ public class GameManager : IDisposable
         _playerController.GiftCatched += IncreaseScore;
 
         _tutorialManager.TutorialFinished += OnTutorialFinished;
+
+        _mainMenuManager.GameStarted += OnGameStarted;
+
+        _progressDisplay.gameObject.SetActive(false);
+        _tutorialManager.gameObject.SetActive(false);
     }
 
     public void Dispose()
@@ -36,6 +43,13 @@ public class GameManager : IDisposable
         _playerController.GiftCatched -= IncreaseScore;
 
         _tutorialManager.TutorialFinished -= OnTutorialFinished;
+
+        _mainMenuManager.GameStarted -= OnGameStarted;
+    }
+
+    private void OnGameStarted()
+    {
+        _tutorialManager.gameObject.SetActive(true);
     }
 
     private void IncreaseScore()
