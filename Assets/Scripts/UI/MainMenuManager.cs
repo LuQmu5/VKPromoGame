@@ -53,7 +53,7 @@ public class MainMenuManager : MonoBehaviour
     private void Start()
     {
         _getPromoButton.readOnly = true;
-        // UnityConnector.Singleton.OnCheckSubscribeRequested();
+        UnityConnector.Singleton.OnCheckSubscribeRequested();
         UpdateViewFromUserState(UnityConnector.Singleton.CurrentState);
     }
 
