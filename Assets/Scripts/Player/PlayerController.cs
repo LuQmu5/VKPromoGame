@@ -54,8 +54,14 @@ public class PlayerController : MonoBehaviour
     {
         target = GetConstrainedPosition(target);
         target.y = transform.position.y;
+        Vector3 oldPosition = transform.position;
         transform.position = Vector2.MoveTowards(transform.position, target, _speed * Time.deltaTime);
-        transform.eulerAngles = target.x > transform.position.x ? _rightRotationEuler : _leftRotationEuler;
+
+        if (oldPosition.x < transform.position.x)
+            transform.eulerAngles = _rightRotationEuler;
+        else if (oldPosition.x > transform.position.x)
+            transform.eulerAngles = _leftRotationEuler;
+
         _view.SetMovingParam(true);
     }
 

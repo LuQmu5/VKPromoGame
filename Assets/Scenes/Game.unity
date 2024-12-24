@@ -4895,7 +4895,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56a26368e4ee81f49ab14ca3790123e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 5
+  _speed: 20
   _sizeOffset: 1
   _view: {fileID: 4831039978926116969}
   _slideManager: {fileID: 1444288757}
