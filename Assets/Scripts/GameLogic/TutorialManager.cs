@@ -20,14 +20,14 @@ public class TutorialManager : MonoBehaviour
         _swipeManager.Slide -= OnSlide;
     }
 
-    private void OnSlide(float delta)
+    private void OnSlide(Vector3 target)
     {
-        if (delta < 0)
+        if (target.x < 0)
         {
             _leftPart.gameObject.SetActive(false);
         }
 
-        if (delta > 0)
+        if (target.x > 0)
         {
             _rightPart.gameObject.SetActive(false);
         }

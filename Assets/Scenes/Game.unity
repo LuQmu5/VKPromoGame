@@ -4790,7 +4790,7 @@ MonoBehaviour:
   _speed: 5
   _sizeOffset: 1
   _view: {fileID: 4831039978926116969}
-  _swipeManager: {fileID: 1444288757}
+  _slideManager: {fileID: 1444288757}
 --- !u!61 &1444288756
 BoxCollider2D:
   m_ObjectHideFlags: 0
