@@ -26,6 +26,11 @@ public class PlayerController : MonoBehaviour
         _input.HorizontalInput -= OnHorizontalInput;
     }
 
+    private void Start()
+    {
+        _speed = 5;
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.TryGetComponent(out Snowball snowball))
@@ -61,7 +66,8 @@ public class PlayerController : MonoBehaviour
 
         CheckRotation(target);
 
-        transform.position = Vector2.MoveTowards(transform.position, target, _speed * Time.deltaTime);
+        float distanceDelta = Mathf.Abs(transform.position.x - target.x);
+        transform.position = Vector2.MoveTowards(transform.position, target, _speed * Time.deltaTime * distanceDelta);
 
         _view.SetMovingState(true);
     }
