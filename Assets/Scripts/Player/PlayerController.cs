@@ -50,6 +50,9 @@ public class PlayerController : MonoBehaviour
 
     private void OnHorizontalInput(Vector3 target)
     {
+        target.y = transform.position.y;
+        target = GetConstrainPositionByX(target);
+
         float distanceDelta = Mathf.Abs(transform.position.x - target.x);
         float trashold = 0.05f;
 
@@ -59,8 +62,6 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        target.y = transform.position.y;
-        target = GetConstrainedPositionByX(target);
         CheckRotation(target);
         transform.position = Vector2.MoveTowards(transform.position, target, _speed * Time.deltaTime * distanceDelta);
 
@@ -76,21 +77,21 @@ public class PlayerController : MonoBehaviour
             transform.eulerAngles = _leftRotationEuler;
     }
 
-    private Vector2 GetConstrainedPositionByX(Vector2 position)
+    private Vector3 GetConstrainPositionByX(Vector3 pos)
     {
         float minX = ScreenInfo.GetWorldPosition(ScreenBoundary.BottomLeft).x + _sizeOffset;
-        float maxX = ScreenInfo.GetWorldPosition(ScreenBoundary.TopRight).x - _sizeOffset;
+        float maxX = ScreenInfo.GetWorldPosition(ScreenBoundary.BottomRight).x - _sizeOffset;
 
-        if (position.x < minX)
+        if (pos.x < minX)
         {
-            return new Vector3(minX, position.y);
+            return new Vector3(minX, pos.y);
         }
 
-        if (position.x > maxX)
+        if (pos.x > maxX)
         {
-            return new Vector3(maxX, position.y);
+            return new Vector3(maxX, pos.y);
         }
 
-        return position;
+        return pos;
     }
 }

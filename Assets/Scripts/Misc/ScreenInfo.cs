@@ -47,7 +47,7 @@ public static class ScreenInfo
         return worldPosition;
     }
 
-    private static Vector3 CalcPosition2(Vector2 screenPos)
+    private static Vector3 CalcPosition(Vector2 screenPos)
     {
         Ray ray = Camera.main.ScreenPointToRay(screenPos);
         Vector3 pos = Vector3.zero;
@@ -59,7 +59,7 @@ public static class ScreenInfo
         return pos;
     }
 
-    private static Vector3 CalcPosition(Vector2 screenPos)
+    private static Vector3 CalcPosition2(Vector2 screenPos)
     {
         Vector3 worldPosition = Camera.main.ScreenToWorldPoint(screenPos);
         worldPosition.z = 0;

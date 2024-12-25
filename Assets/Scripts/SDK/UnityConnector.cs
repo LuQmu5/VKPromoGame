@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 
 public enum UserStates
 {
-    NotSubscribed = 0,
     GameNotCompleted = 1,
     GameCompleted = 2,
     RewardClaimed = 3,
@@ -14,14 +13,22 @@ public enum UserStates
 
 public class UnityConnector : MonoBehaviour
 {
+    [SerializeField] private bool _isTest = false;
+
+
     private const string UserState = nameof(UserState);
     private const string UserPromoCode = nameof(UserPromoCode);
     private const string GameSceneName = "Game";
 
-    public event Action<UserStates> UserStateChanged;
+
     public static UnityConnector Singleton { get; private set; }
     public UserStates CurrentState { get; private set; } = UserStates.GameNotCompleted;
     public string ActivePromoCode { get; private set; }
+
+
+    public event Action<UserStates> UserStateChanged;
+    public event Action GameStarted;
+
 
     [DllImport("__Internal")]
     private static extern void RequestJsFirstPromoUse();
@@ -34,6 +41,9 @@ public class UnityConnector : MonoBehaviour
 
     [DllImport("__Internal")]
     private static extern void RequestJsGetPromo(string str);
+
+    [DllImport("__Internal")]
+    private static extern void RequestJsOnGameSceneInited();
 
 
     private void Awake()
@@ -56,30 +66,70 @@ public class UnityConnector : MonoBehaviour
     }
 
 
-    // js requests in script
+    // js requests from unity
+    public void OnGameSceneInited()
+    {
+        if (_isTest)
+        {
+            print("init scene request doesn't work in test mode");
+            return;
+        }
+
+        RequestJsOnGameSceneInited();
+    }
+
     public void OnCheckSubscribeRequested()
     {
+        if (_isTest)
+        {
+            print("check sub request doesn't work in test mode");
+            StartGame();
+            return;
+        }
+
         RequestJsCheckSubscribe();
     }
     
     public void OnFirstPromoUseRequested()
     {
+        if (_isTest)
+        {
+            print("first promo use request doesn't work in test mode");
+            SetActivePromoCode("first promo");
+            UpdateStateToRewardClaimed();
+            return;
+        }
+
         RequestJsFirstPromoUse();
     }
 
     public void OnSecondPromoUseRequested()
     {
+        if (_isTest)
+        {
+            print("second promo use request doesn't work in test mode");
+            SetActivePromoCode("second promo");
+            UpdateStateToRewardClaimed();
+            return;
+        }
+
         RequestJsSecondPromoUse();
     }
 
     public void OnGetPromoRequested(string promo)
     {
+        if (_isTest)
+        {
+            print("get promo request doesn't work in test mode");
+            return;
+        }
+
         RequestJsGetPromo(promo);
     }
-    // js requests in script
+    // js requests from unity
 
 
-    // in game requests
+    // in unity requests
     public void OnGameCompleted()
     {
         SetNewState(UserStates.GameCompleted);
@@ -90,13 +140,13 @@ public class UnityConnector : MonoBehaviour
         PlayerPrefs.DeleteAll();
         SetNewState(UserStates.GameNotCompleted);
     }
-    // in game requests
+    // in unity requests
 
 
-    // from js unity game instance requests
-    public void UpdateStateToNotSubscribed()
+    // from js to unity game instance requests
+    public void StartGame()
     {
-        SetNewState(UserStates.NotSubscribed);
+        GameStarted?.Invoke();
     }
 
     public void UpdateStateToRewardClaimed()
@@ -119,16 +169,15 @@ public class UnityConnector : MonoBehaviour
         ActivePromoCode = value;
         PlayerPrefs.SetString(UserPromoCode, ActivePromoCode);
     }
-    // from js unity game instance requests
+    // from js to unity game instance requests
 
 
+    // private methods
     private void SetNewState(UserStates newState)
     {
         CurrentState = newState;
-
-        if (newState != UserStates.NotSubscribed)
-            PlayerPrefs.SetInt(UserState, (int)CurrentState);
-
+        PlayerPrefs.SetInt(UserState, (int)CurrentState);
         UserStateChanged?.Invoke(CurrentState);
     }
+    // private methods
 }

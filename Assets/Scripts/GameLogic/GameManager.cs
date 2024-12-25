@@ -15,14 +15,13 @@ public class GameManager : IDisposable
 
     [Inject]
     public GameManager(PlayerController playerController, ProgressDisplay scoreDisplay, ObjectSpawner objectSpawner,
-        TutorialManager tutorialManager, GameOverDisplay gameOverDisplay, MainMenuManager mainMenuManager)
+        TutorialManager tutorialManager, GameOverDisplay gameOverDisplay)
     {
         _playerController = playerController;
         _progressDisplay = scoreDisplay;
         _objectSpawner = objectSpawner;
         _tutorialManager = tutorialManager;
         _gameOverDisplay = gameOverDisplay;
-        _mainMenuManager = mainMenuManager;
 
         _progressDisplay.Init(_maxScore);
 
@@ -31,10 +30,12 @@ public class GameManager : IDisposable
 
         _tutorialManager.TutorialFinished += OnTutorialFinished;
 
-        _mainMenuManager.GameStarted += OnGameStarted;
 
         _progressDisplay.gameObject.SetActive(false);
         _tutorialManager.gameObject.SetActive(false);
+
+        UnityConnector.Singleton.GameStarted += OnGameStarted;
+        UnityConnector.Singleton.OnGameSceneInited();
     }
 
     public void Dispose()
@@ -44,7 +45,7 @@ public class GameManager : IDisposable
 
         _tutorialManager.TutorialFinished -= OnTutorialFinished;
 
-        _mainMenuManager.GameStarted -= OnGameStarted;
+        UnityConnector.Singleton.GameStarted -= OnGameStarted;
     }
 
     private void OnGameStarted()

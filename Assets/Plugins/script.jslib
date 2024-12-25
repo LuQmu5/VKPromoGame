@@ -13,5 +13,9 @@ mergeInto(LibraryManager.library, {
 
   RequestJsGetPromo: function(str){
     getPromo(UTF8ToString(str));
+  },
+
+  RequestJsOnGameSceneInited: function(){
+    onGameSceneInited();
   }
 });
