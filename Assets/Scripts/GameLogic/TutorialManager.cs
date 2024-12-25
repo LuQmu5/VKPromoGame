@@ -22,12 +22,14 @@ public class TutorialManager : MonoBehaviour
 
     private void OnHorizontalInput(Vector3 target)
     {
-        if (target.x < 0)
+        float minDelta = 2f;
+
+        if (target.x <= -minDelta)
         {
             _leftPart.gameObject.SetActive(false);
         }
 
-        if (target.x > 0)
+        if (target.x >= minDelta)
         {
             _rightPart.gameObject.SetActive(false);
         }
