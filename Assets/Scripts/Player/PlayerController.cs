@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _speed = 50;
     [SerializeField] private float _sizeOffset = 1;
     [SerializeField] private PlayerAnimator _view;
-    [SerializeField] private SlideManager _slideManager;
+    [SerializeField] private PlayerInput _input;
     
     private Vector3 _leftRotationEuler = Vector3.zero;
     private Vector3 _rightRotationEuler = new Vector3(0, 180, 0);
@@ -18,28 +18,26 @@ public class PlayerController : MonoBehaviour
 
     private void OnEnable()
     {
-        _slideManager.Slide += OnSlide;
-        _slideManager.SlideEnd += OnSlideEnd;
+        _input.HorizontalInput += OnHorizontalInput;
     }
 
     private void OnDisable()
     {
-        _slideManager.Slide -= OnSlide;
-        _slideManager.SlideEnd -= OnSlideEnd;
+        _input.HorizontalInput -= OnHorizontalInput;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.TryGetComponent(out Snowball snowball))
         {
-            _view.SetCatchSnowballParam();
+            _view.SetCatchSnowballTrigger();
             snowball.gameObject.SetActive(false);
             SnowballCatched?.Invoke();
         }
 
         if (collision.TryGetComponent(out Gift gift))
         {
-            _view.SetCatchGiftParam();
+            _view.SetCatchGiftTrigger();
             gift.gameObject.SetActive(false);
             GiftCatched?.Invoke();
         }
@@ -47,30 +45,36 @@ public class PlayerController : MonoBehaviour
 
     public void PlayVictoryAnimation()
     {
-        _view.SetVictoryParam();
+        _view.SetVictoryTrigger();
     }
 
-    private void OnSlide(Vector3 target)
+    private void OnHorizontalInput(Vector3 target)
     {
-        target = GetConstrainedPosition(target);
+        if (target.x == transform.position.x)
+        {
+            _view.SetMovingState(false);
+            return;
+        }
+
         target.y = transform.position.y;
-        Vector3 oldPosition = transform.position;
+        target = GetConstrainedPositionByX(target);
+
+        CheckRotation(target);
+
         transform.position = Vector2.MoveTowards(transform.position, target, _speed * Time.deltaTime);
 
-        if (oldPosition.x < transform.position.x)
-            transform.eulerAngles = _rightRotationEuler;
-        else if (oldPosition.x > transform.position.x)
-            transform.eulerAngles = _leftRotationEuler;
-
-        _view.SetMovingParam(true);
+        _view.SetMovingState(true);
     }
 
-    private void OnSlideEnd()
+    private void CheckRotation(Vector3 target)
     {
-        _view.SetMovingParam(false);
+        if (target.x > transform.position.x)
+            transform.eulerAngles = _rightRotationEuler;
+        else if (target.x < transform.position.x)
+            transform.eulerAngles = _leftRotationEuler;
     }
 
-    private Vector2 GetConstrainedPosition(Vector2 position)
+    private Vector2 GetConstrainedPositionByX(Vector2 position)
     {
         float minX = ScreenInfo.GetWorldPosition(ScreenBoundary.BottomLeft).x + _sizeOffset;
         float maxX = ScreenInfo.GetWorldPosition(ScreenBoundary.TopRight).x - _sizeOffset;

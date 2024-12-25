@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class TutorialManager : MonoBehaviour
 {
-    [SerializeField] private SlideManager _swipeManager;
+    [SerializeField] private PlayerInput _playerInput;
     [SerializeField] private Image _leftPart;
     [SerializeField] private Image _rightPart;
 
@@ -12,15 +12,15 @@ public class TutorialManager : MonoBehaviour
 
     private void OnEnable()
     {
-        _swipeManager.Slide += OnSlide;
+        _playerInput.HorizontalInput += OnHorizontalInput;
     }
 
     private void OnDisable()
     {
-        _swipeManager.Slide -= OnSlide;
+        _playerInput.HorizontalInput -= OnHorizontalInput;
     }
 
-    private void OnSlide(Vector3 target)
+    private void OnHorizontalInput(Vector3 target)
     {
         if (target.x < 0)
         {

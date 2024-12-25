@@ -2796,7 +2796,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &910085121
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2838,7 +2838,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3031ce169689a6a4a9622e731c871efe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _swipeManager: {fileID: 1444288757}
+  _playerInput: {fileID: 1444288759}
   _leftPart: {fileID: 1560680677}
   _rightPart: {fileID: 240981443}
 --- !u!1 &924389210
@@ -5245,7 +5245,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _chanceOfGiftSpawn: 80
-  _minTimeBetweenSpawn: 1
+  _minTimeBetweenSpawn: 1.5
   _maxTimeBetweenSpawn: 2
 --- !u!1 &1444288752
 GameObject:
@@ -5258,7 +5258,8 @@ GameObject:
   - component: {fileID: 1444288753}
   - component: {fileID: 1444288755}
   - component: {fileID: 1444288756}
-  - component: {fileID: 1444288757}
+  - component: {fileID: 1444288758}
+  - component: {fileID: 1444288759}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -5294,10 +5295,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56a26368e4ee81f49ab14ca3790123e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 20
+  _speed: 5
   _sizeOffset: 1
   _view: {fileID: 4831039978926116969}
-  _slideManager: {fileID: 1444288757}
+  _input: {fileID: 1444288759}
 --- !u!61 &1444288756
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5344,7 +5345,34 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.5, y: 1.5}
   m_EdgeRadius: 0
---- !u!114 &1444288757
+--- !u!50 &1444288758
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1444288752}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 6
+--- !u!114 &1444288759
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5353,7 +5381,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1444288752}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bede5897326ddd14bac2163272688b8e, type: 3}
+  m_Script: {fileID: 11500000, guid: 0d0a9e94ea23c354cab8981a8f881ae3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1453640313

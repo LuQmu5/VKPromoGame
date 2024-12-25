@@ -38,7 +38,7 @@ public static class ScreenInfo
         }
     }
 
-    public static Vector3 GetTapWorldPosition()
+    public static Vector3 GetMouseWorldPosition()
     {
         Vector3 tapPosition = Input.mousePosition;
         tapPosition.z = Camera.main.nearClipPlane;

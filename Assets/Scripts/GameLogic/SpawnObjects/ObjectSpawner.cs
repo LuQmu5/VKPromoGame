@@ -43,10 +43,10 @@ public class ObjectSpawner : MonoBehaviour
         {
             yield return new WaitForSeconds(Random.Range(_minTimeBetweenSpawn, _maxTimeBetweenSpawn));
 
-            for (int i = 0; i < Random.Range(1, 4); i++)
+            for (int i = 0; i < Random.Range(1, 3); i++)
             {
-                float minDelay = 0.1f;
-                float maxDelay = 0.25f;
+                float minDelay = 0.25f;
+                float maxDelay = 0.4f;
 
                 yield return new WaitForSeconds(Random.Range(minDelay, maxDelay));
 

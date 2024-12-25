@@ -9,22 +9,22 @@ public class PlayerAnimator : MonoBehaviour
 
     [SerializeField] private Animator _animator;
 
-    public void SetMovingParam(bool state)
+    public void SetMovingState(bool state)
     {
         _animator.SetBool(IsMoving, state);
     }
 
-    public void SetVictoryParam()
+    public void SetVictoryTrigger()
     {
         _animator.SetTrigger(Victory);
     }
 
-    public void SetCatchGiftParam()
+    public void SetCatchGiftTrigger()
     {
         _animator.SetTrigger(CatchGift);
     }
 
-    public void SetCatchSnowballParam()
+    public void SetCatchSnowballTrigger()
     {
         _animator.SetTrigger(CatchSnowball);
     }
