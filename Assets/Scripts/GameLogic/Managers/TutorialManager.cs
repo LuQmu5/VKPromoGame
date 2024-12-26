@@ -9,7 +9,6 @@ public class TutorialManager : MonoBehaviour
 
     private float _distanceToFinish = 100;
     private float _currentDistance = 0;
-    private bool _delayPassed = false;
 
     public event Action TutorialFinished;
 
@@ -26,12 +25,6 @@ public class TutorialManager : MonoBehaviour
     public void Activate()
     {
         _wrapper.gameObject.SetActive(true);
-        Invoke(nameof(Delay), 0.3f);
-    }
-
-    private void Delay()
-    {
-        _delayPassed = true;
     }
 
     public void Deactivate()
@@ -41,7 +34,7 @@ public class TutorialManager : MonoBehaviour
 
     private void OnHorizontalInput(Vector3 target)
     {
-        if (_wrapper.gameObject.activeSelf == false || _delayPassed == false)
+        if (_wrapper.gameObject.activeSelf == false)
             return;
 
         float distanceDelta = Vector3.Distance(Vector3.zero, target);
