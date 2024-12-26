@@ -7,6 +7,7 @@ mergeInto(LibraryManager.library, {
     checkSubscribe();
   },
 
+  // не успевает загрузить
   RequestJsOnGameSceneInited: function(){
     onGameSceneInited();
   },
