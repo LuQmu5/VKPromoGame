@@ -1,6 +1,6 @@
 mergeInto(LibraryManager.library, {
-  RequestJsPromoButtonClicked: function (id) {
-    promoButtonClicked(id);
+  RequestJsClaimReward: function (id) {
+    claimReward(id);
   },
   
   RequestJsCheckSubscribe: function () {

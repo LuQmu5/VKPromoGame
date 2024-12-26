@@ -26,7 +26,7 @@ public class UnityConnector_TestMode : UnityConnector
 
     public override void OnClaimRewardButtonClicked(PromoNames promoName)
     {
-        print("js function 'getPromoCode' not working in test mode");
+        print("js function 'claimReward' not working in test mode");
 
         SetActivePromoCode(promoName.ToString());
         SetNewState((int)UserStates.RewardClaimed);
