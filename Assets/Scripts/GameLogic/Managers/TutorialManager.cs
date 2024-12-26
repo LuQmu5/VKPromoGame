@@ -6,6 +6,7 @@ public class TutorialManager : MonoBehaviour
 {
     [SerializeField] private PlayerInput _playerInput;
     [SerializeField] private Image _wrapper;
+    [SerializeField] private Canvas _mainMenuCanvas;
 
     private float _distanceToFinish = 100;
     private float _currentDistance = 0;
@@ -22,6 +23,11 @@ public class TutorialManager : MonoBehaviour
         _playerInput.HorizontalInput -= OnHorizontalInput;
     }
 
+    private void Start()
+    {
+        _distanceToFinish = Screen.width / 2;
+    }
+
     public void Activate()
     {
         _wrapper.gameObject.SetActive(true);
@@ -34,9 +40,10 @@ public class TutorialManager : MonoBehaviour
 
     private void OnHorizontalInput(Vector3 target)
     {
-        if (_wrapper.gameObject.activeSelf == false)
+        if (_wrapper.gameObject.activeSelf == false || _mainMenuCanvas.gameObject.activeSelf)
             return;
 
+        print("hor inp");
         float distanceDelta = Vector3.Distance(Vector3.zero, target);
         float minDistance = 10;
 
