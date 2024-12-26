@@ -12,7 +12,7 @@ public class GameManager : IDisposable
     private readonly GameOverDisplay _gameOverDisplay;
 
     private int _score = 0;
-    private int _maxScore = 10;
+    private int _maxScore = 3;
 
     [Inject]
     public GameManager(PlayerController playerController, ProgressDisplay scoreDisplay, ObjectSpawner objectSpawner,

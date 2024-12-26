@@ -32,6 +32,7 @@ public class GameOverDisplay : MonoBehaviour
 
     private void EndGame()
     {
-        _mainMenuManager.gameObject.SetActive(true);
+        _mainMenuManager.Activate();
+        Hide();
     }
 }

@@ -14,6 +14,8 @@ public class MainMenuManager : MonoBehaviour
     private const string UseFirstPromoPopupText = "Чтобы получить промокод нужно опубликовать историю, продолжить?";
     private const string UseSecondPromoPopupText = "Если вы используете этот промокод, то другой станет недоступен, продолжить?";
 
+    [SerializeField] private Canvas _canvas;
+
     [Header("Buttons")]
     [SerializeField] private Button _subscribeButton;
     [SerializeField] private Button _firstPromoButton;
@@ -49,6 +51,12 @@ public class MainMenuManager : MonoBehaviour
         _getPromoButton.onClick.AddListener(OnGetPromoButtonClicked);
     }
 
+    public void Activate()
+    {
+        _canvas.gameObject.SetActive(true); 
+        UpdateViewFromUserState(UnityConnector.Singleton.CurrentState);
+    }
+
     private void OnGetPromoButtonClicked()
     {
         UnityConnector.Singleton.OnGetPromoCodeButtonClicked(UnityConnector.Singleton.ActivePromoCode);
@@ -71,10 +79,14 @@ public class MainMenuManager : MonoBehaviour
 
     private void UpdateViewFromUserState(UserStates state)
     {
+
+        if (_canvas.gameObject.activeSelf == false)
+            return;
+
         switch (state)
         {
             case (UserStates.GameNotCompleted):
-                gameObject.SetActive(false);
+                OnGameNotCompleted();
                 break;
 
             case (UserStates.NotSubscribed):
@@ -103,8 +115,15 @@ public class MainMenuManager : MonoBehaviour
         _popupWindow.Hide();
     }
 
+    private void OnGameNotCompleted()
+    {
+        _canvas.gameObject.SetActive(false);
+    }
+
     private void OnRewardNotClaimed()
     {
+        _canvas.gameObject.SetActive(true);
+
         _subscribeButton.gameObject.SetActive(false);
         _getPromoButton.gameObject.SetActive(false);
 
@@ -116,6 +135,8 @@ public class MainMenuManager : MonoBehaviour
 
     private void OnRewardClaimed()
     {
+        _canvas.gameObject.SetActive(true);
+
         _subscribeButton.gameObject.SetActive(false);
         _secondPromoButton.gameObject.SetActive(false);
         _firstPromoButton.gameObject.SetActive(false);
@@ -128,6 +149,8 @@ public class MainMenuManager : MonoBehaviour
 
     private void OnNotSubscribed()
     {
+        _canvas.gameObject.SetActive(true);
+
         _secondPromoButton.gameObject.SetActive(false);
         _firstPromoButton.gameObject.SetActive(false);
         _getPromoButton.gameObject.SetActive(false);
