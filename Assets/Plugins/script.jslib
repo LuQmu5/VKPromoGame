@@ -11,10 +11,6 @@ mergeInto(LibraryManager.library, {
     onGameSceneInited();
   },
 
-  RequestJsOnSDKInited : function(){
-    onSDKInited();
-  },
-
   RequestJsOnGameCompleted : function(){
     onGameCompleted();
   },

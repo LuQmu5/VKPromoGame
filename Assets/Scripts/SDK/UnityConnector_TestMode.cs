@@ -2,11 +2,6 @@
 
 public class UnityConnector_TestMode : UnityConnector
 {
-    public override void OnSDKInited()
-    {
-        print("js function 'onSDKInited' not working in test mode");
-    }
-
     public override void OnCheckSubscribeRequested()
     {
         print("js function 'checkSubscribe' not working in test mode");

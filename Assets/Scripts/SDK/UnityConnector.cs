@@ -42,9 +42,6 @@ public class UnityConnector : MonoBehaviour
     private static extern void RequestJsOnGameSceneInited();
 
     [DllImport("__Internal")]
-    private static extern void RequestJsOnSDKInited();
-
-    [DllImport("__Internal")]
     private static extern void RequestJsOnGameCompleted();
 
     [DllImport("__Internal")]
@@ -70,28 +67,19 @@ public class UnityConnector : MonoBehaviour
         if (PlayerPrefs.HasKey(UserPromoCode))
             ActivePromoCode = PlayerPrefs.GetString(UserPromoCode);
 
-        OnSDKInited();
         LoadUserState();
 
-        AsyncOperation sceneLoading = SceneManager.LoadSceneAsync(GameSceneName);
-        sceneLoading.completed += OnGameSceneInited;
-    }
-
-    /// <summary>
-    /// вызывается автоматически на Init сцене в Awake
-    /// </summary>
-    public virtual void OnSDKInited()
-    {
-        RequestJsOnSDKInited();
+        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(GameSceneName);
+        asyncOperation.completed += OnGameSceneInited;
     }
 
     /// <summary>
     /// вызывается автоматически в момент загрузки игровой сцены
     /// </summary>
-    /// <param name="asyncOperation"></param>
     public virtual void OnGameSceneInited(AsyncOperation asyncOperation)
     {
         asyncOperation.completed -= OnGameSceneInited;
+
         RequestJsOnGameSceneInited();
     }
 
