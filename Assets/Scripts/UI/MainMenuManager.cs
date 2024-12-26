@@ -14,8 +14,6 @@ public class MainMenuManager : MonoBehaviour
     private const string UseFirstPromoPopupText = "Чтобы получить промокод нужно опубликовать историю, продолжить?";
     private const string UseSecondPromoPopupText = "Если вы используете этот промокод, то другой станет недоступен, продолжить?";
 
-    [SerializeField] private Canvas _canvas;
-
     [Header("Buttons")]
     [SerializeField] private Button _subscribeButton;
     [SerializeField] private Button _firstPromoButton;
@@ -73,16 +71,14 @@ public class MainMenuManager : MonoBehaviour
 
     private void UpdateViewFromUserState(UserStates state)
     {
-        _canvas.gameObject.SetActive(true);
-
         switch (state)
         {
-            case (UserStates.NotSubscribed):
-                OnNotSubscribed();
+            case (UserStates.GameNotCompleted):
+                gameObject.SetActive(false);
                 break;
 
-            case (UserStates.GameNotCompleted):
-                _canvas.gameObject.SetActive(false);
+            case (UserStates.NotSubscribed):
+                OnNotSubscribed();
                 break;
 
             case (UserStates.GameCompleted):

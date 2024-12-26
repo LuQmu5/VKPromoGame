@@ -46,6 +46,7 @@ public class PlayerController : MonoBehaviour
     public void StopLogic()
     {
         _input.HorizontalInput -= OnHorizontalInput;
+        _input.enabled = false;
         _view.SetVictoryTrigger();
     }
 

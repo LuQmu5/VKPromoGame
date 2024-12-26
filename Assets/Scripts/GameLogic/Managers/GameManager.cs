@@ -10,9 +10,9 @@ public class GameManager : IDisposable
     private readonly ObjectSpawner _objectSpawner;
     private readonly TutorialManager _tutorialManager;
     private readonly GameOverDisplay _gameOverDisplay;
-    private readonly MainMenuManager _mainMenuManager;
+
     private int _score = 0;
-    private int _maxScore = 3;
+    private int _maxScore = 10;
 
     [Inject]
     public GameManager(PlayerController playerController, ProgressDisplay scoreDisplay, ObjectSpawner objectSpawner,
