@@ -31,8 +31,6 @@ public class MainMenuManager : MonoBehaviour
 
     private void OnEnable()
     {
-        UpdateViewFromUserState(UnityConnector.Singleton.CurrentState);
-
         UnityConnector.Singleton.UserStateChanged += UpdateViewFromUserState;
 
         _subscribeButton.onClick.AddListener(OnSubscribeButtonClicked);
@@ -49,6 +47,11 @@ public class MainMenuManager : MonoBehaviour
         _firstPromoButton.onClick.RemoveListener(OnFirstPromoButtonClicked);
         _secondPromoButton.onClick.RemoveListener(OnSecondPromoButtonClicked);
         _getPromoButton.onClick.AddListener(OnGetPromoButtonClicked);
+    }
+
+    private void Start()
+    {
+        UpdateViewFromUserState(UnityConnector.Singleton.CurrentState);
     }
 
     public void Activate()
@@ -79,10 +82,6 @@ public class MainMenuManager : MonoBehaviour
 
     private void UpdateViewFromUserState(UserStates state)
     {
-
-        if (_canvas.gameObject.activeSelf == false)
-            return;
-
         switch (state)
         {
             case (UserStates.GameNotCompleted):
