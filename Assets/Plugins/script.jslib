@@ -3,8 +3,8 @@ mergeInto(LibraryManager.library, {
     promoButtonClicked(id);
   },
   
-    RequestJsCheckSubscribe: function () {
-      checkSubscribe();
+  RequestJsCheckSubscribe: function () {
+    checkSubscribe();
   },
 
   RequestJsOnGameSceneInited: function(){
@@ -21,5 +21,9 @@ mergeInto(LibraryManager.library, {
 
   RequestJsOnGameStarted : function(){
     onGameStarted();
+  },
+
+  RequestJsGetPromoCode: function(str){
+    getPromoCode(str);
   }
 });
