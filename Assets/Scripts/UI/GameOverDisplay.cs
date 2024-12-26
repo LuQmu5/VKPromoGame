@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class GameOverDisplay : MonoBehaviour
 {
-    [SerializeField] private MainMenuManager _mainMenuManager;
     [SerializeField] private Transform _wrapper;
     [SerializeField] private TMP_Text _text;
     [SerializeField] private Button _button;
@@ -32,7 +31,7 @@ public class GameOverDisplay : MonoBehaviour
 
     private void EndGame()
     {
-        _mainMenuManager.Activate();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         Hide();
     }
 }

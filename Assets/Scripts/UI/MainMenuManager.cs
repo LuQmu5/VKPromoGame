@@ -54,12 +54,6 @@ public class MainMenuManager : MonoBehaviour
         UpdateViewFromUserState(UnityConnector.Singleton.CurrentState);
     }
 
-    public void Activate()
-    {
-        _canvas.gameObject.SetActive(true); 
-        UpdateViewFromUserState(UnityConnector.Singleton.CurrentState);
-    }
-
     private void OnGetPromoButtonClicked()
     {
         UnityConnector.Singleton.OnGetPromoCodeButtonClicked(UnityConnector.Singleton.ActivePromoCode);
@@ -82,6 +76,9 @@ public class MainMenuManager : MonoBehaviour
 
     private void UpdateViewFromUserState(UserStates state)
     {
+        if (_canvas.gameObject.activeSelf == false)
+            return;
+
         switch (state)
         {
             case (UserStates.GameNotCompleted):

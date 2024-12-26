@@ -11,7 +11,7 @@ public class TutorialManager : MonoBehaviour
 
     private void OnEnable()
     {
-        UnityConnector.Singleton.UserStateChanged += OnUserStateChanged;
+        Invoke(nameof(DelayedSubscribeToInput), 0.5f);
         _playerInput.HorizontalInput += OnHorizontalInput;
     }
 
@@ -19,6 +19,11 @@ public class TutorialManager : MonoBehaviour
     {
         UnityConnector.Singleton.UserStateChanged -= OnUserStateChanged;
         _playerInput.HorizontalInput -= OnHorizontalInput;
+    }
+
+    private void DelayedSubscribeToInput()
+    {
+        UnityConnector.Singleton.UserStateChanged += OnUserStateChanged;
     }
 
     private void OnUserStateChanged(UserStates state)
