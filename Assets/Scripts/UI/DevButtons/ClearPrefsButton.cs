@@ -7,14 +7,6 @@ public class ClearPrefsButton : MonoBehaviour
 {
     [SerializeField] private Button _button;
 
-    private GameManager _gameManager;
-
-    [Inject]
-    public void Construct(GameManager gameManager)
-    {
-        _gameManager = gameManager;
-    }
-
     private void OnEnable()
     {
         _button.onClick.AddListener(OnButtonClicked);
@@ -32,6 +24,7 @@ public class ClearPrefsButton : MonoBehaviour
 
     private void OnButtonClicked()
     {
-        _gameManager.ClearPrefs();
+        UnityConnector.Singleton.OnResetUserState();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

@@ -31,8 +31,6 @@ public class MainMenuManager : MonoBehaviour
 
     private void OnEnable()
     {
-        UnityConnector.Singleton.UserStateChanged += UpdateViewFromUserState;
-
         _subscribeButton.onClick.AddListener(OnSubscribeButtonClicked);
         _firstPromoButton.onClick.AddListener(OnFirstPromoButtonClicked);
         _secondPromoButton.onClick.AddListener(OnSecondPromoButtonClicked);
@@ -41,17 +39,54 @@ public class MainMenuManager : MonoBehaviour
 
     private void OnDisable()
     {
-        UnityConnector.Singleton.UserStateChanged -= UpdateViewFromUserState;
-
         _subscribeButton.onClick.RemoveListener(OnSubscribeButtonClicked);
         _firstPromoButton.onClick.RemoveListener(OnFirstPromoButtonClicked);
         _secondPromoButton.onClick.RemoveListener(OnSecondPromoButtonClicked);
-        _getPromoButton.onClick.AddListener(OnGetPromoButtonClicked);
+        _getPromoButton.onClick.RemoveListener(OnGetPromoButtonClicked);
     }
 
-    private void Start()
+    public void OnGameNotCompleted()
     {
-        UpdateViewFromUserState(UnityConnector.Singleton.CurrentState);
+        _canvas.gameObject.SetActive(false);
+    }
+
+    public void OnGameCompleted()
+    {
+        _canvas.gameObject.SetActive(true);
+
+        _subscribeButton.gameObject.SetActive(false);
+        _getPromoButton.gameObject.SetActive(false);
+
+        _secondPromoButton.gameObject.SetActive(true);
+        _firstPromoButton.gameObject.SetActive(true);
+
+        _description.text = ClaimRewardText;
+    }
+
+    public void OnRewardClaimed()
+    {
+        _canvas.gameObject.SetActive(true);
+
+        _subscribeButton.gameObject.SetActive(false);
+        _secondPromoButton.gameObject.SetActive(false);
+        _firstPromoButton.gameObject.SetActive(false);
+
+        _getPromoButton.gameObject.SetActive(true);
+
+        _promoText.text = UnityConnector.Singleton.ActivePromoCode;
+        _description.text = RewardClaimedText;
+    }
+
+    public void OnNotSubscribed()
+    {
+        _canvas.gameObject.SetActive(true);
+
+        _secondPromoButton.gameObject.SetActive(false);
+        _firstPromoButton.gameObject.SetActive(false);
+        _getPromoButton.gameObject.SetActive(false);
+
+        _subscribeButton.gameObject.SetActive(true);
+        _description.text = RequestSubscribeText;
     }
 
     private void OnGetPromoButtonClicked()
@@ -74,31 +109,6 @@ public class MainMenuManager : MonoBehaviour
         _popupWindow.Show(UseSecondPromoPopupText, SecondPromoUse);
     }
 
-    private void UpdateViewFromUserState(UserStates state)
-    {
-        if (_canvas.gameObject.activeSelf == false)
-            return;
-
-        switch (state)
-        {
-            case (UserStates.GameNotCompleted):
-                OnGameNotCompleted();
-                break;
-
-            case (UserStates.NotSubscribed):
-                OnNotSubscribed();
-                break;
-
-            case (UserStates.GameCompleted):
-                OnRewardNotClaimed();
-                break;
-
-            case (UserStates.RewardClaimed):
-                OnRewardClaimed();
-                break;
-        }
-    }
-
     private void FirstPromoUse()
     {
         UnityConnector.Singleton.OnClaimRewardButtonClicked(PromoNames.TwelvePercent);
@@ -109,49 +119,5 @@ public class MainMenuManager : MonoBehaviour
     {
         UnityConnector.Singleton.OnClaimRewardButtonClicked(PromoNames.SevenPercent);
         _popupWindow.Hide();
-    }
-
-    private void OnGameNotCompleted()
-    {
-        _canvas.gameObject.SetActive(false);
-    }
-
-    private void OnRewardNotClaimed()
-    {
-        _canvas.gameObject.SetActive(true);
-
-        _subscribeButton.gameObject.SetActive(false);
-        _getPromoButton.gameObject.SetActive(false);
-
-        _secondPromoButton.gameObject.SetActive(true);
-        _firstPromoButton.gameObject.SetActive(true);
-
-        _description.text = ClaimRewardText;
-    }
-
-    private void OnRewardClaimed()
-    {
-        _canvas.gameObject.SetActive(true);
-
-        _subscribeButton.gameObject.SetActive(false);
-        _secondPromoButton.gameObject.SetActive(false);
-        _firstPromoButton.gameObject.SetActive(false);
-
-        _getPromoButton.gameObject.SetActive(true);
-
-        _promoText.text = UnityConnector.Singleton.ActivePromoCode;
-        _description.text = RewardClaimedText;
-    }
-
-    private void OnNotSubscribed()
-    {
-        _canvas.gameObject.SetActive(true);
-
-        _secondPromoButton.gameObject.SetActive(false);
-        _firstPromoButton.gameObject.SetActive(false);
-        _getPromoButton.gameObject.SetActive(false);
-
-        _subscribeButton.gameObject.SetActive(true);
-        _description.text = RequestSubscribeText;
     }
 }

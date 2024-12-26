@@ -11,8 +11,11 @@ public abstract class SpawnableObject : MonoBehaviour
         transform.Translate(Vector2.down * _fallSpeed * Time.deltaTime);
     }
 
-    private void OnBecameInvisible()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        gameObject.SetActive(false);
+        if (collision.TryGetComponent(out Ground ground))
+        {
+            gameObject.SetActive(false);
+        }
     }
 }

@@ -32,6 +32,5 @@ public class GameOverDisplay : MonoBehaviour
     private void EndGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        Hide();
     }
 }

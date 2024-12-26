@@ -7,29 +7,34 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private PlayerInput _playerInput;
     [SerializeField] private Image _wrapper;
 
+    private float _distanceToFinish = 100;
+    private float _currentDistance = 0;
+
     public event Action TutorialFinished;
 
     private void OnEnable()
     {
-        Invoke(nameof(DelayedSubscribeToInput), 0.5f);
-        UnityConnector.Singleton.UserStateChanged += OnUserStateChanged;
+        _playerInput.HorizontalInput += OnHorizontalInput;
     }
 
     private void OnDisable()
     {
-        UnityConnector.Singleton.UserStateChanged -= OnUserStateChanged;
         _playerInput.HorizontalInput -= OnHorizontalInput;
     }
 
-    private void DelayedSubscribeToInput()
+    private void Update()
     {
-        _playerInput.HorizontalInput += OnHorizontalInput;
+        print(_currentDistance);
     }
 
-    private void OnUserStateChanged(UserStates state)
+    public void Activate()
     {
-        bool isActive = state == UserStates.GameNotCompleted? true : false;
-        _wrapper.gameObject.SetActive(isActive);
+        _wrapper.gameObject.SetActive(true);
+    }
+
+    public void Deactivate()
+    {
+        _wrapper.gameObject.SetActive(false);
     }
 
     private void OnHorizontalInput(Vector3 target)
@@ -37,10 +42,17 @@ public class TutorialManager : MonoBehaviour
         if (_wrapper.gameObject.activeSelf == false)
             return;
 
-        float minMoveDelta = 2f;
+        float distanceDelta = Vector3.Distance(Vector3.zero, target);
+        float minDistance = 10;
 
-        if (Mathf.Abs(target.x) >= minMoveDelta)
+        if (distanceDelta <= minDistance)
+            return;
+
+        _currentDistance += distanceDelta;
+
+        if (_currentDistance >= _distanceToFinish)
         {
+            _currentDistance = 0;
             TutorialFinished?.Invoke();
             _wrapper.gameObject.SetActive(false);
         }

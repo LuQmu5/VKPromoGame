@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Zenject;
 
@@ -31,6 +32,8 @@ public class CompleteGameButton : MonoBehaviour
 
     private void OnButtonClicked()
     {
-        _gameManager.CompleteGame();
+        _gameManager.EndGame();
+        UnityConnector.Singleton.SaveState((int)UserStates.GameCompleted);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
