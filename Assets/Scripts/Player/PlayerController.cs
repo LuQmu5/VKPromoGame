@@ -43,8 +43,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void PlayVictoryAnimation()
+    public void StopLogic()
     {
+        _input.HorizontalInput -= OnHorizontalInput;
         _view.SetVictoryTrigger();
     }
 

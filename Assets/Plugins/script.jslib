@@ -1,21 +1,25 @@
 mergeInto(LibraryManager.library, {
-  RequestJsFirstPromoUse: function () {
-    firstPromoUse();
-  },
-
-  RequestJsSecondPromoUse: function () {
-    secondPromoUse();
+  RequestJsPromoButtonClicked: function (id) {
+    promoButtonClicked(id);
   },
   
     RequestJsCheckSubscribe: function () {
       checkSubscribe();
   },
 
-  RequestJsGetPromo: function(str){
-    getPromo(UTF8ToString(str));
-  },
-
   RequestJsOnGameSceneInited: function(){
     onGameSceneInited();
+  },
+
+  RequestJsOnSDKInited : function(){
+    onSDKInited();
+  },
+
+  RequestJsOnGameCompleted : function(){
+    onGameCompleted();
+  },
+
+  RequestJsOnGameStarted : function(){
+    onGameStarted();
   }
 });

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using UnityEngine.SceneManagement;
 using Zenject;
 
 public class GameManager : IDisposable
@@ -11,7 +12,7 @@ public class GameManager : IDisposable
     private readonly GameOverDisplay _gameOverDisplay;
     private readonly MainMenuManager _mainMenuManager;
     private int _score = 0;
-    private int _maxScore = 10;
+    private int _maxScore = 3;
 
     [Inject]
     public GameManager(PlayerController playerController, ProgressDisplay scoreDisplay, ObjectSpawner objectSpawner,
@@ -23,34 +24,19 @@ public class GameManager : IDisposable
         _tutorialManager = tutorialManager;
         _gameOverDisplay = gameOverDisplay;
 
-        _progressDisplay.Init(_maxScore);
-
         _playerController.SnowballCatched += DecreaseScore;
         _playerController.GiftCatched += IncreaseScore;
-
         _tutorialManager.TutorialFinished += OnTutorialFinished;
 
-
-        _progressDisplay.gameObject.SetActive(false);
-        _tutorialManager.gameObject.SetActive(false);
-
-        UnityConnector.Singleton.GameStarted += OnGameStarted;
-        UnityConnector.Singleton.OnGameSceneInited();
+        _progressDisplay.Init(_maxScore);
+        _progressDisplay.Hide();
     }
 
     public void Dispose()
     {
         _playerController.SnowballCatched -= DecreaseScore;
         _playerController.GiftCatched -= IncreaseScore;
-
         _tutorialManager.TutorialFinished -= OnTutorialFinished;
-
-        UnityConnector.Singleton.GameStarted -= OnGameStarted;
-    }
-
-    private void OnGameStarted()
-    {
-        _tutorialManager.gameObject.SetActive(true);
     }
 
     private void IncreaseScore()
@@ -60,16 +46,6 @@ public class GameManager : IDisposable
 
         if (_score >= _maxScore)
             HandleEndGame();
-    }
-
-    private void HandleEndGame()
-    {
-        UnityConnector.Singleton.OnGameCompleted();
-
-        _playerController.PlayVictoryAnimation();
-        _progressDisplay.gameObject.SetActive(false);
-        _objectSpawner.StopSpawn();
-        _gameOverDisplay.Show();
     }
 
     private void DecreaseScore()
@@ -83,14 +59,33 @@ public class GameManager : IDisposable
 
     private void OnTutorialFinished()
     {
-        _progressDisplay.gameObject.SetActive(true);
+        UnityConnector.Singleton.OnGameStarted();
+
+        _progressDisplay.Show();
         _objectSpawner.StartSpawn();
+    }
+
+    private void HandleEndGame()
+    {
+        UnityConnector.Singleton.OnGameCompleted();
+
+        _playerController.StopLogic();
+        _objectSpawner.StopSpawn();
+        _progressDisplay.Hide();
+        _gameOverDisplay.Show();
     }
 
     // dev tools
     public void CompleteGame()
     {
-        _tutorialManager.gameObject.SetActive(false);
-        HandleEndGame();
+        UnityConnector.Singleton.OnGameCompleted();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
+
+    public void ClearPrefs()
+    {
+        UnityConnector.Singleton.OnResetUserState();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+    // dev tools
 }

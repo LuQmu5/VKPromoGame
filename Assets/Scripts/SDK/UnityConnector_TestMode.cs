@@ -1,0 +1,48 @@
+﻿using UnityEngine;
+
+public class UnityConnector_TestMode : UnityConnector
+{
+    public override void OnSDKInited()
+    {
+        print("js function 'onSDKInited' not working in test mode");
+    }
+
+    public override void OnCheckSubscribeRequested()
+    {
+        print("js function 'checkSubscribe' not working in test mode");
+    }
+
+    public override void OnGameSceneInited(AsyncOperation asyncOperation)
+    {
+        print("js function 'onGameSceneInited' not working in test mode");
+        asyncOperation.completed -= OnGameSceneInited;
+        LoadUserState();
+    }
+
+    public override void OnGameStarted()
+    {
+        print("js function 'onGameStarted' not working in test mode");
+    }
+
+    public override void OnClaimRewardButtonClicked(PromoNames promoName)
+    {
+        print("js function 'getPromoCode' not working in test mode");
+
+        SetActivePromoCode(promoName.ToString());
+        SetNewState((int)UserStates.RewardClaimed);
+    }
+
+    public override void OnGameCompleted()
+    {
+        print("js function 'onGameCompleted' not working in test mode");
+
+        SetNewState((int)UserStates.GameCompleted);
+    }
+
+    public override void OnGetPromoCodeButtonClicked(string promoCode)
+    {
+        print("js function 'getPromoCode' not working in test mode");
+
+        print("Active promocode: " + promoCode);
+    }
+}

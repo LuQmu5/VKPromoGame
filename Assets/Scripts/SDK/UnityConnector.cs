@@ -5,17 +5,20 @@ using UnityEngine.SceneManagement;
 
 public enum UserStates
 {
+    NotSubscribed = 0,
     GameNotCompleted = 1,
     GameCompleted = 2,
     RewardClaimed = 3,
 }
 
+public enum PromoNames
+{
+    TwelvePercent = 0,
+    SevenPercent = 1
+}
 
 public class UnityConnector : MonoBehaviour
 {
-    [SerializeField] private bool _isTest = false;
-
-
     private const string UserState = nameof(UserState);
     private const string UserPromoCode = nameof(UserPromoCode);
     private const string GameSceneName = "Game";
@@ -23,29 +26,35 @@ public class UnityConnector : MonoBehaviour
 
     public static UnityConnector Singleton { get; private set; }
     public UserStates CurrentState { get; private set; } = UserStates.GameNotCompleted;
-    public string ActivePromoCode { get; private set; }
+    public string ActivePromoCode { get; protected set; }
 
 
     public event Action<UserStates> UserStateChanged;
-    public event Action GameStarted;
 
 
     [DllImport("__Internal")]
-    private static extern void RequestJsFirstPromoUse();
-
-    [DllImport("__Internal")]
-    private static extern void RequestJsSecondPromoUse();
+    private static extern void RequestJsClaimReward(int id);
 
     [DllImport("__Internal")]
     private static extern void RequestJsCheckSubscribe();
 
     [DllImport("__Internal")]
-    private static extern void RequestJsGetPromo(string str);
-
-    [DllImport("__Internal")]
     private static extern void RequestJsOnGameSceneInited();
 
+    [DllImport("__Internal")]
+    private static extern void RequestJsOnSDKInited();
 
+    [DllImport("__Internal")]
+    private static extern void RequestJsOnGameCompleted();
+
+    [DllImport("__Internal")]
+    private static extern void RequestJsOnGameStarted();
+
+    [DllImport("__Internal")]
+    private static extern void RequestJsGetPromoCode(string promoCode);
+
+
+    // Инициализация
     private void Awake()
     {
         if (Singleton == null)
@@ -61,99 +70,94 @@ public class UnityConnector : MonoBehaviour
         if (PlayerPrefs.HasKey(UserPromoCode))
             ActivePromoCode = PlayerPrefs.GetString(UserPromoCode);
 
+        OnSDKInited();
         LoadUserState();
-        SceneManager.LoadScene(GameSceneName);
+
+        AsyncOperation sceneLoading = SceneManager.LoadSceneAsync(GameSceneName);
+        sceneLoading.completed += OnGameSceneInited;
     }
 
-
-    // js requests from unity
-    public void OnGameSceneInited()
+    /// <summary>
+    /// вызывается автоматически на Init сцене в Awake
+    /// </summary>
+    public virtual void OnSDKInited()
     {
-        if (_isTest)
-        {
-            print("init scene request doesn't work in test mode");
-            return;
-        }
+        RequestJsOnSDKInited();
+    }
 
+    /// <summary>
+    /// вызывается автоматически в момент загрузки игровой сцены
+    /// </summary>
+    /// <param name="asyncOperation"></param>
+    public virtual void OnGameSceneInited(AsyncOperation asyncOperation)
+    {
+        asyncOperation.completed -= OnGameSceneInited;
         RequestJsOnGameSceneInited();
     }
 
-    public void OnCheckSubscribeRequested()
+    /// <summary>
+    /// можно вызывать во время начала игры для каких-либо взаимодействий с JS (а следовательно и с VK API)
+    /// </summary>
+    public virtual void OnGameStarted()
     {
-        if (_isTest)
-        {
-            print("check sub request doesn't work in test mode");
-            StartGame();
-            return;
-        }
+        RequestJsOnGameStarted();
+    }
 
+    /// <summary>
+    /// можно вызывать в момент завершения игры для каких-либо взаимодействий с JS (а следовательно и с VK API)
+    /// </summary>
+    public virtual void OnGameCompleted()
+    {
+        RequestJsOnGameCompleted();
+    }
+
+    /// <summary>
+    /// можно вызывать в момент, когда мы хотим проверить подписку юзера на группу через JS (через VK API)
+    /// </summary>
+    public virtual void OnCheckSubscribeRequested()
+    {
         RequestJsCheckSubscribe();
     }
     
-    public void OnFirstPromoUseRequested()
+    /// <summary>
+    /// вызываем в момент клика по получению промокода, 
+    /// </summary>
+    public virtual void OnClaimRewardButtonClicked(PromoNames promoName)
     {
-        if (_isTest)
-        {
-            print("first promo use request doesn't work in test mode");
-            SetActivePromoCode("first promo");
-            UpdateStateToRewardClaimed();
-            return;
-        }
-
-        RequestJsFirstPromoUse();
+        RequestJsClaimReward((int)promoName);
     }
 
-    public void OnSecondPromoUseRequested()
+    /// <summary>
+    /// для получения промокода с кнопки при нажатии и дальнейшем взаимодействии с ним в JS функции
+    /// </summary>
+    /// <param name="promoCode"></param>
+    public virtual void OnGetPromoCodeButtonClicked(string promoCode)
     {
-        if (_isTest)
-        {
-            print("second promo use request doesn't work in test mode");
-            SetActivePromoCode("second promo");
-            UpdateStateToRewardClaimed();
-            return;
-        }
-
-        RequestJsSecondPromoUse();
+        RequestJsGetPromoCode(promoCode);
     }
 
-    public void OnGetPromoRequested(string promo)
+    /// <summary>
+    /// Устанавливает и сохраняет актуальный промокод
+    /// </summary>
+    /// <param name="value"></param>
+    public void SetActivePromoCode(string value)
     {
-        if (_isTest)
-        {
-            print("get promo request doesn't work in test mode");
-            return;
-        }
-
-        RequestJsGetPromo(promo);
-    }
-    // js requests from unity
-
-
-    // in unity requests
-    public void OnGameCompleted()
-    {
-        SetNewState(UserStates.GameCompleted);
+        ActivePromoCode = value;
+        PlayerPrefs.SetString(UserPromoCode, ActivePromoCode);
     }
 
-    public void ResetState()
+    /// <summary>
+    /// Сброс состояния юзера (для тестов)
+    /// </summary>
+    public void OnResetUserState()
     {
         PlayerPrefs.DeleteAll();
-        SetNewState(UserStates.GameNotCompleted);
-    }
-    // in unity requests
-
-
-    // from js to unity game instance requests
-    public void StartGame()
-    {
-        GameStarted?.Invoke();
+        SetNewState((int)UserStates.GameNotCompleted);
     }
 
-    public void UpdateStateToRewardClaimed()
-    {
-        SetNewState(UserStates.RewardClaimed);
-    }
-
+    /// <summary>
+    /// Загружает последнее сохраненное состояние юзера и запускает событие UserStateChanged
+    /// </summary>
     public void LoadUserState()
     {
         if (PlayerPrefs.HasKey(UserState))
@@ -164,20 +168,23 @@ public class UnityConnector : MonoBehaviour
         UserStateChanged?.Invoke(CurrentState);
     }
 
-    public void SetActivePromoCode(string value)
+    /// <summary>
+    /// Значения: NotSubscribed = 0, GameNotCompleted = 1, GameCompleted = 2, RewardClaimed = 3,
+    /// </summary>
+    /// <param name="stateID"></param>
+    public void SetNewState(int stateID)
     {
-        ActivePromoCode = value;
-        PlayerPrefs.SetString(UserPromoCode, ActivePromoCode);
-    }
-    // from js to unity game instance requests
+        if (stateID < 0 || stateID > Enum.GetValues(typeof(UserStates)).Length)
+        {
+            stateID = 1;
+            return;
+        }
 
+        CurrentState = (UserStates)stateID;
 
-    // private methods
-    private void SetNewState(UserStates newState)
-    {
-        CurrentState = newState;
-        PlayerPrefs.SetInt(UserState, (int)CurrentState);
+        if (CurrentState != UserStates.NotSubscribed)
+            PlayerPrefs.SetInt(UserState, (int)CurrentState);
+
         UserStateChanged?.Invoke(CurrentState);
     }
-    // private methods
 }
