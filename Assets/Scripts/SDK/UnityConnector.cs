@@ -104,14 +104,9 @@ public class UnityConnector : MonoBehaviour
     {
         RequestJsCheckSubscribe();
     }
-
-    public virtual void OnGetPromoButtonClicked()
-    {
-        RequestJsGetPromo();
-    }
     
     /// <summary>
-    /// вызываем в момент клика по получению промокода
+    /// вызываем в момент клика по получению промокода, 
     /// </summary>
     public virtual void OnClaimRewardButtonClicked(PromoNames promoName)
     {
@@ -173,5 +168,20 @@ public class UnityConnector : MonoBehaviour
             PlayerPrefs.SetInt(UserState, (int)CurrentState);
 
         UserStateChanged?.Invoke(CurrentState);
+    }
+
+    /// <summary>
+    /// такой же как SetNewState(), но без изменения CurrentState-а в игре и события
+    /// </summary>
+    /// <param name="stateID"></param>
+    public void SaveState(int stateID)
+    {
+        if (stateID < 0 || stateID >= Enum.GetValues(typeof(UserStates)).Length)
+        {
+            stateID = 1;
+            return;
+        }
+
+        PlayerPrefs.SetInt(UserState, stateID);
     }
 }
