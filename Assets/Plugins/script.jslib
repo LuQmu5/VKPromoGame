@@ -19,7 +19,13 @@ mergeInto(LibraryManager.library, {
     onGameStarted();
   },
 
+<<<<<<< HEAD
   RequestJsGetPromo: function(){
     getPromo();
   },
+=======
+  RequestJsGetPromo : function(){
+    getPromo();
+  }
+>>>>>>> a0fba0e449c9f4e83395aa9cfac568667c3f5883
 });

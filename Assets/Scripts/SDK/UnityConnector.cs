@@ -128,6 +128,11 @@ public class UnityConnector : MonoBehaviour
         PlayerPrefs.SetString(UserPromoCode, ActivePromoCode);
     }
 
+    public virtual void OnGetPromoButtonClicked()
+    {
+        RequestJsGetPromo();
+    }
+
     /// <summary>
     /// —брос состо€ни€ юзера (дл€ тестов), после него нужно перезагрузить проект
     /// </summary>
