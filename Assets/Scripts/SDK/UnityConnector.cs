@@ -48,7 +48,7 @@ public class UnityConnector : MonoBehaviour
     private static extern void RequestJsOnGameStarted();
 
     [DllImport("__Internal")]
-    private static extern void RequestJsGetPromo();
+    private static extern void RequestJsGetPromo(string str);
 
 
     // Инициализация
@@ -107,7 +107,7 @@ public class UnityConnector : MonoBehaviour
 
     public virtual void OnGetPromoButtonClicked()
     {
-        RequestJsGetPromo();
+        RequestJsGetPromo(PlayerPrefs.GetString(UserPromoCode));
     }
     
     /// <summary>

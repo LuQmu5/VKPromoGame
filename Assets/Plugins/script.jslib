@@ -19,7 +19,7 @@ mergeInto(LibraryManager.library, {
     onGameStarted();
   },
 
-  RequestJsGetPromo: function(){
-    getPromo();
+  RequestJsGetPromo: function(str){
+    getPromo(str);
   },
 });
