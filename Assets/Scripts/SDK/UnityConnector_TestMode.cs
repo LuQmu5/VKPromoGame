@@ -5,13 +5,15 @@ public class UnityConnector_TestMode : UnityConnector
     public override void OnCheckSubscribeRequested()
     {
         print("js function 'checkSubscribe' not working in test mode");
+        SetNewState((int)UserStates.GameNotCompleted);
     }
 
     public override void OnGameSceneInited(AsyncOperation asyncOperation)
     {
+        FindObjectOfType<MainMenuManager>().HideSubscribeCurtain();
+        LoadUserState();
         print("js function 'onGameSceneInited' not working in test mode");
         asyncOperation.completed -= OnGameSceneInited;
-        LoadUserState();
     }
 
     public override void OnGameStarted()
@@ -34,10 +36,9 @@ public class UnityConnector_TestMode : UnityConnector
         SetNewState((int)UserStates.GameCompleted);
     }
 
-    public override void OnGetPromoCodeButtonClicked(string promoCode)
+    public override void OnGetPromoButtonClicked()
     {
-        print("js function 'getPromoCode' not working in test mode");
-
-        print("Active promocode: " + promoCode);
+        print("js function 'getPromo' not working in test mode");
+        print(ActivePromoCode);
     }
 }

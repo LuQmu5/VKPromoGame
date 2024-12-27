@@ -48,7 +48,7 @@ public class UnityConnector : MonoBehaviour
     private static extern void RequestJsOnGameStarted();
 
     [DllImport("__Internal")]
-    private static extern void RequestJsGetPromoCode(string promoCode);
+    private static extern void RequestJsGetPromo();
 
 
     // Инициализация
@@ -74,13 +74,11 @@ public class UnityConnector : MonoBehaviour
     }
 
     /// <summary>
-    /// вызывается автоматически в момент загрузки игровой сцены. NOTE: не успевает загрузить
+    /// вызывается автоматически в момент загрузки игровой сцены. NOTE: вызывается функцией в index.html скрипте в результате onload для unityInstance
     /// </summary>
     public virtual void OnGameSceneInited(AsyncOperation asyncOperation)
     {
         asyncOperation.completed -= OnGameSceneInited;
-
-        // RequestJsOnGameSceneInited(); // не успевает загрузить
     }
 
     /// <summary>
@@ -106,22 +104,18 @@ public class UnityConnector : MonoBehaviour
     {
         RequestJsCheckSubscribe();
     }
+
+    public virtual void OnGetPromoButtonClicked()
+    {
+        RequestJsGetPromo();
+    }
     
     /// <summary>
-    /// вызываем в момент клика по получению промокода, 
+    /// вызываем в момент клика по получению промокода
     /// </summary>
     public virtual void OnClaimRewardButtonClicked(PromoNames promoName)
     {
         RequestJsClaimReward((int)promoName);
-    }
-
-    /// <summary>
-    /// для получения промокода с кнопки при нажатии и дальнейшем взаимодействии с ним в JS функции
-    /// </summary>
-    /// <param name="promoCode"></param>
-    public virtual void OnGetPromoCodeButtonClicked(string promoCode)
-    {
-        RequestJsGetPromoCode(promoCode);
     }
 
     /// <summary>
@@ -135,12 +129,12 @@ public class UnityConnector : MonoBehaviour
     }
 
     /// <summary>
-    /// Сброс состояния юзера (для тестов)
+    /// Сброс состояния юзера (для тестов), после него нужно перезагрузить проект
     /// </summary>
     public void OnResetUserState()
     {
+        print("prefs cleared, restart game");
         PlayerPrefs.DeleteAll();
-        SetNewState((int)UserStates.GameNotCompleted);
     }
 
     /// <summary>
@@ -174,20 +168,5 @@ public class UnityConnector : MonoBehaviour
             PlayerPrefs.SetInt(UserState, (int)CurrentState);
 
         UserStateChanged?.Invoke(CurrentState);
-    }
-
-    /// <summary>
-    /// такой же как SetNewState(), но без изменения CurrentState-а в игре и события
-    /// </summary>
-    /// <param name="stateID"></param>
-    public void SaveState(int stateID)
-    {
-        if (stateID < 0 || stateID >= Enum.GetValues(typeof(UserStates)).Length)
-        {
-            stateID = 1;
-            return;
-        }
-
-        PlayerPrefs.SetInt(UserState, stateID);
     }
 }

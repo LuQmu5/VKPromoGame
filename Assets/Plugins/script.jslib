@@ -7,7 +7,6 @@ mergeInto(LibraryManager.library, {
     checkSubscribe();
   },
 
-  // не успевает загрузить
   RequestJsOnGameSceneInited: function(){
     onGameSceneInited();
   },
@@ -20,7 +19,7 @@ mergeInto(LibraryManager.library, {
     onGameStarted();
   },
 
-  RequestJsGetPromoCode: function(str){
-    getPromoCode(str);
-  }
+  RequestJsGetPromo: function(){
+    getPromo();
+  },
 });

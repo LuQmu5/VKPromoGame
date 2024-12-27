@@ -8,6 +8,7 @@ public class GameOverDisplay : MonoBehaviour
     [SerializeField] private Transform _wrapper;
     [SerializeField] private TMP_Text _text;
     [SerializeField] private Button _button;
+    [SerializeField] private MainMenuManager _menuManager;
 
     private void OnEnable()
     {
@@ -31,6 +32,7 @@ public class GameOverDisplay : MonoBehaviour
 
     private void EndGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        Hide();
+        _menuManager.Show();
     }
 }

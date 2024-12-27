@@ -1,7 +1,5 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using Zenject;
 
 public class ClearPrefsButton : MonoBehaviour
 {
@@ -25,6 +23,5 @@ public class ClearPrefsButton : MonoBehaviour
     private void OnButtonClicked()
     {
         UnityConnector.Singleton.OnResetUserState();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

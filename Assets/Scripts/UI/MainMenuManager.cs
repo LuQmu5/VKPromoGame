@@ -1,30 +1,31 @@
 using System;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
-using Zenject.Asteroids;
 
 public class MainMenuManager : MonoBehaviour
 {
     private const string RequestSubscribeText = "Подпишитесь на нашу группу, чтобы сыграть в игру и получить промокод";
     private const string ClaimRewardText = "Выберите вашу награду! Вы можете взять только одну";
-    private const string RewardClaimedText = "Ваш промокод ниже был также дублирован в личные сообщения";
+    private const string RewardClaimedText = "Нажмите на кнопку ниже, чтобы скопировать ваш промокод";
 
     private const string UseFirstPromoPopupText = "Чтобы получить промокод нужно опубликовать историю, продолжить?";
     private const string UseSecondPromoPopupText = "Если вы используете этот промокод, то другой станет недоступен, продолжить?";
 
+    [Header("Curtains")]
     [SerializeField] private Canvas _canvas;
+    [SerializeField] private Image _subscribeCurtain;
 
     [Header("Buttons")]
     [SerializeField] private Button _subscribeButton;
     [SerializeField] private Button _firstPromoButton;
     [SerializeField] private Button _secondPromoButton;
+
+    [Header("Promo")]
     [SerializeField] private Button _getPromoButton;
 
     [Header("Text")]
     [SerializeField] private TMP_Text _description;
-    [SerializeField] private TMP_Text _promoText;
 
     [Header("Popup Window")]
     [SerializeField] private PopupWindowDisplay _popupWindow;
@@ -45,6 +46,17 @@ public class MainMenuManager : MonoBehaviour
         _getPromoButton.onClick.RemoveListener(OnGetPromoButtonClicked);
     }
 
+    public void Show()
+    {
+        _canvas.gameObject.SetActive(true);
+        _subscribeCurtain.gameObject.SetActive(false);
+    }
+
+    public void HideSubscribeCurtain()
+    {
+        _subscribeCurtain.gameObject.SetActive(false);
+    }
+
     public void OnGameNotCompleted()
     {
         _canvas.gameObject.SetActive(false);
@@ -52,13 +64,10 @@ public class MainMenuManager : MonoBehaviour
 
     public void OnGameCompleted()
     {
-        _canvas.gameObject.SetActive(true);
-
         _subscribeButton.gameObject.SetActive(false);
-        _getPromoButton.gameObject.SetActive(false);
-
         _secondPromoButton.gameObject.SetActive(true);
         _firstPromoButton.gameObject.SetActive(true);
+        _getPromoButton.gameObject.SetActive(false);
 
         _description.text = ClaimRewardText;
     }
@@ -67,13 +76,13 @@ public class MainMenuManager : MonoBehaviour
     {
         _canvas.gameObject.SetActive(true);
 
+        _getPromoButton.gameObject.SetActive(true);
+        _getPromoButton.GetComponentInChildren<TMP_Text>().text = UnityConnector.Singleton.ActivePromoCode;
+
         _subscribeButton.gameObject.SetActive(false);
         _secondPromoButton.gameObject.SetActive(false);
         _firstPromoButton.gameObject.SetActive(false);
 
-        _getPromoButton.gameObject.SetActive(true);
-
-        _promoText.text = UnityConnector.Singleton.ActivePromoCode;
         _description.text = RewardClaimedText;
     }
 
@@ -81,17 +90,17 @@ public class MainMenuManager : MonoBehaviour
     {
         _canvas.gameObject.SetActive(true);
 
+        _getPromoButton.gameObject.SetActive(false);
         _secondPromoButton.gameObject.SetActive(false);
         _firstPromoButton.gameObject.SetActive(false);
-        _getPromoButton.gameObject.SetActive(false);
-
         _subscribeButton.gameObject.SetActive(true);
+
         _description.text = RequestSubscribeText;
     }
 
     private void OnGetPromoButtonClicked()
     {
-        UnityConnector.Singleton.OnGetPromoCodeButtonClicked(UnityConnector.Singleton.ActivePromoCode);
+        UnityConnector.Singleton.OnGetPromoButtonClicked();
     }
 
     private void OnSubscribeButtonClicked()
