@@ -81,6 +81,8 @@ public class MainMenuManager : MonoBehaviour
         _canvas.gameObject.SetActive(true);
         _getPromoButton.gameObject.SetActive(true);
 
+        _getPromoButton.GetComponentInChildren<TMP_Text>().text = UnityConnector.Singleton.ActivePromoCode;
+
         _subscribeButton.gameObject.SetActive(false);
         _secondPromoButton.gameObject.SetActive(false);
         _firstPromoButton.gameObject.SetActive(false);
