@@ -18,4 +18,8 @@ mergeInto(LibraryManager.library, {
   RequestJsOnGameStarted : function(){
     onGameStarted();
   },
+
+  RequestJsGetPromo : function(){
+    getPromo();
+  }
 });
