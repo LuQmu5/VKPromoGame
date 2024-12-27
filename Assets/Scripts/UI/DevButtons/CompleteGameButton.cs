@@ -32,8 +32,7 @@ public class CompleteGameButton : MonoBehaviour
 
     private void OnButtonClicked()
     {
+        UnityConnector.Singleton.SetNewState((int)UserStates.GameCompleted);
         _gameManager.EndGame();
-        UnityConnector.Singleton.SaveState((int)UserStates.GameCompleted);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

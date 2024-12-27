@@ -3186,6 +3186,7 @@ MonoBehaviour:
   _wrapper: {fileID: 1117862280}
   _text: {fileID: 1809555206}
   _button: {fileID: 1471632401}
+  _menuManager: {fileID: 3037693867247327056}
 --- !u!1 &1061650837
 GameObject:
   m_ObjectHideFlags: 0
@@ -8064,8 +8065,8 @@ RectTransform:
   - {fileID: 4659255008068163870}
   - {fileID: 6095250175369976482}
   - {fileID: 377514509}
-  - {fileID: 955784592}
   - {fileID: 1177420731}
+  - {fileID: 955784592}
   m_Father: {fileID: 7472684072875525022}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}

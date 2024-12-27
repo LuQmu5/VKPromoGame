@@ -41,6 +41,12 @@ public class MainMenuManager : MonoBehaviour
         _secondPromoButton.onClick.RemoveListener(OnSecondPromoButtonClicked);
     }
 
+    public void Show()
+    {
+        _canvas.gameObject.SetActive(true);
+        _subscribeCurtain.gameObject.SetActive(false);
+    }
+
     public void HideSubscribeCurtain()
     {
         _subscribeCurtain.gameObject.SetActive(false);
@@ -53,8 +59,6 @@ public class MainMenuManager : MonoBehaviour
 
     public void OnGameCompleted()
     {
-        _canvas.gameObject.SetActive(true);
-
         _subscribeButton.gameObject.SetActive(false);
         _secondPromoButton.gameObject.SetActive(true);
         _firstPromoButton.gameObject.SetActive(true);

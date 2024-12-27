@@ -121,12 +121,12 @@ public class UnityConnector : MonoBehaviour
     }
 
     /// <summary>
-    /// —брос состо€ни€ юзера (дл€ тестов)
+    /// —брос состо€ни€ юзера (дл€ тестов), после него нужно перезагрузить проект
     /// </summary>
     public void OnResetUserState()
     {
+        print("prefs cleared, restart game");
         PlayerPrefs.DeleteAll();
-        SetNewState((int)UserStates.GameNotCompleted);
     }
 
     /// <summary>

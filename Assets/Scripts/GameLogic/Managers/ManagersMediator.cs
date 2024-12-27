@@ -74,7 +74,7 @@ public class ManagersMediator : IDisposable
 
     private void OnGameFinished()
     {
-        UnityConnector.Singleton.SaveState((int)UserStates.GameCompleted);
+        UnityConnector.Singleton.SetNewState((int)UserStates.GameCompleted);
         _gameManager.EndGame();
     }
 
