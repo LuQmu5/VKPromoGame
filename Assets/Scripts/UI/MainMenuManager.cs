@@ -44,6 +44,11 @@ public class MainMenuManager : MonoBehaviour
         _getPromoButton.onClick.RemoveListener(OnGetPromoButtonButtonClicked);
     }
 
+    private void Start()
+    {
+        _getPromoButton.GetComponentInChildren<TMP_Text>().text = UnityConnector.Singleton.ActivePromoCode;
+    }
+
     public void Show()
     {
         _canvas.gameObject.SetActive(true);
