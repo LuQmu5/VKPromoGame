@@ -363,7 +363,7 @@ ScriptedImporter:
       x: 4
       y: 440
       width: 543
-      height: 429
+      height: 425
     spriteID: ddd706cc7d7061e4f9beebd2da3be215
     spriteBone: []
     spriteOutline: []
@@ -430,7 +430,7 @@ ScriptedImporter:
   - name: WebGL
     overridden: 1
     ignorePlatformSupport: 0
-    maxTextureSize: 1024
+    maxTextureSize: 512
     resizeAlgorithm: 0
     textureFormat: 12
     textureCompression: 1
@@ -611,7 +611,7 @@ ScriptedImporter:
   rigPSDLayers: []
   sharedRigPSDLayers: []
   importFileNodeState: 1
-  platformSettingsDirtyTick: 638709403439984000
+  platformSettingsDirtyTick: 638709481946774390
   spriteSizeExpandChanged: 0
   generateGOHierarchy: 0
   textureAssetName: 
