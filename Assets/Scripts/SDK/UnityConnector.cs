@@ -47,9 +47,6 @@ public class UnityConnector : MonoBehaviour
     [DllImport("__Internal")]
     private static extern void RequestJsOnGameStarted();
 
-    [DllImport("__Internal")]
-    private static extern void RequestJsGetPromoCode(string promoCode);
-
 
     // Инициализация
     private void Awake()
