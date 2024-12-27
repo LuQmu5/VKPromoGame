@@ -74,13 +74,11 @@ public class UnityConnector : MonoBehaviour
     }
 
     /// <summary>
-    /// вызывается автоматически в момент загрузки игровой сцены. NOTE: не успевает загрузить
+    /// вызывается автоматически в момент загрузки игровой сцены. NOTE: вызывается функцией в index.html скрипте в результате onload для unityInstance
     /// </summary>
     public virtual void OnGameSceneInited(AsyncOperation asyncOperation)
     {
         asyncOperation.completed -= OnGameSceneInited;
-
-        // RequestJsOnGameSceneInited(); // не успевает загрузить
     }
 
     /// <summary>

@@ -7,12 +7,14 @@ public class MainMenuManager : MonoBehaviour
 {
     private const string RequestSubscribeText = "Подпишитесь на нашу группу, чтобы сыграть в игру и получить промокод";
     private const string ClaimRewardText = "Выберите вашу награду! Вы можете взять только одну";
-    private const string RewardClaimedText = "Ваш промокод ниже был также дублирован в личные сообщения";
+    private const string RewardClaimedText = "Ваш промокод ниже был выслан вам в личные сообщения";
 
     private const string UseFirstPromoPopupText = "Чтобы получить промокод нужно опубликовать историю, продолжить?";
     private const string UseSecondPromoPopupText = "Если вы используете этот промокод, то другой станет недоступен, продолжить?";
 
+    [Header("Curtains")]
     [SerializeField] private Canvas _canvas;
+    [SerializeField] private Image _subscribeCurtain;
 
     [Header("Buttons")]
     [SerializeField] private Button _subscribeButton;
@@ -37,6 +39,11 @@ public class MainMenuManager : MonoBehaviour
         _subscribeButton.onClick.RemoveListener(OnSubscribeButtonClicked);
         _firstPromoButton.onClick.RemoveListener(OnFirstPromoButtonClicked);
         _secondPromoButton.onClick.RemoveListener(OnSecondPromoButtonClicked);
+    }
+
+    public void HideSubscribeCurtain()
+    {
+        _subscribeCurtain.gameObject.SetActive(false);
     }
 
     public void OnGameNotCompleted()

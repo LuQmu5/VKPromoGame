@@ -9,6 +9,7 @@ public class UnityConnector_TestMode : UnityConnector
 
     public override void OnGameSceneInited(AsyncOperation asyncOperation)
     {
+        FindObjectOfType<MainMenuManager>().HideSubscribeCurtain();
         print("js function 'onGameSceneInited' not working in test mode");
         asyncOperation.completed -= OnGameSceneInited;
         LoadUserState();
