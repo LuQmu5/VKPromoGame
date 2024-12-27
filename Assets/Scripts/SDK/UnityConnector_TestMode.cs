@@ -5,12 +5,14 @@ public class UnityConnector_TestMode : UnityConnector
     public override void OnCheckSubscribeRequested()
     {
         print("js function 'checkSubscribe' not working in test mode");
+        SetNewState((int)UserStates.GameNotCompleted);
     }
 
     public override void OnGameSceneInited(AsyncOperation asyncOperation)
     {
         FindObjectOfType<MainMenuManager>().HideSubscribeCurtain();
-        LoadUserState();
+        // LoadUserState();
+        SetNewState((int)UserStates.NotSubscribed);
         print("js function 'onGameSceneInited' not working in test mode");
         asyncOperation.completed -= OnGameSceneInited;
     }

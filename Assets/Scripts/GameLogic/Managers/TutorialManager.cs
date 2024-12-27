@@ -4,58 +4,42 @@ using UnityEngine.UI;
 
 public class TutorialManager : MonoBehaviour
 {
-    [SerializeField] private PlayerInput _playerInput;
     [SerializeField] private Image _wrapper;
-    [SerializeField] private Canvas _mainMenuCanvas;
+    [SerializeField] private float _distanceToFinish = 100;
+    [SerializeField] private float _minShowTimer = 2f;
 
-    private float _distanceToFinish = 100;
     private float _currentDistance = 0;
-    private bool _isActive = false;
 
     public event Action TutorialFinished;
 
-    private void OnEnable()
+    private void Start()
     {
-        _playerInput.HorizontalInput += OnHorizontalInput;
-    }
-
-    private void OnDisable()
-    {
-        _playerInput.HorizontalInput -= OnHorizontalInput;
+        _distanceToFinish = ScreenInfo.IsLandscape() ? Screen.width * 0.05f : Screen.width * 0.075f;
+        print(_distanceToFinish);
+        Deactivate();
     }
 
     public void Activate()
     {
         _wrapper.gameObject.SetActive(true);
-        Invoke(nameof(DelayActivating), 0.5f);
     }
 
     public void Deactivate()
     {
-        _isActive = false;
         _wrapper.gameObject.SetActive(false);
     }
 
-    private void DelayActivating()
+    private void Update()
     {
-        _isActive = true;
-    }
-
-    private void OnHorizontalInput(Vector3 target)
-    {
-        if (_wrapper.gameObject.activeSelf == false || _mainMenuCanvas.gameObject.activeSelf || _isActive == false)
+        if (_wrapper.gameObject.activeSelf == false)
             return;
 
-        print("hor inp");
-        float distanceDelta = Vector3.Distance(Vector3.zero, target);
-        float minDistance = 10;
+        if (_minShowTimer > 0)
+            _minShowTimer -= Time.deltaTime;
 
-        if (distanceDelta <= minDistance)
-            return;
+        _currentDistance += Mathf.Abs(Input.GetAxis("Mouse X"));
 
-        _currentDistance += distanceDelta;
-
-        if (_currentDistance >= _distanceToFinish)
+        if (_currentDistance >= _distanceToFinish && _minShowTimer <= 0)
         {
             _currentDistance = 0;
             TutorialFinished?.Invoke();
