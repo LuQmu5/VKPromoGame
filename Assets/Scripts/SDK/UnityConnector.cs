@@ -116,15 +116,6 @@ public class UnityConnector : MonoBehaviour
     }
 
     /// <summary>
-    /// для получения промокода с кнопки при нажатии и дальнейшем взаимодействии с ним в JS функции
-    /// </summary>
-    /// <param name="promoCode"></param>
-    public virtual void OnGetPromoCodeButtonClicked(string promoCode)
-    {
-        RequestJsGetPromoCode(promoCode);
-    }
-
-    /// <summary>
     /// Устанавливает и сохраняет актуальный промокод
     /// </summary>
     /// <param name="value"></param>

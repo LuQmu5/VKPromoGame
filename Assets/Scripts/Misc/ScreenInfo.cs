@@ -38,6 +38,11 @@ public static class ScreenInfo
         }
     }
 
+    public static bool IsLandscape()
+    {
+        return Screen.width > Screen.height;
+    }
+
     public static Vector3 GetMouseWorldPosition()
     {
         Vector3 tapPosition = Input.mousePosition;

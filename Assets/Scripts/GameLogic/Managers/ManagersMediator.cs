@@ -90,8 +90,8 @@ public class ManagersMediator : IDisposable
 
     private void OnGameNotCompleted()
     {
-        _tutorialManager.Activate();
         _mainMenuManager.OnGameNotCompleted();
+        _tutorialManager.Activate();
     }
 
     private void OnRewardClaimed()

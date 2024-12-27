@@ -10,6 +10,7 @@ public class TutorialManager : MonoBehaviour
 
     private float _distanceToFinish = 100;
     private float _currentDistance = 0;
+    private bool _isActive = false;
 
     public event Action TutorialFinished;
 
@@ -23,24 +24,26 @@ public class TutorialManager : MonoBehaviour
         _playerInput.HorizontalInput -= OnHorizontalInput;
     }
 
-    private void Start()
-    {
-        _distanceToFinish = Screen.width / 2;
-    }
-
     public void Activate()
     {
         _wrapper.gameObject.SetActive(true);
+        Invoke(nameof(DelayActivating), 0.5f);
     }
 
     public void Deactivate()
     {
+        _isActive = false;
         _wrapper.gameObject.SetActive(false);
+    }
+
+    private void DelayActivating()
+    {
+        _isActive = true;
     }
 
     private void OnHorizontalInput(Vector3 target)
     {
-        if (_wrapper.gameObject.activeSelf == false || _mainMenuCanvas.gameObject.activeSelf)
+        if (_wrapper.gameObject.activeSelf == false || _mainMenuCanvas.gameObject.activeSelf || _isActive == false)
             return;
 
         print("hor inp");

@@ -1,9 +1,7 @@
 using System;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
-using Zenject.Asteroids;
 
 public class MainMenuManager : MonoBehaviour
 {
@@ -20,11 +18,9 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] private Button _subscribeButton;
     [SerializeField] private Button _firstPromoButton;
     [SerializeField] private Button _secondPromoButton;
-    [SerializeField] private Button _getPromoButton;
 
     [Header("Text")]
     [SerializeField] private TMP_Text _description;
-    [SerializeField] private TMP_Text _promoText;
 
     [Header("Popup Window")]
     [SerializeField] private PopupWindowDisplay _popupWindow;
@@ -34,7 +30,6 @@ public class MainMenuManager : MonoBehaviour
         _subscribeButton.onClick.AddListener(OnSubscribeButtonClicked);
         _firstPromoButton.onClick.AddListener(OnFirstPromoButtonClicked);
         _secondPromoButton.onClick.AddListener(OnSecondPromoButtonClicked);
-        _getPromoButton.onClick.AddListener(OnGetPromoButtonClicked);
     }
 
     private void OnDisable()
@@ -42,7 +37,6 @@ public class MainMenuManager : MonoBehaviour
         _subscribeButton.onClick.RemoveListener(OnSubscribeButtonClicked);
         _firstPromoButton.onClick.RemoveListener(OnFirstPromoButtonClicked);
         _secondPromoButton.onClick.RemoveListener(OnSecondPromoButtonClicked);
-        _getPromoButton.onClick.RemoveListener(OnGetPromoButtonClicked);
     }
 
     public void OnGameNotCompleted()
@@ -55,8 +49,6 @@ public class MainMenuManager : MonoBehaviour
         _canvas.gameObject.SetActive(true);
 
         _subscribeButton.gameObject.SetActive(false);
-        _getPromoButton.gameObject.SetActive(false);
-
         _secondPromoButton.gameObject.SetActive(true);
         _firstPromoButton.gameObject.SetActive(true);
 
@@ -71,9 +63,6 @@ public class MainMenuManager : MonoBehaviour
         _secondPromoButton.gameObject.SetActive(false);
         _firstPromoButton.gameObject.SetActive(false);
 
-        _getPromoButton.gameObject.SetActive(true);
-
-        _promoText.text = UnityConnector.Singleton.ActivePromoCode;
         _description.text = RewardClaimedText;
     }
 
@@ -83,15 +72,9 @@ public class MainMenuManager : MonoBehaviour
 
         _secondPromoButton.gameObject.SetActive(false);
         _firstPromoButton.gameObject.SetActive(false);
-        _getPromoButton.gameObject.SetActive(false);
-
         _subscribeButton.gameObject.SetActive(true);
-        _description.text = RequestSubscribeText;
-    }
 
-    private void OnGetPromoButtonClicked()
-    {
-        UnityConnector.Singleton.OnGetPromoCodeButtonClicked(UnityConnector.Singleton.ActivePromoCode);
+        _description.text = RequestSubscribeText;
     }
 
     private void OnSubscribeButtonClicked()

@@ -33,11 +33,4 @@ public class UnityConnector_TestMode : UnityConnector
 
         SetNewState((int)UserStates.GameCompleted);
     }
-
-    public override void OnGetPromoCodeButtonClicked(string promoCode)
-    {
-        print("js function 'getPromoCode' not working in test mode");
-
-        print("Active promocode: " + promoCode);
-    }
 }
