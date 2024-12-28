@@ -45,7 +45,7 @@ public class GameManager : IDisposable
 
     public void EndGame()
     {
-        _playerController.StopLogic();
+        _playerController.OnVictory();
         _objectSpawner.StopSpawn();
         _progressDisplay.Hide();
         _gameOverDisplay.Show();

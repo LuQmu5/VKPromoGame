@@ -20,6 +20,7 @@ public class GameInstaller : MonoInstaller
         Container.BindInstance(_mainMenuManager).AsSingle();
 
         Container.Bind<ObjectFactory>().AsSingle();
+        Container.Bind<ParticleFactory>().AsSingle();
         Container.BindInterfacesAndSelfTo<GameManager>().AsSingle();
 
         Container.BindInterfacesAndSelfTo<ManagersMediator>().AsSingle().NonLazy();

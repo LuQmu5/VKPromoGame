@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ObjectFactory
 {
-    private const string SpawnableObjectPath = "Prefabs";
+    private const string SpawnableObjectPath = "Prefabs/SpawnObjects";
 
     private SpawnableObject[] _prefabs;
     private List<SpawnableObject> _pool = new List<SpawnableObject>();

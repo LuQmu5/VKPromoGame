@@ -1,4 +1,6 @@
-﻿public class Snowball : SpawnableObject
+﻿using UnityEngine;
+
+public class Snowball : SpawnableObject
 {
 
 }
