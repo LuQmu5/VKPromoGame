@@ -103,7 +103,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SpriteRenderer: {fileID: 8610026435410875048}
-  _fallSpeed: 2
+  _fallSpeed: 3
   <Type>k__BackingField: 1
 --- !u!58 &7941622879237416594
 CircleCollider2D:

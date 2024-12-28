@@ -12,7 +12,7 @@ public class GameManager : IDisposable
     private readonly GameOverDisplay _gameOverDisplay;
 
     private int _score = 0;
-    private int _maxScore = 3;
+    private int _maxScore = 10;
 
     public event UnityAction GameFinished;
 
