@@ -122,7 +122,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 872}
-    spritePosition: {x: 711, y: 173}
+    spritePosition: {x: 591, y: 53}
   - name: "\u0412\u0435\u043A\u0442\u043E\u0440\u043D\u044B\u0439 \u0441\u043C\u0430\u0440\u0442-\u043E\u0431\u044A\u0435\u043A\u0442
       #9"
     originalName: 
@@ -145,7 +145,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 999, y: 872}
-    spritePosition: {x: 537, y: 141}
+    spritePosition: {x: 417, y: 21}
   - name: "2 \u043B\u0438\u0446\u043E"
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -167,7 +167,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 1168, y: 4}
-    spritePosition: {x: 186, y: 789}
+    spritePosition: {x: 66, y: 669}
   - name: "\u0412\u0435\u043A\u0442\u043E\u0440\u043D\u044B\u0439 \u0441\u043C\u0430\u0440\u0442-\u043E\u0431\u044A\u0435\u043A\u0442
       #8"
     originalName: 
@@ -190,7 +190,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 571, y: 4}
-    spritePosition: {x: 183, y: 787}
+    spritePosition: {x: 63, y: 667}
   - name: "\u0412\u0435\u043A\u0442\u043E\u0440\u043D\u044B\u0439 \u0441\u043C\u0430\u0440\u0442-\u043E\u0431\u044A\u0435\u043A\u0442
       #7"
     originalName: 
@@ -213,7 +213,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 676, y: 1151}
-    spritePosition: {x: 219, y: 1022}
+    spritePosition: {x: 99, y: 902}
   - name: "\u0412\u0435\u043A\u0442\u043E\u0440\u043D\u044B\u0439 \u0441\u043C\u0430\u0440\u0442-\u043E\u0431\u044A\u0435\u043A\u0442
       #6"
     originalName: 
@@ -236,7 +236,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 1763, y: 4}
-    spritePosition: {x: 555, y: 995}
+    spritePosition: {x: 435, y: 875}
   - name: "\u0412\u0435\u043A\u0442\u043E\u0440\u043D\u044B\u0439 \u0441\u043C\u0430\u0440\u0442-\u043E\u0431\u044A\u0435\u043A\u0442
       #5"
     originalName: 
@@ -259,7 +259,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 491, y: 1398}
-    spritePosition: {x: 411, y: 1180}
+    spritePosition: {x: 291, y: 1060}
   - name: "\u0412\u0435\u043A\u0442\u043E\u0440\u043D\u044B\u0439 \u0441\u043C\u0430\u0440\u0442-\u043E\u0431\u044A\u0435\u043A\u0442
       #4"
     originalName: 
@@ -282,7 +282,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 676, y: 872}
-    spritePosition: {x: 332, y: 591}
+    spritePosition: {x: 212, y: 471}
   - name: "\u0412\u0435\u043A\u0442\u043E\u0440\u043D\u044B\u0439 \u0441\u043C\u0430\u0440\u0442-\u043E\u0431\u044A\u0435\u043A\u0442
       #3"
     originalName: 
@@ -305,7 +305,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
-    spritePosition: {x: 377, y: 422}
+    spritePosition: {x: 257, y: 302}
   - name: "\u0412\u0435\u043A\u0442\u043E\u0440\u043D\u044B\u0439 \u0441\u043C\u0430\u0440\u0442-\u043E\u0431\u044A\u0435\u043A\u0442
       #2"
     originalName: 
@@ -328,7 +328,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 253, y: 872}
-    spritePosition: {x: 606, y: 195}
+    spritePosition: {x: 486, y: 75}
   - name: "\u0412\u0435\u043A\u0442\u043E\u0440\u043D\u044B\u0439 \u0441\u043C\u0430\u0440\u0442-\u043E\u0431\u044A\u0435\u043A\u0442
       #1"
     originalName: 
@@ -351,7 +351,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 491, y: 872}
-    spritePosition: {x: 367, y: 157}
+    spritePosition: {x: 247, y: 37}
   - name: "\u0412\u0435\u043A\u0442\u043E\u0440\u043D\u044B\u0439 \u0441\u043C\u0430\u0440\u0442-\u043E\u0431\u044A\u0435\u043A\u0442"
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -373,7 +373,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 440}
-    spritePosition: {x: 811, y: 610}
+    spritePosition: {x: 691, y: 490}
   spriteImportData: []
   rigSpriteImportData: []
   sharedRigSpriteImportData: []
