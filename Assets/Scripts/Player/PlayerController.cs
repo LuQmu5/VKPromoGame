@@ -38,7 +38,8 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.TryGetComponent(out Snowball snowball))
         {
-            CreateSnowHitVFX(snowball.transform.position + Vector3.up * _sizeOffset);
+            PlayableParticles vfx = _particleFactory.Get(ParticlesType.SnowHit);
+            InitVFX(vfx, snowball.transform.position + Vector3.up * (_sizeOffset / 4));
 
             _view.SetCatchSnowballTrigger();
             snowball.gameObject.SetActive(false);
@@ -55,25 +56,19 @@ public class PlayerController : MonoBehaviour
 
     public void OnVictory()
     {
-        CreateVictoryVFX();
+        PlayableParticles vfx = _particleFactory.Get(ParticlesType.Victory);
+        InitVFX(vfx, Vector3.zero);
 
         _input.HorizontalInput -= OnHorizontalInput;
         _input.enabled = false;
         _view.SetVictoryTrigger();
     }
 
-    private void CreateVictoryVFX()
+    private void InitVFX(PlayableParticles vfx, Vector3 at)
     {
-        PlayableParticles vfx = _particleFactory.Get(ParticlesType.Victory);
-        vfx.transform.position = transform.position;
+        vfx.transform.position = at;
         vfx.gameObject.SetActive(true);
-    }
-
-    private void CreateSnowHitVFX(Vector3 at)
-    {
-        PlayableParticles vfx = _particleFactory.Get(ParticlesType.SnowHit);
-        vfx.transform.position = transform.position;
-        vfx.gameObject.SetActive(true);
+        vfx.Play();
     }
 
     private void OnHorizontalInput(Vector3 target)

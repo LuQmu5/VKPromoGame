@@ -14,7 +14,8 @@ public abstract class PlayableParticles : MonoBehaviour
         if (_isDeactivatingAfterPlay == false)
             return;
 
-        float time = _particleSystem.totalTime;
+        float time = _particleSystem.main.duration;
+        print(time);
         Invoke(nameof(DelayedDeactivating), time);
     }
 
