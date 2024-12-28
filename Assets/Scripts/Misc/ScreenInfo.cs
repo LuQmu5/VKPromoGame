@@ -52,6 +52,24 @@ public static class ScreenInfo
         return worldPosition;
     }
 
+    public static Vector3 GetConstrainPositionByX(Vector3 pos, float offsetX)
+    {
+        float minX = ScreenInfo.GetWorldPosition(ScreenBoundary.BottomLeft).x + offsetX;
+        float maxX = ScreenInfo.GetWorldPosition(ScreenBoundary.BottomRight).x - offsetX;
+
+        if (pos.x < minX)
+        {
+            return new Vector3(minX, pos.y);
+        }
+
+        if (pos.x > maxX)
+        {
+            return new Vector3(maxX, pos.y);
+        }
+
+        return pos;
+    }
+
     private static Vector3 CalcPosition(Vector2 screenPos)
     {
         Ray ray = Camera.main.ScreenPointToRay(screenPos);

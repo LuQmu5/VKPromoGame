@@ -4,12 +4,17 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private float _speed = 50;
-    [SerializeField] private float _sizeOffset = 1;
-    [SerializeField] private PlayerAnimator _view;
+    [Header("Movement")]
     [SerializeField] private PlayerInput _input;
-    [SerializeField] private AudioSource _snowball;
-    [SerializeField] private AudioSource[] _gift;
+    [SerializeField] private float _speed = 50;
+
+    [Header("View")]
+    [SerializeField] private PlayerAnimator _view;
+    [SerializeField] private float _sizeOffset = 1;
+
+    [Header("SFX")]
+    [SerializeField] private AudioSource _snowHitSFX;
+    [SerializeField] private AudioSource[] _giftsSFX;
     
     private Vector3 _leftRotationEuler = Vector3.zero;
     private Vector3 _rightRotationEuler = new Vector3(0, 180, 0);
@@ -38,7 +43,7 @@ public class PlayerController : MonoBehaviour
             snowball.gameObject.SetActive(false);
             SnowballCatched?.Invoke();
 
-            _snowball.Play();
+            _snowHitSFX.Play();
         }
 
         if (collision.TryGetComponent(out Gift gift))
@@ -47,11 +52,7 @@ public class PlayerController : MonoBehaviour
             gift.gameObject.SetActive(false);
             GiftCatched?.Invoke();
 
-            _gift[audioIndex].Play();
-            audioIndex++;
-
-            if (audioIndex > 2)
-                audioIndex = 0;
+            PlayGiftSFX();
         }
     }
 
@@ -62,10 +63,22 @@ public class PlayerController : MonoBehaviour
         _view.SetVictoryTrigger();
     }
 
+    private void PlayGiftSFX()
+    {
+        _giftsSFX[audioIndex].Play();
+        audioIndex++;
+
+        if (audioIndex > 2)
+            audioIndex = 0;
+    }
+
     private void OnHorizontalInput(Vector3 target)
     {
+        if (Input.GetKey(KeyCode.Mouse0) == false)
+            return;
+
         target.y = transform.position.y;
-        target = GetConstrainPositionByX(target);
+        target = ScreenInfo.GetConstrainPositionByX(target, _sizeOffset);
 
         float distanceDelta = Mathf.Abs(transform.position.x - target.x);
         float trashold = 0.05f;
@@ -89,23 +102,5 @@ public class PlayerController : MonoBehaviour
             transform.eulerAngles = _rightRotationEuler;
         else if (target.x < transform.position.x)
             transform.eulerAngles = _leftRotationEuler;
-    }
-
-    private Vector3 GetConstrainPositionByX(Vector3 pos)
-    {
-        float minX = ScreenInfo.GetWorldPosition(ScreenBoundary.BottomLeft).x + _sizeOffset;
-        float maxX = ScreenInfo.GetWorldPosition(ScreenBoundary.BottomRight).x - _sizeOffset;
-
-        if (pos.x < minX)
-        {
-            return new Vector3(minX, pos.y);
-        }
-
-        if (pos.x > maxX)
-        {
-            return new Vector3(maxX, pos.y);
-        }
-
-        return pos;
     }
 }
