@@ -35,7 +35,8 @@ public class TutorialManager : MonoBehaviour
         if (_minShowTimer > 0)
             _minShowTimer -= Time.deltaTime;
 
-        _currentDistance += Mathf.Abs(Input.GetAxis("Mouse X"));
+        if (Input.GetKey(KeyCode.Mouse0))
+            _currentDistance += Mathf.Abs(Input.GetAxis("Mouse X"));
 
         if (_currentDistance >= _distanceToFinish && _minShowTimer <= 0)
         {

@@ -20,6 +20,7 @@ public class GameOverDisplay : MonoBehaviour
 
     public void Show()
     {
+        print("show god");
         _wrapper.gameObject.SetActive(true);
     }
 

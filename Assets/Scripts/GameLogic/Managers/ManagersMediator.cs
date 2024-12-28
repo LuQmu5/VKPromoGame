@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 using Zenject;
 
 public class ManagersMediator : IDisposable
@@ -30,7 +31,10 @@ public class ManagersMediator : IDisposable
     private void Init()
     {
         if (UnityConnector.Singleton is UnityConnector_TestMode)
+        {
             UnityConnector.Singleton.InitSDK();
+            UpdateGameFromUserState(UnityConnector.Singleton.CurrentState);
+        }
     }
 
     private void Subscribe()
@@ -49,6 +53,8 @@ public class ManagersMediator : IDisposable
 
     private void UpdateGameFromUserState(UserStates state)
     {
+        Debug.Log("MM upd stt: " + state);
+
         switch (state)
         {
             case (UserStates.NotSubscribed):

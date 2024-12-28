@@ -71,7 +71,8 @@ public class MainMenuManager : MonoBehaviour
     {
         _view.gameObject.SetActive(true);
         _sendPromoButton.gameObject.SetActive(true);
-        _sendPromoButton.GetComponentInChildren<TMP_Text>().text = UnityConnector.Singleton.CurrentPromocode;
+
+        // _sendPromoButton.GetComponentInChildren<TMP_Text>().text = UnityConnector.Singleton.CurrentPromocode;
 
         _twelvePercentPromoButton.gameObject.SetActive(false);
         _sevenPercentPromoButton.gameObject.SetActive(false);
@@ -84,7 +85,8 @@ public class MainMenuManager : MonoBehaviour
     {
         _view.gameObject.SetActive(true);
         _sendPromoButton.gameObject.SetActive(true);
-        _sendPromoButton.GetComponentInChildren<TMP_Text>().text = UnityConnector.Singleton.CurrentPromocode;
+
+        // _sendPromoButton.GetComponentInChildren<TMP_Text>().text = UnityConnector.Singleton.CurrentPromocode;
 
         _twelvePercentPromoButton.gameObject.SetActive(false);
         _sevenPercentPromoButton.gameObject.SetActive(false);

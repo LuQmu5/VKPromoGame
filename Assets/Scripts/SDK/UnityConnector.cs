@@ -122,6 +122,8 @@ public class UnityConnector : MonoBehaviour
 
         if (_notSavableStates.Contains(state) == false)
             PlayerPrefs.SetInt(UserState, (int)CurrentState);
+
+        print(CurrentState);
     }
 
     private void SetUserPromocode(PromocodeID iD)
