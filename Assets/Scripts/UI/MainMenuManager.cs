@@ -5,12 +5,12 @@ using UnityEngine.UI;
 
 public class MainMenuManager : MonoBehaviour
 {
-    private const string RequestSubscribeText = "Подпишитесь на нашу группу, чтобы сыграть в игру и получить промокод";
-    private const string ClaimRewardText = "Выберите вашу награду! Вы можете взять только одну";
-    private const string RewardClaimedText = "Нажмите кнопку ниже, чтобы копировать промокод";
+    private const string RequestSubscribeText = "Вступите в нашу группу,\r\nсыграйте в игру и \r\nполучите промокод!";
+    private const string ClaimRewardText = "Выберите награду!\r\nВы можете активировать только один промокод.";
+    private const string RewardClaimedText = "Супер!\r\nТеперь вы можете получить промокод.";
 
-    private const string UseFirstPromoPopupText = "Чтобы получить промокод нужно опубликовать историю, продолжить?";
-    private const string UseSecondPromoPopupText = "Если вы используете этот промокод, то другой станет недоступен, продолжить?";
+    private const string UseFirstPromoPopupText = "Для получения этого промокода необходимо опубликовать историю.\r\nПродолжить?";
+    private const string UseSecondPromoPopupText = "Вы можете использовать только одну награду. \r\nХотите активировать этот промокод?";
 
     [Header("Curtains")]
     [SerializeField] private Canvas _canvas;

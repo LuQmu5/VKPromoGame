@@ -1,0 +1,29 @@
+fileFormatVersion: 2
+guid: 5b48f5b366e07a44688f30991c7ce2dd
+AudioImporter:
+  externalObjects: {}
+  serializedVersion: 6
+  defaultSettings:
+    loadType: 0
+    sampleRateSetting: 0
+    sampleRateOverride: 44100
+    compressionFormat: 1
+    quality: 1
+    conversionMode: 0
+  platformSettingOverrides: {}
+  forceToMono: 0
+  normalize: 1
+  preloadAudioData: 1
+  loadInBackground: 0
+  ambisonic: 0
+  3D: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 236793
+  packageName: Ultimate Casual Kids Game Bundle
+  packageVersion: 1.0
+  assetPath: Assets/UCKGBundle/Cooking Game Pack SFX/Jar Close.wav
+  uploadId: 536592

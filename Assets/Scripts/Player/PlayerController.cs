@@ -8,12 +8,16 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _sizeOffset = 1;
     [SerializeField] private PlayerAnimator _view;
     [SerializeField] private PlayerInput _input;
+    [SerializeField] private AudioSource _snowball;
+    [SerializeField] private AudioSource[] _gift;
     
     private Vector3 _leftRotationEuler = Vector3.zero;
     private Vector3 _rightRotationEuler = new Vector3(0, 180, 0);
 
     public event Action SnowballCatched;
     public event Action GiftCatched;
+
+    private int audioIndex = 0;
 
     private void OnEnable()
     {
@@ -27,11 +31,14 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+
         if (collision.TryGetComponent(out Snowball snowball))
         {
             _view.SetCatchSnowballTrigger();
             snowball.gameObject.SetActive(false);
             SnowballCatched?.Invoke();
+
+            _snowball.Play();
         }
 
         if (collision.TryGetComponent(out Gift gift))
@@ -39,6 +46,12 @@ public class PlayerController : MonoBehaviour
             _view.SetCatchGiftTrigger();
             gift.gameObject.SetActive(false);
             GiftCatched?.Invoke();
+
+            _gift[audioIndex].Play();
+            audioIndex++;
+
+            if (audioIndex > 2)
+                audioIndex = 0;
         }
     }
 
