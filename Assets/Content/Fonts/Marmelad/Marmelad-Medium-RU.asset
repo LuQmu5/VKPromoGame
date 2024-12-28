@@ -11,8 +11,7 @@ Material:
   m_Shader: {fileID: 4800000, guid: 68e6db2ebdc24f95958faec2be5558d6, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords:
-  - UNDERLAY_ON
+  m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -80691,6 +80690,14 @@ MonoBehaviour:
           m_YAdvance: 0
       m_FeatureLookupFlags: 0
     m_MarkToBaseAdjustmentRecords:
+    - m_BaseGlyphID: 0
+      m_BaseGlyphAnchorPoint:
+        m_XCoordinate: 0
+        m_YCoordinate: 0
+      m_MarkGlyphID: 0
+      m_MarkPositionAdjustment:
+        m_XPositionAdjustment: 0
+        m_YPositionAdjustment: 0
     - m_BaseGlyphID: 413
       m_BaseGlyphAnchorPoint:
         m_XCoordinate: 22.242
@@ -88802,14 +88809,6 @@ MonoBehaviour:
       m_MarkGlyphID: 787
       m_MarkPositionAdjustment:
         m_XPositionAdjustment: 8.778
-        m_YPositionAdjustment: 0
-    - m_BaseGlyphID: 0
-      m_BaseGlyphAnchorPoint:
-        m_XCoordinate: 0
-        m_YCoordinate: 0
-      m_MarkGlyphID: 0
-      m_MarkPositionAdjustment:
-        m_XPositionAdjustment: 0
         m_YPositionAdjustment: 0
     m_MarkToMarkAdjustmentRecords: []
   m_ShouldReimportFontFeatures: 0
