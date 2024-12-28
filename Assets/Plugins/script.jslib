@@ -1,25 +1,14 @@
 mergeInto(LibraryManager.library, {
-  RequestJsClaimReward: function (id) {
-    claimReward(id);
-  },
-  
+
   RequestJsCheckSubscribe: function () {
     checkSubscribe();
   },
 
-  RequestJsOnGameSceneInited: function(){
-    onGameSceneInited();
+  RequestJsCheckPostStory: function(){
+    сheckPostStory();
   },
 
-  RequestJsOnGameCompleted : function(){
-    onGameCompleted();
-  },
-
-  RequestJsOnGameStarted : function(){
-    onGameStarted();
-  },
-
-  RequestJsGetPromo : function(){
-    getPromo();
+  RequestJsCheckPromocodeSend: function(str){
+    сheckPromocodeSend(UTF8ToString(str));
   }
 });
