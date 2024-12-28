@@ -75,7 +75,10 @@ public class PlayerController : MonoBehaviour
     private void OnHorizontalInput(Vector3 target)
     {
         if (Input.GetKey(KeyCode.Mouse0) == false)
+        {
+            _view.SetMovingState(false);
             return;
+        }
 
         target.y = transform.position.y;
         target = ScreenInfo.GetConstrainPositionByX(target, _sizeOffset);

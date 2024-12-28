@@ -94,6 +94,11 @@ public class UnityConnector : MonoBehaviour
         SetNewState((int)UserStates.GameCompleted);
     }
 
+    public void OnPromocodeSent()
+    {
+        SetNewState((int)UserStates.PromocodeSent);
+    }
+
     public void OnPromocodeSelected(int promocodeID)
     {
         SetUserPromocode((PromocodeID)promocodeID);
