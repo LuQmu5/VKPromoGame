@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class ClearPrefsButton : MonoBehaviour
@@ -22,6 +23,7 @@ public class ClearPrefsButton : MonoBehaviour
 
     private void OnButtonClicked()
     {
-        UnityConnector.Singleton.OnResetUserState();
+        PlayerPrefs.DeleteAll();
+        SceneManager.LoadScene(0);
     }
 }

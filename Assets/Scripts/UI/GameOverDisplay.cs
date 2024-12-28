@@ -1,12 +1,10 @@
 ﻿using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameOverDisplay : MonoBehaviour
 {
     [SerializeField] private Transform _wrapper;
-    [SerializeField] private TMP_Text _text;
     [SerializeField] private Button _button;
     [SerializeField] private MainMenuManager _menuManager;
 
@@ -33,6 +31,6 @@ public class GameOverDisplay : MonoBehaviour
     private void EndGame()
     {
         Hide();
-        _menuManager.Show();
+        _menuManager.OnGameCompleted();
     }
 }

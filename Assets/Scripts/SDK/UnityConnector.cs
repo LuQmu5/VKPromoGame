@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -8,10 +9,11 @@ public enum UserStates
     NotSubscribed = 0,
     GameNotCompleted = 1,
     GameCompleted = 2,
-    RewardClaimed = 3,
+    PromocodeSelected = 3,
+    PromocodeSent = 4
 }
 
-public enum PromoNames
+public enum PromocodeID
 {
     TwelvePercent = 0,
     SevenPercent = 1
@@ -19,39 +21,34 @@ public enum PromoNames
 
 public class UnityConnector : MonoBehaviour
 {
-    private const string UserState = nameof(UserState);
-    private const string UserPromoCode = nameof(UserPromoCode);
-    private const string GameSceneName = "Game";
+    protected const string UserState = nameof(UserState);
+    protected const string UserPromocode = nameof(UserPromocode);
+    protected const string GameSceneName = "Game";
 
+    [SerializeField] private string _twelvePercentPromo = "twelvepercentprm156";
+    [SerializeField] private string _sevenPercentPromo = "sevenpercentprm228";
+
+    private UserStates[] _notSavableStates = { UserStates.NotSubscribed };
+    private UserStates _defaultUserState = UserStates.GameNotCompleted;
 
     public static UnityConnector Singleton { get; private set; }
-    public UserStates CurrentState { get; private set; } = UserStates.GameNotCompleted;
-    public string ActivePromoCode { get; protected set; }
+    public UserStates CurrentState { get; protected set; }
+    public string CurrentPromocode { get; protected set; }
 
 
     public event Action<UserStates> UserStateChanged;
 
 
     [DllImport("__Internal")]
-    private static extern void RequestJsClaimReward(int id);
+    private static extern bool RequestJsCheckSubscribe();
 
     [DllImport("__Internal")]
-    private static extern void RequestJsCheckSubscribe();
+    private static extern bool RequestJsCheckPostStory();
 
     [DllImport("__Internal")]
-    private static extern void RequestJsOnGameSceneInited();
-
-    [DllImport("__Internal")]
-    private static extern void RequestJsOnGameCompleted();
-
-    [DllImport("__Internal")]
-    private static extern void RequestJsOnGameStarted();
-
-    [DllImport("__Internal")]
-    private static extern void RequestJsGetPromo(string str);
+    private static extern bool RequestJsCheckPromocodeSend(string promocode);
 
 
-    // �������������
     private void Awake()
     {
         if (Singleton == null)
@@ -64,124 +61,94 @@ public class UnityConnector : MonoBehaviour
             Destroy(gameObject);
         }
 
-        if (PlayerPrefs.HasKey(UserPromoCode))
-            ActivePromoCode = PlayerPrefs.GetString(UserPromoCode);
-
-        LoadUserState();
-
-        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(GameSceneName);
-        asyncOperation.completed += OnGameSceneInited;
+        SceneManager.LoadScene(GameSceneName);
     }
 
     /// <summary>
-    /// ���������� ������������� � ������ �������� ������� �����. NOTE: ���������� �������� � index.html ������� � ���������� onload ��� unityInstance
+    /// must be called first in index.html in script on load or in Start Unity Method if test
     /// </summary>
-    public virtual void OnGameSceneInited(AsyncOperation asyncOperation)
+    public void InitSDK()
     {
-        asyncOperation.completed -= OnGameSceneInited;
+        TryLoadUserPromocode();
+
+        if (CheckSubscribe())
+        {
+            LoadUserState();
+        }
+        else
+        {
+            SetNewState((int)UserStates.NotSubscribed);
+        }
     }
 
-    /// <summary>
-    /// ����� �������� �� ����� ������ ���� ��� �����-���� �������������� � JS (� ������������� � � VK API)
-    /// </summary>
-    public virtual void OnGameStarted()
+    public virtual bool CheckSubscribe()
     {
-        RequestJsOnGameStarted();
+        return RequestJsCheckSubscribe();
     }
 
-    /// <summary>
-    /// ����� �������� � ������ ���������� ���� ��� �����-���� �������������� � JS (� ������������� � � VK API)
-    /// </summary>
-    public virtual void OnGameCompleted()
+    public virtual void TrySendPromocode()
     {
-        RequestJsOnGameCompleted();
+        if (RequestJsCheckPromocodeSend(CurrentPromocode))
+        {
+            SetNewState(UserStates.PromocodeSent);
+        }
     }
 
-    /// <summary>
-    /// ����� �������� � ������, ����� �� ����� ��������� �������� ����� �� ������ ����� JS (����� VK API)
-    /// </summary>
-    public virtual void OnCheckSubscribeRequested()
+    public void OnGameNotCompleted()
     {
-        RequestJsCheckSubscribe();
-    }
-    
-    /// <summary>
-    /// �������� � ������ ����� �� ��������� ���������, 
-    /// </summary>
-    public virtual void OnClaimRewardButtonClicked(PromoNames promoName)
-    {
-        RequestJsClaimReward((int)promoName);
+        SetNewState(UserStates.GameNotCompleted);
     }
 
-    /// <summary>
-    /// ������������� � ��������� ���������� ��������
-    /// </summary>
-    /// <param name="value"></param>
-    public void SetActivePromoCode(string value)
+    public void OnGameCompleted()
     {
-        ActivePromoCode = value;
-        PlayerPrefs.SetString(UserPromoCode, ActivePromoCode);
+        SetNewState(UserStates.GameCompleted);
     }
 
-    public virtual void OnGetPromoButtonClicked()
+    public void OnPromocodeSelected(PromocodeID promocodeID)
     {
-        RequestJsGetPromo();
+        SetUserPromocode(promocodeID);
+        SetNewState(UserStates.PromocodeSelected);
     }
 
-    /// <summary>
-    /// ����� ��������� ����� (��� ������), ����� ���� ����� ������������� ������
-    /// </summary>
-    public void OnResetUserState()
+    public virtual bool CheckPostStory()
     {
-        print("prefs cleared, restart game");
-        PlayerPrefs.DeleteAll();
+        return RequestJsCheckPostStory();
     }
 
-    /// <summary>
-    /// ��������� ��������� ����������� ��������� ����� � ��������� ������� UserStateChanged
-    /// </summary>
-    public void LoadUserState()
+    protected void SetNewState(UserStates state)
+    {
+        CurrentState = state;
+        UserStateChanged?.Invoke(CurrentState);
+
+        if (_notSavableStates.Contains(state) == false)
+            PlayerPrefs.SetInt(UserState, (int)CurrentState);
+    }
+
+    private void SetUserPromocode(PromocodeID iD)
+    {
+        if (iD == PromocodeID.TwelvePercent)
+            CurrentPromocode = _twelvePercentPromo;
+        else if (iD == PromocodeID.SevenPercent)
+            CurrentPromocode = _sevenPercentPromo;
+
+        PlayerPrefs.SetString(UserPromocode, CurrentPromocode);
+    }
+
+    private void TryLoadUserPromocode()
+    {
+        if (PlayerPrefs.HasKey(UserPromocode) == false)
+            return;
+
+        CurrentPromocode = PlayerPrefs.GetString(UserPromocode);
+    }
+
+    private void LoadUserState()
     {
         if (PlayerPrefs.HasKey(UserState))
             CurrentState = (UserStates)PlayerPrefs.GetInt(UserState);
         else
-            CurrentState = UserStates.GameNotCompleted;
+            CurrentState = _defaultUserState;
 
         UserStateChanged?.Invoke(CurrentState);
-    }
-
-    /// <summary>
-    /// ��������: NotSubscribed = 0, GameNotCompleted = 1, GameCompleted = 2, RewardClaimed = 3,
-    /// </summary>
-    /// <param name="stateID"></param>
-    public void SetNewState(int stateID)
-    {
-        if (stateID < 0 || stateID >= Enum.GetValues(typeof(UserStates)).Length)
-        {
-            stateID = 1;
-            return;
-        }
-
-        CurrentState = (UserStates)stateID;
-
-        if (CurrentState != UserStates.NotSubscribed)
-            PlayerPrefs.SetInt(UserState, (int)CurrentState);
-
-        UserStateChanged?.Invoke(CurrentState);
-    }
-
-    /// <summary>
-    /// ����� �� ��� SetNewState(), �� ��� ��������� CurrentState-� � ���� � �������
-    /// </summary>
-    /// <param name="stateID"></param>
-    public void SaveState(int stateID)
-    {
-        if (stateID < 0 || stateID >= Enum.GetValues(typeof(UserStates)).Length)
-        {
-            stateID = 1;
-            return;
-        }
-
-        PlayerPrefs.SetInt(UserState, stateID);
     }
 }

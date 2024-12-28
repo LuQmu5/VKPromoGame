@@ -6,13 +6,17 @@ public class ManagersMediator : IDisposable
     private readonly GameManager _gameManager;
     private readonly MainMenuManager _mainMenuManager;
     private readonly TutorialManager _tutorialManager;
+    private readonly GameOverDisplay _gameOverDisplay;
+
+    private bool _isGameWasCompleted = true;
 
     [Inject]
-    public ManagersMediator(GameManager gameManager, MainMenuManager mainMenuManager, TutorialManager tutorialManager)
+    public ManagersMediator(GameManager gameManager, MainMenuManager mainMenuManager, TutorialManager tutorialManager, GameOverDisplay gameOverDisplay)
     {
         _gameManager = gameManager;
         _mainMenuManager = mainMenuManager;
         _tutorialManager = tutorialManager;
+        _gameOverDisplay = gameOverDisplay;
 
         Init();
         Subscribe();
@@ -25,27 +29,25 @@ public class ManagersMediator : IDisposable
 
     private void Init()
     {
-        _tutorialManager.Deactivate();
-
-        UnityConnector.Singleton.LoadUserState();
-        UpdateFromUserState(UnityConnector.Singleton.CurrentState);
+        if (UnityConnector.Singleton is UnityConnector_TestMode)
+            UnityConnector.Singleton.InitSDK();
     }
 
     private void Subscribe()
     {
-        UnityConnector.Singleton.UserStateChanged += UpdateFromUserState;
+        UnityConnector.Singleton.UserStateChanged += UpdateGameFromUserState;
         _tutorialManager.TutorialFinished += OnTutorialFinished;
-        _gameManager.GameFinished += OnGameFinished;
+        _gameManager.GameVictoryHandled += OnGameVictoryHandled;
     }
 
     private void Unsubscribe()
     {
-        UnityConnector.Singleton.UserStateChanged -= UpdateFromUserState;
+        UnityConnector.Singleton.UserStateChanged -= UpdateGameFromUserState;
         _tutorialManager.TutorialFinished -= OnTutorialFinished;
-        _gameManager.GameFinished -= OnGameFinished;
+        _gameManager.GameVictoryHandled -= OnGameVictoryHandled;
     }
 
-    private void UpdateFromUserState(UserStates state)
+    private void UpdateGameFromUserState(UserStates state)
     {
         switch (state)
         {
@@ -61,26 +63,14 @@ public class ManagersMediator : IDisposable
                 OnGameCompleted();
                 break;
 
-            case (UserStates.RewardClaimed):
-                OnRewardClaimed();
+            case (UserStates.PromocodeSelected):
+                OnPromocodeSelected();
+                break;
+
+            case (UserStates.PromocodeSent):
+                OnPromocodeSent();
                 break;
         }
-    }
-
-    private void OnTutorialFinished()
-    {
-        _gameManager.StartGame();
-    }
-
-    private void OnGameFinished()
-    {
-        UnityConnector.Singleton.SetNewState((int)UserStates.GameCompleted);
-        _gameManager.EndGame();
-    }
-
-    private void OnGameCompleted()
-    {
-        _mainMenuManager.OnGameCompleted();
     }
 
     private void OnNotSubscribed()
@@ -90,12 +80,38 @@ public class ManagersMediator : IDisposable
 
     private void OnGameNotCompleted()
     {
-        _mainMenuManager.OnGameNotCompleted();
+        _isGameWasCompleted = false;
+
+        _mainMenuManager.Hide();
         _tutorialManager.Activate();
     }
 
-    private void OnRewardClaimed()
+    private void OnGameCompleted()
     {
-        _mainMenuManager.OnRewardClaimed();
+        if (_isGameWasCompleted)
+            _mainMenuManager.OnGameCompleted();
+        else
+            _gameOverDisplay.Show();
+    }
+
+    private void OnPromocodeSelected()
+    {
+        _mainMenuManager.OnPromocodeSelected();
+    }
+
+    private void OnPromocodeSent()
+    {
+        _mainMenuManager.OnPromocodeSent();
+    }
+
+    private void OnTutorialFinished()
+    {
+        _gameManager.StartGame();
+        _tutorialManager.Deactivate();
+    }
+
+    private void OnGameVictoryHandled()
+    {
+        UnityConnector.Singleton.OnGameCompleted();
     }
 }

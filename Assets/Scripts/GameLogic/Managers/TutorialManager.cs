@@ -15,8 +15,6 @@ public class TutorialManager : MonoBehaviour
     private void Start()
     {
         _distanceToFinish = ScreenInfo.IsLandscape() ? Screen.width * 0.05f : Screen.width * 0.075f;
-        print(_distanceToFinish);
-        Deactivate();
     }
 
     public void Activate()
@@ -43,7 +41,6 @@ public class TutorialManager : MonoBehaviour
         {
             _currentDistance = 0;
             TutorialFinished?.Invoke();
-            _wrapper.gameObject.SetActive(false);
         }
     }
 }

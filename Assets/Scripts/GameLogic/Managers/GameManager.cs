@@ -9,20 +9,18 @@ public class GameManager : IDisposable
     private readonly PlayerController _playerController;
     private readonly ProgressDisplay _progressDisplay;
     private readonly ObjectSpawner _objectSpawner;
-    private readonly GameOverDisplay _gameOverDisplay;
 
     private int _score = 0;
     private int _maxScore = 10;
 
-    public event UnityAction GameFinished;
+    public event Action GameVictoryHandled;
 
     [Inject]
-    public GameManager(PlayerController playerController, ProgressDisplay scoreDisplay, ObjectSpawner objectSpawner, GameOverDisplay gameOverDisplay)
+    public GameManager(PlayerController playerController, ProgressDisplay scoreDisplay, ObjectSpawner objectSpawner)
     {
         _playerController = playerController;
         _progressDisplay = scoreDisplay;
         _objectSpawner = objectSpawner;
-        _gameOverDisplay = gameOverDisplay;
 
         _playerController.SnowballCatched += DecreaseScore;
         _playerController.GiftCatched += IncreaseScore;
@@ -43,12 +41,13 @@ public class GameManager : IDisposable
         _progressDisplay.Show();
     }
 
-    public void EndGame()
+    public void HandleGameVictory()
     {
-        _playerController.StopLogic();
+        _playerController.HandleVictory();
         _objectSpawner.StopSpawn();
         _progressDisplay.Hide();
-        _gameOverDisplay.Show();
+
+        GameVictoryHandled?.Invoke();
     }
 
     private void IncreaseScore()
@@ -57,7 +56,7 @@ public class GameManager : IDisposable
         _progressDisplay.UpdateView(true);
 
         if (_score >= _maxScore)
-            GameFinished?.Invoke();
+            HandleGameVictory();
     }
 
     private void DecreaseScore()
