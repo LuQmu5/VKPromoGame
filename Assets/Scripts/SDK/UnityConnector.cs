@@ -40,13 +40,13 @@ public class UnityConnector : MonoBehaviour
 
 
     [DllImport("__Internal")]
-    private static extern bool RequestJsCheckSubscribe();
+    private static extern void RequestJsSubscribe();
 
     [DllImport("__Internal")]
-    private static extern bool RequestJsCheckPostStory();
+    private static extern void RequestJsPostStory();
 
     [DllImport("__Internal")]
-    private static extern bool RequestJsCheckPromocodeSend(string promocode);
+    private static extern void RequestJsPromocodeSend(string promocode);
 
 
     private void Awake()
@@ -70,63 +70,51 @@ public class UnityConnector : MonoBehaviour
     public void InitSDK()
     {
         TryLoadUserPromocode();
-
-        if (CheckSubscribe())
-        {
-            LoadUserState();
-        }
-        else
-        {
-            SetNewState((int)UserStates.NotSubscribed);
-        }
+        SetNewState((int)UserStates.NotSubscribed);
+        Subscribe();
     }
 
-    public virtual bool CheckSubscribe()
+    public virtual void Subscribe()
     {
-        return RequestJsCheckSubscribe();
+        RequestJsSubscribe();
     }
 
-    public virtual void TrySendPromocode()
+    public virtual void SendPromocode()
     {
-        if (RequestJsCheckPromocodeSend(CurrentPromocode))
-        {
-            SetNewState(UserStates.PromocodeSent);
-        }
+        RequestJsPromocodeSend(CurrentPromocode);
     }
 
     public void OnGameNotCompleted()
     {
-        SetNewState(UserStates.GameNotCompleted);
+        SetNewState((int)UserStates.GameNotCompleted);
     }
 
     public void OnGameCompleted()
     {
-        SetNewState(UserStates.GameCompleted);
+        SetNewState((int)UserStates.GameCompleted);
     }
 
-    public void OnPromocodeSelected(PromocodeID promocodeID)
+    public void OnPromocodeSelected(int promocodeID)
     {
-        SetUserPromocode(promocodeID);
-        SetNewState(UserStates.PromocodeSelected);
+        SetUserPromocode((PromocodeID)promocodeID);
+        SetNewState((int)UserStates.PromocodeSelected);
     }
 
-    public virtual bool CheckPostStory()
+    public virtual void PostStory()
     {
-        return RequestJsCheckPostStory();
+        RequestJsPostStory();
     }
 
-    protected void SetNewState(UserStates state)
+    public void SetNewState(int state)
     {
-        CurrentState = state;
+        CurrentState = (UserStates)state;
         UserStateChanged?.Invoke(CurrentState);
 
-        if (_notSavableStates.Contains(state) == false)
+        if (_notSavableStates.Contains(CurrentState) == false)
             PlayerPrefs.SetInt(UserState, (int)CurrentState);
-
-        print(CurrentState);
     }
 
-    private void SetUserPromocode(PromocodeID iD)
+    public void SetUserPromocode(PromocodeID iD)
     {
         if (iD == PromocodeID.TwelvePercent)
             CurrentPromocode = _twelvePercentPromo;
@@ -136,7 +124,7 @@ public class UnityConnector : MonoBehaviour
         PlayerPrefs.SetString(UserPromocode, CurrentPromocode);
     }
 
-    private void TryLoadUserPromocode()
+    public void TryLoadUserPromocode()
     {
         if (PlayerPrefs.HasKey(UserPromocode) == false)
             return;
@@ -144,7 +132,7 @@ public class UnityConnector : MonoBehaviour
         CurrentPromocode = PlayerPrefs.GetString(UserPromocode);
     }
 
-    private void LoadUserState()
+    public void LoadUserState()
     {
         if (PlayerPrefs.HasKey(UserState))
             CurrentState = (UserStates)PlayerPrefs.GetInt(UserState);

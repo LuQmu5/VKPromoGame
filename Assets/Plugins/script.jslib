@@ -1,14 +1,14 @@
 mergeInto(LibraryManager.library, {
 
-  RequestJsCheckSubscribe: function () {
-    checkSubscribe();
+  RequestJsSubscribe: function () {
+    subscribe();
   },
 
-  RequestJsCheckPostStory: function(){
-    сheckPostStory();
+  RequestJsPostStory: function(){
+    postStory();
   },
 
-  RequestJsCheckPromocodeSend: function(str){
-    сheckPromocodeSend(UTF8ToString(str));
+  RequestJsPromocodeSend: function(str){
+    promocodeSend(UTF8ToString(str));
   }
 });

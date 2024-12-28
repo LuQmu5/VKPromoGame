@@ -97,23 +97,21 @@ public class MainMenuManager : MonoBehaviour
 
     private void OnSubscribeButtonClicked()
     {
-        if (UnityConnector.Singleton.CheckSubscribe())
-            UnityConnector.Singleton.OnGameNotCompleted();
+        UnityConnector.Singleton.Subscribe();
     }
 
     private void OnTwelvePercentPromoButtonClicked()
     {
-        if (UnityConnector.Singleton.CheckPostStory())
-            UnityConnector.Singleton.OnPromocodeSelected(PromocodeID.TwelvePercent);
+        UnityConnector.Singleton.PostStory();
     }
 
     private void OnSevenPercentPromoButtonClicked()
     {
-        UnityConnector.Singleton.OnPromocodeSelected(PromocodeID.SevenPercent);
+        UnityConnector.Singleton.OnPromocodeSelected((int)PromocodeID.SevenPercent);
     }
 
     private void OnSendPromocodeButtonClicked()
     {
-       UnityConnector.Singleton.TrySendPromocode();
+       UnityConnector.Singleton.SendPromocode();
     }
 }

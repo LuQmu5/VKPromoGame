@@ -2,18 +2,18 @@
 
 public class UnityConnector_TestMode : UnityConnector
 {
-    public override bool CheckSubscribe()
+    public override void SendPromocode()
     {
-        return true;
+        SetNewState((int)UserStates.PromocodeSent);
     }
 
-    public override void TrySendPromocode()
+    public override void PostStory()
     {
-        SetNewState(UserStates.PromocodeSent);
+        OnPromocodeSelected((int)PromocodeID.TwelvePercent);
     }
 
-    public override bool CheckPostStory()
+    public override void Subscribe()
     {
-        return true;
+        LoadUserState();
     }
 }
