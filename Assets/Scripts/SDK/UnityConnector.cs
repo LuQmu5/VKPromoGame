@@ -48,10 +48,10 @@ public class UnityConnector : MonoBehaviour
     private static extern void RequestJsOnGameStarted();
 
     [DllImport("__Internal")]
-    private static extern void RequestJsGetPromo();
+    private static extern void RequestJsGetPromo(string str);
 
 
-    // Инициализация
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     private void Awake()
     {
         if (Singleton == null)
@@ -74,7 +74,7 @@ public class UnityConnector : MonoBehaviour
     }
 
     /// <summary>
-    /// вызывается автоматически в момент загрузки игровой сцены. NOTE: вызывается функцией в index.html скрипте в результате onload для unityInstance
+    /// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ. NOTE: пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ index.html пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ onload пїЅпїЅпїЅ unityInstance
     /// </summary>
     public virtual void OnGameSceneInited(AsyncOperation asyncOperation)
     {
@@ -82,7 +82,7 @@ public class UnityConnector : MonoBehaviour
     }
 
     /// <summary>
-    /// можно вызывать во время начала игры для каких-либо взаимодействий с JS (а следовательно и с VK API)
+    /// пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ-пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ JS (пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅ VK API)
     /// </summary>
     public virtual void OnGameStarted()
     {
@@ -90,7 +90,7 @@ public class UnityConnector : MonoBehaviour
     }
 
     /// <summary>
-    /// можно вызывать в момент завершения игры для каких-либо взаимодействий с JS (а следовательно и с VK API)
+    /// пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ-пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ JS (пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅ VK API)
     /// </summary>
     public virtual void OnGameCompleted()
     {
@@ -98,7 +98,7 @@ public class UnityConnector : MonoBehaviour
     }
 
     /// <summary>
-    /// можно вызывать в момент, когда мы хотим проверить подписку юзера на группу через JS (через VK API)
+    /// пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ JS (пїЅпїЅпїЅпїЅпїЅ VK API)
     /// </summary>
     public virtual void OnCheckSubscribeRequested()
     {
@@ -106,7 +106,7 @@ public class UnityConnector : MonoBehaviour
     }
     
     /// <summary>
-    /// вызываем в момент клика по получению промокода, 
+    /// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, 
     /// </summary>
     public virtual void OnClaimRewardButtonClicked(PromoNames promoName)
     {
@@ -114,7 +114,7 @@ public class UnityConnector : MonoBehaviour
     }
 
     /// <summary>
-    /// Устанавливает и сохраняет актуальный промокод
+    /// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     /// </summary>
     /// <param name="value"></param>
     public void SetActivePromoCode(string value)
@@ -129,7 +129,7 @@ public class UnityConnector : MonoBehaviour
     }
 
     /// <summary>
-    /// Сброс состояния юзера (для тестов), после него нужно перезагрузить проект
+    /// пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ), пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
     /// </summary>
     public void OnResetUserState()
     {
@@ -138,7 +138,7 @@ public class UnityConnector : MonoBehaviour
     }
 
     /// <summary>
-    /// Загружает последнее сохраненное состояние юзера и запускает событие UserStateChanged
+    /// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ UserStateChanged
     /// </summary>
     public void LoadUserState()
     {
@@ -151,7 +151,7 @@ public class UnityConnector : MonoBehaviour
     }
 
     /// <summary>
-    /// Значения: NotSubscribed = 0, GameNotCompleted = 1, GameCompleted = 2, RewardClaimed = 3,
+    /// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ: NotSubscribed = 0, GameNotCompleted = 1, GameCompleted = 2, RewardClaimed = 3,
     /// </summary>
     /// <param name="stateID"></param>
     public void SetNewState(int stateID)
@@ -171,7 +171,7 @@ public class UnityConnector : MonoBehaviour
     }
 
     /// <summary>
-    /// такой же как SetNewState(), но без изменения CurrentState-а в игре и события
+    /// пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅ SetNewState(), пїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ CurrentState-пїЅ пїЅ пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     /// </summary>
     /// <param name="stateID"></param>
     public void SaveState(int stateID)
