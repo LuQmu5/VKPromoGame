@@ -7,7 +7,7 @@ public class MainMenuManager : MonoBehaviour
 {
     private const string RequestSubscribeText = "Вступите в нашу группу,\r\nсыграйте в игру и \r\nполучите промокод!";
     private const string ClaimRewardText = "Выберите награду!\r\nВы можете активировать только один промокод.";
-    private const string RewardClaimedText = "Получите промокод удобным для вас способом.";
+    private const string RewardClaimedText = "Супер!\r\nТеперь вы можете получить промокод.";
 
     private const string UseFirstPromoPopupText = "Для получения этого промокода необходимо опубликовать историю.\r\nПродолжить?";
     private const string UseSecondPromoPopupText = "Вы можете использовать только одну награду. \r\nХотите активировать этот промокод?";
