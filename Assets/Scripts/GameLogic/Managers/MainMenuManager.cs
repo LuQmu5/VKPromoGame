@@ -72,8 +72,6 @@ public class MainMenuManager : MonoBehaviour
         _view.gameObject.SetActive(true);
         _sendPromoButton.gameObject.SetActive(true);
 
-        // _sendPromoButton.GetComponentInChildren<TMP_Text>().text = UnityConnector.Singleton.CurrentPromocode;
-
         _twelvePercentPromoButton.gameObject.SetActive(false);
         _sevenPercentPromoButton.gameObject.SetActive(false);
         _subscribeButton.gameObject.SetActive(false);
@@ -84,9 +82,9 @@ public class MainMenuManager : MonoBehaviour
     public void OnPromocodeSent()
     {
         _view.gameObject.SetActive(true);
-        _sendPromoButton.gameObject.SetActive(true);
 
-        // _sendPromoButton.GetComponentInChildren<TMP_Text>().text = UnityConnector.Singleton.CurrentPromocode;
+        _sendPromoButton.gameObject.SetActive(true); // поменять на false, чтобы кнопка отключилась после отправки промокода
+
 
         _twelvePercentPromoButton.gameObject.SetActive(false);
         _sevenPercentPromoButton.gameObject.SetActive(false);
