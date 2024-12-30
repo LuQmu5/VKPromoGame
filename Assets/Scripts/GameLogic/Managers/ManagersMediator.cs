@@ -69,10 +69,6 @@ public class ManagersMediator : IDisposable
                 OnGameCompleted();
                 break;
 
-            case (UserStates.PromocodeSelected):
-                OnPromocodeSelected();
-                break;
-
             case (UserStates.PromocodeSent):
                 OnPromocodeSent();
                 break;
@@ -98,11 +94,6 @@ public class ManagersMediator : IDisposable
             _mainMenuManager.OnGameCompleted();
         else
             _gameOverDisplay.Show();
-    }
-
-    private void OnPromocodeSelected()
-    {
-        _mainMenuManager.OnPromocodeSelected();
     }
 
     private void OnPromocodeSent()

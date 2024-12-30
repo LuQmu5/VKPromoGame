@@ -9,8 +9,7 @@ public enum UserStates
     NotSubscribed = 0,
     GameNotCompleted = 1,
     GameCompleted = 2,
-    PromocodeSelected = 3,
-    PromocodeSent = 4
+    PromocodeSent = 3
 }
 
 public enum PromocodeID
@@ -102,7 +101,6 @@ public class UnityConnector : MonoBehaviour
     public void OnPromocodeSelected(int promocodeID)
     {
         SetUserPromocode((PromocodeID)promocodeID);
-        SetNewState((int)UserStates.PromocodeSent);
         SendPromocode();
     }
 

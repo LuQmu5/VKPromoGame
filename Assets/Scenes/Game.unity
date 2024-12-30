@@ -36519,7 +36519,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _wrapper: {fileID: 1560680677}
   _distanceToFinish: 50
-  _minShowTimer: 2
+  _minShowTimer: 1
 --- !u!1 &938494805
 GameObject:
   m_ObjectHideFlags: 0
@@ -56868,14 +56868,6 @@ PrefabInstance:
       propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 527961936}
-    - target: {fileID: 2245973798476396109, guid: 401f8854e57904d4b80d95afc6765702, type: 3}
-      propertyPath: m_Name
-      value: PromocodeSentDisplay
-      objectReference: {fileID: 0}
-    - target: {fileID: 2245973798476396109, guid: 401f8854e57904d4b80d95afc6765702, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2328853816862078443, guid: 401f8854e57904d4b80d95afc6765702, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
@@ -56887,10 +56879,6 @@ PrefabInstance:
     - target: {fileID: 3027792911216803760, guid: 401f8854e57904d4b80d95afc6765702, type: 3}
       propertyPath: m_Name
       value: MainMenu
-      objectReference: {fileID: 0}
-    - target: {fileID: 3027792911216803760, guid: 401f8854e57904d4b80d95afc6765702, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4183939143943933750, guid: 401f8854e57904d4b80d95afc6765702, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[1].m_Target

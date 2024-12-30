@@ -3040,6 +3040,7 @@ MonoBehaviour:
   _sevenPercentPromoButton: {fileID: 3410335793936630142}
   _sentPromocodeDisplay: {fileID: 44541440122839760}
   _description: {fileID: 8776391228239360017}
+  _sentPromocodeText: {fileID: 3937333274684672255}
 --- !u!1 &3046712162144102960
 GameObject:
   m_ObjectHideFlags: 0
@@ -9230,6 +9231,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2403106701485118006}
     m_Modifications:
+    - target: {fileID: 692551382203123535, guid: fef30940de21ded4f9f41be0cdc692b1, type: 3}
+      propertyPath: m_Name
+      value: PromocodeSentDisplayText
+      objectReference: {fileID: 0}
     - target: {fileID: 3610620402365397792, guid: fef30940de21ded4f9f41be0cdc692b1, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -223.7998
@@ -9344,3 +9349,14 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5686835854590019669, guid: fef30940de21ded4f9f41be0cdc692b1, type: 3}
   m_PrefabInstance: {fileID: 5653580077095807621}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3937333274684672255 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8705945029465776762, guid: fef30940de21ded4f9f41be0cdc692b1, type: 3}
+  m_PrefabInstance: {fileID: 5653580077095807621}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

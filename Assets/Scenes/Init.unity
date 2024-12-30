@@ -387,11 +387,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1758029802}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63523ec21f566f44fb29769c7e4af57d, type: 3}
+  m_Script: {fileID: 11500000, guid: 3b0a2d60b0d71b44fab5c1edf3eaa34c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _twelvePercentPromo: twelvepercentprm156
-  _sevenPercentPromo: sevenpercentprm228
+  _twelvePercentPromo: TPTPK61677D9
+  _sevenPercentPromo: TPTPK420EB36
 --- !u!1 &1949226698
 GameObject:
   m_ObjectHideFlags: 0

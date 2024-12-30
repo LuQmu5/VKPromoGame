@@ -7,8 +7,7 @@ public class MainMenuManager : MonoBehaviour
 {
     private const string RequestSubscribeText = "Вступите в нашу группу,\r\nсыграйте в игру и \r\nполучите промокод!";
     private const string GameCompletedText = "Выберите награду!\r\nВы можете активировать только один промокод.";
-    private const string PromocodeSelectedText = "Супер!\r\nТеперь вы можете получить промокод.";
-    private const string PromocodeSentText = "Супер!\r\nВы получили свой промокод в личные сообщения!";
+    private const string PromocodeSentText = "Супер!\r\nПромокод отправлен в личные сообщения!";
 
     [Header("Curtains")]
     [SerializeField] private Canvas _view;
@@ -21,6 +20,7 @@ public class MainMenuManager : MonoBehaviour
 
     [Header("Text")]
     [SerializeField] private TMP_Text _description;
+    [SerializeField] private TMP_Text _sentPromocodeText;
 
     private void OnEnable()
     {
@@ -65,30 +65,17 @@ public class MainMenuManager : MonoBehaviour
         _description.text = GameCompletedText;
     }
 
-    public void OnPromocodeSelected()
-    {
-        _view.gameObject.SetActive(true);
-        _sentPromocodeDisplay.gameObject.SetActive(true);
-
-        _twelvePercentPromoButton.gameObject.SetActive(false);
-        _sevenPercentPromoButton.gameObject.SetActive(false);
-        _subscribeButton.gameObject.SetActive(false);
-
-        _description.text = PromocodeSelectedText;
-    }
-
     public void OnPromocodeSent()
     {
         _view.gameObject.SetActive(true);
 
-        _sentPromocodeDisplay.gameObject.SetActive(true); // поменять на false, чтобы кнопка отключилась после отправки промокода
-
+        _sentPromocodeDisplay.gameObject.SetActive(true); 
 
         _twelvePercentPromoButton.gameObject.SetActive(false);
         _sevenPercentPromoButton.gameObject.SetActive(false);
         _subscribeButton.gameObject.SetActive(false);
 
-        _description.text = PromocodeSentText;
+        _sentPromocodeText.text = PromocodeSentText;
     }
 
     private void OnSubscribeButtonClicked()
