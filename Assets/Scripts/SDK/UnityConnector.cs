@@ -102,7 +102,8 @@ public class UnityConnector : MonoBehaviour
     public void OnPromocodeSelected(int promocodeID)
     {
         SetUserPromocode((PromocodeID)promocodeID);
-        SetNewState((int)UserStates.PromocodeSelected);
+        SetNewState((int)UserStates.PromocodeSent);
+        SendPromocode();
     }
 
     public virtual void PostStory()

@@ -17,7 +17,7 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] private Button _subscribeButton;
     [SerializeField] private Button _twelvePercentPromoButton;
     [SerializeField] private Button _sevenPercentPromoButton;
-    [SerializeField] private Button _sendPromoButton;
+    [SerializeField] private RectTransform _sentPromocodeDisplay;
 
     [Header("Text")]
     [SerializeField] private TMP_Text _description;
@@ -27,7 +27,6 @@ public class MainMenuManager : MonoBehaviour
         _subscribeButton.onClick.AddListener(OnSubscribeButtonClicked);
         _twelvePercentPromoButton.onClick.AddListener(OnTwelvePercentPromoButtonClicked);
         _sevenPercentPromoButton.onClick.AddListener(OnSevenPercentPromoButtonClicked);
-        _sendPromoButton.onClick.AddListener(OnSendPromocodeButtonClicked);
     }
 
     private void OnDisable()
@@ -35,7 +34,6 @@ public class MainMenuManager : MonoBehaviour
         _subscribeButton.onClick.RemoveListener(OnSubscribeButtonClicked);
         _twelvePercentPromoButton.onClick.RemoveListener(OnTwelvePercentPromoButtonClicked);
         _sevenPercentPromoButton.onClick.RemoveListener(OnSevenPercentPromoButtonClicked);
-        _sendPromoButton.onClick.RemoveListener(OnSendPromocodeButtonClicked);
     }
 
     public void Hide()
@@ -50,7 +48,7 @@ public class MainMenuManager : MonoBehaviour
 
         _twelvePercentPromoButton.gameObject.SetActive(false);
         _sevenPercentPromoButton.gameObject.SetActive(false);
-        _sendPromoButton.gameObject.SetActive(false);
+        _sentPromocodeDisplay.gameObject.SetActive(false);
 
         _description.text = RequestSubscribeText;
     }
@@ -62,7 +60,7 @@ public class MainMenuManager : MonoBehaviour
         _sevenPercentPromoButton.gameObject.SetActive(true);
 
         _subscribeButton.gameObject.SetActive(false);
-        _sendPromoButton.gameObject.SetActive(false);
+        _sentPromocodeDisplay.gameObject.SetActive(false);
 
         _description.text = GameCompletedText;
     }
@@ -70,7 +68,7 @@ public class MainMenuManager : MonoBehaviour
     public void OnPromocodeSelected()
     {
         _view.gameObject.SetActive(true);
-        _sendPromoButton.gameObject.SetActive(true);
+        _sentPromocodeDisplay.gameObject.SetActive(true);
 
         _twelvePercentPromoButton.gameObject.SetActive(false);
         _sevenPercentPromoButton.gameObject.SetActive(false);
@@ -83,7 +81,7 @@ public class MainMenuManager : MonoBehaviour
     {
         _view.gameObject.SetActive(true);
 
-        _sendPromoButton.gameObject.SetActive(true); // поменять на false, чтобы кнопка отключилась после отправки промокода
+        _sentPromocodeDisplay.gameObject.SetActive(true); // поменять на false, чтобы кнопка отключилась после отправки промокода
 
 
         _twelvePercentPromoButton.gameObject.SetActive(false);
@@ -106,10 +104,5 @@ public class MainMenuManager : MonoBehaviour
     private void OnSevenPercentPromoButtonClicked()
     {
         UnityConnector.Singleton.OnPromocodeSelected((int)PromocodeID.SevenPercent);
-    }
-
-    private void OnSendPromocodeButtonClicked()
-    {
-       UnityConnector.Singleton.SendPromocode();
     }
 }
